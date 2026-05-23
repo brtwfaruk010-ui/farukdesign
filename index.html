@@ -3,9 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gestão de Instagram</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<title>Gestão de Instagram · Jequié, BA</title>
+<meta name="description" content="Gestão profissional de Instagram para negócios em Jequié e região. Posts, Reels, Stories, identidade visual e relatórios de resultado. Sem surpresas, sem taxas ocultas.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📱</text></svg>">
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Gestão de Instagram · Jequié, BA">
+<meta property="og:description" content="Conteúdo estratégico, visual profissional e linguagem certa para o seu público — com consistência real.">
+<meta property="og:locale" content="pt_BR">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Gestão de Instagram · Jequié, BA">
+<meta name="twitter:description" content="Conteúdo estratégico, visual profissional e linguagem certa para o seu público.">
+<!-- Preconnect para reduzir latência do Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Peso 300 removido (nunca usado no CSS) -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
+  /* ── TOKENS ── */
   :root {
     --blue-deep:  #1A3A5C;
     --blue-mid:   #2563A8;
@@ -20,13 +36,15 @@
     --muted:      #6A8AA8;
     --r:          14px;
     --r-lg:       20px;
+    --nav-h:      60px;
   }
 
+  /* ── RESET ── */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
   html {
     scroll-behavior: smooth;
     overflow-x: hidden;
-    max-width: 100%;
   }
 
   body {
@@ -38,28 +56,48 @@
     line-height: 1.75;
     overflow-x: hidden;
     -webkit-text-size-adjust: 100%;
-    width: 100%;
-    max-width: 100vw;
   }
 
   img { max-width: 100%; display: block; }
 
+  /* ── ACESSIBILIDADE: SKIP LINK ── */
+  .skip-link {
+    position: absolute;
+    top: -999px;
+    left: 0;
+    background: var(--blue-mid);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    z-index: 9999;
+    border-radius: 0 0 var(--r) 0;
+    text-decoration: none;
+  }
+  .skip-link:focus { top: 0; }
+
   /* ── NAV ── */
-  nav {
+  header {
     position: sticky;
     top: 0;
     z-index: 100;
+    width: 100%;
+  }
+
+  nav {
     background: rgba(255,255,255,0.94);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--gray-2);
     padding: 0 1.4rem;
-    height: 60px;
+    height: var(--nav-h);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 100%;
-    max-width: 100%;
+  }
+
+  @media (min-width: 641px) {
+    nav { padding: 0 clamp(1.5rem, 4vw, 5rem); }
   }
 
   .nav-brand {
@@ -72,6 +110,7 @@
     white-space: nowrap;
   }
 
+  /* ── NAV LINKS (desktop) ── */
   .nav-links {
     display: flex;
     gap: 1.6rem;
@@ -90,21 +129,74 @@
   }
   .nav-links a:hover { color: var(--blue-mid); }
 
-  @media (max-width: 640px) { .nav-links { display: none; } }
-  @media (min-width: 641px) { nav { padding: 0 clamp(1.5rem, 4vw, 5rem); } }
+  /* ── HAMBURGER ── */
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px 4px;
+    z-index: 200;
+    /* aria-label pertence ao HTML, nunca ao CSS */
+  }
+  .nav-toggle span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--blue-deep);
+    border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+  }
+  .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle.open span:nth-child(2) { opacity: 0; }
+  .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ── NAV MOBILE ── */
+  @media (max-width: 640px) {
+    .nav-toggle { display: flex; }
+
+    /* Nav mobile: controlado por transform, não por display:none */
+    .nav-links {
+      flex-direction: column;
+      gap: 0;
+      position: fixed;
+      top: var(--nav-h);
+      left: 0;
+      right: 0;
+      background: rgba(255,255,255,0.98);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--gray-2);
+      padding: 0.5rem 0 1rem;
+      /* Oculto via transform + pointer-events, sem display:none conflitante */
+      transform: translateY(-110%);
+      visibility: hidden;
+      transition: transform 0.3s ease, visibility 0.3s ease;
+      z-index: 99;
+    }
+    .nav-links.open {
+      transform: translateY(0);
+      visibility: visible;
+    }
+    .nav-links li a {
+      display: block;
+      padding: 0.8rem 1.4rem;
+      font-size: 0.88rem;
+      /* Área de toque mínima recomendada para mobile */
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+    }
+  }
 
   /* ── HERO ── */
   .hero {
     background: linear-gradient(150deg, var(--blue-deep) 0%, #1e4d82 55%, var(--blue-mid) 100%);
-    padding: clamp(3.5rem, 10vw, 7rem) 1.4rem clamp(3rem, 8vw, 5rem);
+    padding: clamp(3.5rem, 10vw, 7rem) clamp(1.4rem, 5vw, 6rem) clamp(3rem, 8vw, 5rem);
     position: relative;
     overflow: hidden;
-    width: 100%;
-    max-width: 100%;
-  }
-
-  @media (min-width: 641px) {
-    .hero { padding-left: clamp(2rem, 6vw, 6rem); padding-right: clamp(2rem, 6vw, 6rem); }
   }
 
   .hero-bg {
@@ -155,7 +247,8 @@
     animation: up 0.7s ease forwards 0.25s;
   }
 
-  .hero h1 span { color: var(--blue-light); }
+  /* .accent dentro do hero h1 recebe cor diferente */
+  .hero h1 .accent { color: var(--blue-light); }
 
   .hero-sub {
     font-size: clamp(0.95rem, 2.5vw, 1.05rem);
@@ -175,45 +268,6 @@
     opacity: 0;
     animation: up 0.7s ease forwards 0.55s;
   }
-
-  @media (max-width: 400px) {
-    .hero-btns { flex-direction: column; }
-    .btn-white, .btn-ghost { text-align: center; width: 100%; }
-  }
-
-  .btn-white {
-    background: #fff;
-    color: var(--blue-deep);
-    padding: 0.85rem 1.7rem;
-    border-radius: var(--r);
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.88rem;
-    font-weight: 800;
-    letter-spacing: 0.02em;
-    text-decoration: none;
-    display: inline-block;
-    transition: transform 0.2s, box-shadow 0.2s;
-    border: none;
-    cursor: pointer;
-    white-space: nowrap;
-  }
-  .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.22); }
-
-  .btn-ghost {
-    background: transparent;
-    border: 1.5px solid rgba(255,255,255,0.3);
-    color: rgba(255,255,255,0.9);
-    padding: 0.85rem 1.7rem;
-    border-radius: var(--r);
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.88rem;
-    font-weight: 600;
-    text-decoration: none;
-    display: inline-block;
-    transition: background 0.2s;
-    white-space: nowrap;
-  }
-  .btn-ghost:hover { background: rgba(255,255,255,0.1); }
 
   .hero-stats {
     display: flex;
@@ -241,30 +295,73 @@
     margin-top: 0.25rem;
   }
 
+  /* Botões full-width e coluna em telas muito pequenas */
+  @media (max-width: 400px) {
+    .hero-btns { flex-direction: column; }
+    .btn-white, .btn-ghost { text-align: center; width: 100%; }
+    .hero-stats { flex-direction: column; gap: 1.4rem; }
+  }
+
+  /* ── BOTÕES ── */
+  .btn-white {
+    background: #fff;
+    color: var(--blue-deep);
+    padding: 0.85rem 1.7rem;
+    border-radius: var(--r);
+    font-size: 0.88rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    /* Área mínima de toque mobile */
+    min-height: 44px;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+  }
+  .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.22); }
+
+  .btn-ghost {
+    background: transparent;
+    border: 1.5px solid rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.9);
+    padding: 0.85rem 1.7rem;
+    border-radius: var(--r);
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    transition: background 0.2s;
+    white-space: nowrap;
+    min-height: 44px;
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,0.1); }
+
   /* ── LAYOUT ── */
   .wrap {
     max-width: 1040px;
     margin: 0 auto;
-    padding-left: 1.4rem;
-    padding-right: 1.4rem;
+    padding-left: clamp(1.4rem, 4vw, 3.5rem);
+    padding-right: clamp(1.4rem, 4vw, 3.5rem);
     width: 100%;
-    box-sizing: border-box;
-  }
-
-  @media (min-width: 641px) {
-    .wrap {
-      padding-left: clamp(2rem, 4vw, 3.5rem);
-      padding-right: clamp(2rem, 4vw, 3.5rem);
-    }
   }
 
   section {
     width: 100%;
-    max-width: 100%;
     overflow-x: hidden;
   }
 
   .sec { padding: clamp(3.2rem, 6vw, 5.5rem) 0; }
+
+  /* Scroll offset para nav sticky — usa a variável, fica sincronizado */
+  #diferenciais, #servicos, #pacotes, #como-funciona, #contato {
+    scroll-margin-top: var(--nav-h);
+  }
 
   .bg-gray { background: var(--gray-1); }
 
@@ -286,7 +383,8 @@
     margin-bottom: 0.8rem;
   }
 
-  h2 em { font-style: normal; color: var(--blue-mid); }
+  /* .accent: apenas cor, sem font-style (span não é itálico por padrão) */
+  h2 .accent { color: var(--blue-mid); }
 
   .sec-desc {
     font-size: clamp(0.92rem, 2vw, 1rem);
@@ -310,14 +408,12 @@
   @media (min-width: 720px) { .diff-grid { grid-template-columns: repeat(4, 1fr); } }
 
   .diff-card {
-    background: var(--white);
+    background: var(--gray-1);
     border: 1px solid var(--gray-2);
     border-radius: var(--r-lg);
     padding: 1.6rem 1.3rem;
     transition: border-color 0.22s, transform 0.22s, box-shadow 0.22s;
   }
-
-  #diferenciais .diff-card { background: var(--gray-1); }
 
   .diff-card:hover {
     border-color: var(--blue-soft);
@@ -375,11 +471,11 @@
 
   .srv-bar {
     width: 3px;
-    min-height: 40px;
     border-radius: 4px;
     background: linear-gradient(to bottom, var(--blue-mid), var(--blue-light));
     flex-shrink: 0;
     align-self: stretch;
+    /* min-height removido: align-self:stretch já garante altura correta */
   }
 
   .srv-item h4 {
@@ -395,7 +491,7 @@
     line-height: 1.6;
   }
 
-  /* identidade visual — destaque especial */
+  /* Identidade visual — destaque especial */
   .srv-item.srv-iv {
     border-color: var(--blue-soft);
     background: var(--blue-pale);
@@ -435,6 +531,10 @@
     position: relative;
     transition: transform 0.25s, box-shadow 0.25s;
   }
+
+  /* Espaço extra para o badge absoluto não ficar cortado em mobile */
+  .pkg.featured { margin-top: 1rem; }
+  @media (min-width: 760px) { .pkg.featured { margin-top: 0; } }
 
   .pkg:hover { transform: translateY(-4px); box-shadow: 0 14px 36px rgba(37,99,168,0.1); }
 
@@ -532,6 +632,7 @@
     padding: 1.5rem 1.3rem;
     display: flex;
     gap: 1rem;
+    align-items: flex-start;
     transition: border-color 0.2s;
   }
 
@@ -549,7 +650,6 @@
     font-weight: 900;
     color: var(--blue-mid);
     flex-shrink: 0;
-    margin-top: 0.1rem;
   }
 
   .step h4 {
@@ -570,7 +670,7 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: 1rem;
-    margin-top: 2rem;
+    /* margin-top removido: sec-desc já tem margin-bottom 2.4rem */
   }
 
   @media (min-width: 560px) { .contact-grid { grid-template-columns: 1fr 1fr; } }
@@ -592,10 +692,7 @@
     box-shadow: 0 8px 24px rgba(37,99,168,0.08);
   }
 
-  .contact-icon {
-    font-size: 1.5rem;
-    margin-bottom: 0.3rem;
-  }
+  .contact-icon { font-size: 1.5rem; margin-bottom: 0.3rem; }
 
   .contact-label {
     font-size: 0.68rem;
@@ -612,23 +709,16 @@
     word-break: break-all;
   }
 
-  .contact-hint {
-    font-size: 0.78rem;
-    color: var(--muted);
-  }
+  .contact-hint { font-size: 0.78rem; color: var(--muted); }
 
   /* ── CTA ── */
   .cta-sec {
     background: linear-gradient(135deg, var(--blue-deep), var(--blue-mid));
-    padding: clamp(3rem, 7vw, 6rem) 1.4rem;
+    padding: clamp(3rem, 7vw, 6rem) clamp(1.4rem, 6vw, 6rem);
     text-align: center;
     position: relative;
     overflow: hidden;
-    width: 100%;
-    max-width: 100%;
   }
-
-  @media (min-width: 641px) { .cta-sec { padding-left: clamp(2rem, 6vw, 6rem); padding-right: clamp(2rem, 6vw, 6rem); } }
 
   .cta-sec::before {
     content: '';
@@ -648,9 +738,10 @@
     margin: 0.8rem auto 1rem;
   }
 
-  .cta-sec h2 em { color: var(--blue-light); }
+  /* .accent dentro da CTA tem cor própria */
+  .cta-sec .accent { color: var(--blue-light); }
 
-  .cta-sec > .cta-inner > p {
+  .cta-desc {
     font-size: 0.92rem;
     color: rgba(255,255,255,0.55);
     margin-bottom: 2rem;
@@ -659,19 +750,14 @@
   /* ── FOOTER ── */
   footer {
     background: var(--blue-deep);
-    padding: 1.6rem 1.4rem;
+    padding: 1.6rem clamp(1.4rem, 5vw, 5rem);
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 0.5rem;
     border-top: 1px solid rgba(255,255,255,0.06);
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
   }
-
-  @media (min-width: 641px) { footer { padding: 1.6rem clamp(2rem, 5vw, 5rem); } }
 
   footer p {
     font-size: 0.75rem;
@@ -680,7 +766,7 @@
     letter-spacing: 0.04em;
   }
 
-  /* ── ANIM ── */
+  /* ── ANIMAÇÕES ── */
   @keyframes up {
     from { opacity: 0; transform: translateY(18px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -692,75 +778,98 @@
     transition: opacity 0.6s ease, transform 0.6s ease;
   }
   .reveal.visible { opacity: 1; transform: none; }
+
+  /* Respeitar preferência do usuário por menos movimento */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-chip, .hero h1, .hero-sub, .hero-btns, .hero-stats {
+      animation: none;
+      opacity: 1;
+    }
+    .reveal {
+      transition: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
 </style>
 </head>
 <body>
 
+<!-- Skip para leitores de tela -->
+<a href="#main-content" class="skip-link">Ir para o conteúdo principal</a>
+
 <!-- NAV -->
-<nav>
-  <a class="nav-brand" href="#">Social Media</a>
-  <ul class="nav-links">
-    <li><a href="#diferenciais">Diferenciais</a></li>
-    <li><a href="#servicos">Serviços</a></li>
-    <li><a href="#pacotes">Pacotes</a></li>
-    <li><a href="#como-funciona">Como funciona</a></li>
-    <li><a href="#contato">Contato</a></li>
-  </ul>
-</nav>
+<header>
+  <nav aria-label="Navegação principal">
+    <a class="nav-brand" href="#" aria-label="Página inicial — Gestão de Instagram">Social Media</a>
+    <button class="nav-toggle" aria-label="Abrir menu de navegação" aria-expanded="false" aria-controls="nav-menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav-menu">
+      <li><a href="#diferenciais">Diferenciais</a></li>
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#pacotes">Pacotes</a></li>
+      <li><a href="#como-funciona">Como funciona</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main-content">
 
 <!-- HERO -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-lines"></div>
+<section class="hero" aria-label="Apresentação">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-lines" aria-hidden="true"></div>
   <div class="hero-inner">
-    <span class="hero-chip">📍 Jequié, BA · Gestão de Instagram</span>
-    <h1>Seu perfil,<br>cuidado com<br><span>propósito.</span></h1>
+    <span class="hero-chip" aria-hidden="true">📍 Jequié, BA · Gestão de Instagram</span>
+    <h1>Seu perfil,<br>cuidado com<br><span class="accent">propósito.</span></h1>
     <p class="hero-sub">Conteúdo estratégico, visual profissional e linguagem certa para o seu público — com consistência real.</p>
     <div class="hero-btns">
       <a href="#pacotes" class="btn-white">Ver pacotes e valores</a>
       <a href="#como-funciona" class="btn-ghost">Como funciona</a>
     </div>
-    <div class="hero-stats">
+    <div class="hero-stats" aria-label="Números do serviço">
       <div>
-        <div class="stat-num">3</div>
-        <div class="stat-label">Planos disponíveis</div>
+        <div class="stat-num" aria-label="3 planos disponíveis">3</div>
+        <div class="stat-label" aria-hidden="true">Planos disponíveis</div>
       </div>
       <div>
-        <div class="stat-num">8</div>
-        <div class="stat-label">Serviços incluídos</div>
+        <div class="stat-num" aria-label="8 serviços incluídos">8</div>
+        <div class="stat-label" aria-hidden="true">Serviços incluídos</div>
       </div>
       <div>
-        <div class="stat-num">100%</div>
-        <div class="stat-label">Aprovação prévia</div>
+        <div class="stat-num" aria-label="100% aprovação prévia">100%</div>
+        <div class="stat-label" aria-hidden="true">Aprovação prévia</div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- DIFERENCIAIS -->
-<section id="diferenciais">
+<section id="diferenciais" aria-labelledby="titulo-diferenciais">
   <div class="wrap sec reveal">
     <p class="sec-label">Por que me escolher</p>
-    <h2>Vantagens de trabalhar <em>comigo</em></h2>
+    <h2 id="titulo-diferenciais">Vantagens de trabalhar <span class="accent">comigo</span></h2>
     <p class="sec-desc">Atendimento pessoal, da sua cidade, com comprometimento real e conhecimento da área de saúde.</p>
     <div class="diff-grid">
       <div class="diff-card">
-        <div class="diff-icon">🎓</div>
+        <div class="diff-icon" aria-hidden="true">🎓</div>
         <h3>Formação em saúde</h3>
         <p>Acadêmico de Fisioterapia. Comunico saúde com precisão técnica e responsabilidade.</p>
       </div>
       <div class="diff-card">
-        <div class="diff-icon">📍</div>
+        <div class="diff-icon" aria-hidden="true">📍</div>
         <h3>Sou de Jequié</h3>
         <p>Atendimento presencial disponível. Conheço o público local e vou até você para captar conteúdo real.</p>
       </div>
       <div class="diff-card">
-        <div class="diff-icon">🎨</div>
+        <div class="diff-icon" aria-hidden="true">🎨</div>
         <h3>Design com cuidado</h3>
         <p>Feed organizado, estética coerente e identidade visual consistente em cada publicação.</p>
       </div>
       <div class="diff-card">
-        <div class="diff-icon">✅</div>
+        <div class="diff-icon" aria-hidden="true">✅</div>
         <h3>Você aprova tudo</h3>
         <p>Nada vai ao ar sem sua aprovação. Comunicação direta, sem intermediários.</p>
       </div>
@@ -768,18 +877,18 @@
   </div>
 </section>
 
-<div class="divider"></div>
+<div class="divider" role="separator"></div>
 
 <!-- SERVIÇOS -->
-<section id="servicos" class="bg-gray">
+<section id="servicos" class="bg-gray" aria-labelledby="titulo-servicos">
   <div class="wrap sec reveal">
     <p class="sec-label">O que está incluído</p>
-    <h2>O que você <em>recebe</em></h2>
+    <h2 id="titulo-servicos">O que você <span class="accent">recebe</span></h2>
     <p class="sec-desc">Tudo que seu perfil precisa para crescer com consistência e profissionalismo.</p>
     <div class="srv-grid">
 
       <div class="srv-item">
-        <div class="srv-bar"></div>
+        <div class="srv-bar" aria-hidden="true"></div>
         <div>
           <h4>Posts para o Feed</h4>
           <p>Artes visuais com identidade do negócio, legenda e hashtags estratégicas.</p>
@@ -787,7 +896,7 @@
       </div>
 
       <div class="srv-item">
-        <div class="srv-bar"></div>
+        <div class="srv-bar" aria-hidden="true"></div>
         <div>
           <h4>Stories</h4>
           <p>Bastidores, rotina, enquetes e informações rápidas para manter o engajamento diário.</p>
@@ -795,7 +904,7 @@
       </div>
 
       <div class="srv-item">
-        <div class="srv-bar"></div>
+        <div class="srv-bar" aria-hidden="true"></div>
         <div>
           <h4>Reels com roteiro</h4>
           <p>Crio o roteiro e edito os vídeos curtos para ampliar o alcance orgânico.</p>
@@ -803,7 +912,7 @@
       </div>
 
       <div class="srv-item">
-        <div class="srv-bar"></div>
+        <div class="srv-bar" aria-hidden="true"></div>
         <div>
           <h4>Visitas para captação</h4>
           <p>Vou até você para filmar e fotografar o dia a dia. Conteúdo real gera mais conexão.</p>
@@ -811,7 +920,7 @@
       </div>
 
       <div class="srv-item">
-        <div class="srv-bar"></div>
+        <div class="srv-bar" aria-hidden="true"></div>
         <div>
           <h4>Agenda de conteúdo</h4>
           <p>Planejo as visitas conforme os dias mais movimentados do seu negócio.</p>
@@ -819,7 +928,7 @@
       </div>
 
       <div class="srv-item">
-        <div class="srv-bar"></div>
+        <div class="srv-bar" aria-hidden="true"></div>
         <div>
           <h4>Planejamento mensal</h4>
           <p>Calendário completo com todos os conteúdos organizados com antecedência.</p>
@@ -827,7 +936,7 @@
       </div>
 
       <div class="srv-item">
-        <div class="srv-bar"></div>
+        <div class="srv-bar" aria-hidden="true"></div>
         <div>
           <h4>Relatório de resultados</h4>
           <p>Resumo mensal com alcance, engajamento e crescimento do perfil.</p>
@@ -836,7 +945,7 @@
 
       <!-- IDENTIDADE VISUAL — SERVIÇO SEPARADO -->
       <div class="srv-item srv-iv">
-        <div class="srv-bar"></div>
+        <div class="srv-bar" aria-hidden="true"></div>
         <div>
           <h4>Identidade Visual</h4>
           <p>Criação de logo, paleta de cores, tipografia e manual de marca — para que o negócio tenha uma cara profissional e reconhecível em todos os canais.</p>
@@ -848,13 +957,13 @@
   </div>
 </section>
 
-<div class="divider"></div>
+<div class="divider" role="separator"></div>
 
 <!-- PACOTES -->
-<section id="pacotes">
+<section id="pacotes" aria-labelledby="titulo-pacotes">
   <div class="wrap sec reveal">
     <p class="sec-label">Investimento</p>
-    <h2>Pacotes e <em>valores</em></h2>
+    <h2 id="titulo-pacotes">Pacotes e <span class="accent">valores</span></h2>
     <p class="sec-desc">Planos pensados para negócios em Jequié e região. Sem surpresas, sem taxas ocultas.</p>
 
     <div class="pkg-grid">
@@ -920,49 +1029,49 @@
 </section>
 
 <!-- PROCESSO -->
-<section id="como-funciona" class="bg-gray">
+<section id="como-funciona" class="bg-gray" aria-labelledby="titulo-como-funciona">
   <div class="wrap sec reveal">
     <p class="sec-label">Processo de trabalho</p>
-    <h2>Como <em>funciona</em></h2>
+    <h2 id="titulo-como-funciona">Como <span class="accent">funciona</span></h2>
     <p class="sec-desc">Do primeiro contato até o perfil no ar, de forma simples e organizada.</p>
     <div class="steps">
       <div class="step">
-        <div class="step-num">01</div>
+        <div class="step-num" aria-hidden="true">01</div>
         <div>
           <h4>Briefing</h4>
           <p>Entendo seus objetivos, público e expectativas. Presencial ou WhatsApp.</p>
         </div>
       </div>
       <div class="step">
-        <div class="step-num">02</div>
+        <div class="step-num" aria-hidden="true">02</div>
         <div>
           <h4>Proposta</h4>
           <p>Apresento o pacote mais adequado com escopo, valor e prazo definidos.</p>
         </div>
       </div>
       <div class="step">
-        <div class="step-num">03</div>
+        <div class="step-num" aria-hidden="true">03</div>
         <div>
           <h4>Agenda de visitas</h4>
           <p>Organizamos os melhores dias conforme a rotina do seu negócio.</p>
         </div>
       </div>
       <div class="step">
-        <div class="step-num">04</div>
+        <div class="step-num" aria-hidden="true">04</div>
         <div>
           <h4>Produção e aprovação</h4>
           <p>Crio cada conteúdo e envio para aprovação. Ajustes sem custo extra.</p>
         </div>
       </div>
       <div class="step">
-        <div class="step-num">05</div>
+        <div class="step-num" aria-hidden="true">05</div>
         <div>
           <h4>Publicação</h4>
           <p>Publico nos melhores horários e acompanho o desempenho ao longo do mês.</p>
         </div>
       </div>
       <div class="step">
-        <div class="step-num">06</div>
+        <div class="step-num" aria-hidden="true">06</div>
         <div>
           <h4>Relatório e renovação</h4>
           <p>Resultados do mês e alinhamento para o próximo ciclo.</p>
@@ -973,20 +1082,20 @@
 </section>
 
 <!-- CONTATO -->
-<section id="contato">
+<section id="contato" aria-labelledby="titulo-contato">
   <div class="wrap sec reveal">
     <p class="sec-label">Fale comigo</p>
-    <h2>Entre em <em>contato</em></h2>
+    <h2 id="titulo-contato">Entre em <span class="accent">contato</span></h2>
     <p class="sec-desc">Sem compromisso. Respondo rápido pelo WhatsApp ou por e-mail.</p>
     <div class="contact-grid">
-      <a class="contact-card" href="https://wa.me/5573988498375">
-        <div class="contact-icon">💬</div>
+      <a class="contact-card" href="https://wa.me/5573988498375" aria-label="Contato via WhatsApp: +55 (73) 98849-8375">
+        <div class="contact-icon" aria-hidden="true">💬</div>
         <div class="contact-label">WhatsApp</div>
         <div class="contact-value">+55 (73) 98849-8375</div>
         <div class="contact-hint">Atendimento rápido · clique para abrir</div>
       </a>
-      <a class="contact-card" href="mailto:brtwfaruk010@gmail.com">
-        <div class="contact-icon">✉️</div>
+      <a class="contact-card" href="mailto:brtwfaruk010@gmail.com" aria-label="Contato via e-mail: brtwfaruk010@gmail.com">
+        <div class="contact-icon" aria-hidden="true">✉️</div>
         <div class="contact-label">E-mail</div>
         <div class="contact-value">brtwfaruk010@gmail.com</div>
         <div class="contact-hint">Para propostas e orçamentos</div>
@@ -996,14 +1105,16 @@
 </section>
 
 <!-- CTA FINAL -->
-<section class="cta-sec reveal">
+<section class="cta-sec reveal" aria-label="Chamada para ação">
   <div class="cta-inner">
     <p class="sec-label">Vamos começar</p>
-    <h2>Pronto para um Instagram que <em>funciona de verdade?</em></h2>
-    <p>Entre em contato agora, sem compromisso.</p>
-    <a href="https://wa.me/5573988498375" class="btn-white">💬 Falar no WhatsApp</a>
+    <h2>Pronto para um Instagram que <span class="accent">funciona de verdade?</span></h2>
+    <p class="cta-desc">Entre em contato agora, sem compromisso.</p>
+    <a href="https://wa.me/5573988498375" class="btn-white" aria-label="Falar pelo WhatsApp">💬 Falar no WhatsApp</a>
   </div>
 </section>
+
+</main>
 
 <footer>
   <p>Gestão de Instagram · Jequié, BA</p>
@@ -1011,12 +1122,65 @@
 </footer>
 
 <script>
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
-    });
-  }, { threshold: 0.06 });
-  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  (function () {
+    // ── HAMBURGER MENU ──────────────────────────────────────────
+    const toggle   = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (toggle && navLinks) {
+      toggle.addEventListener('click', () => {
+        const isOpen = navLinks.classList.toggle('open');
+        toggle.classList.toggle('open', isOpen);
+        toggle.setAttribute('aria-expanded', String(isOpen));
+      });
+
+      // Fechar ao clicar em um link e ao pressionar Escape
+      navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', closeMenu);
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeMenu();
+      });
+
+      function closeMenu() {
+        navLinks.classList.remove('open');
+        toggle.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    // ── REVEAL ON SCROLL ────────────────────────────────────────
+    // Verifica se prefers-reduced-motion está ativo antes de observar
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!prefersReduced && 'IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            obs.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.06 });
+
+      document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    } else {
+      // Sem suporte ou reduced-motion: mostrar tudo imediatamente
+      document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+    }
+  })();
 </script>
+
+<!-- Fallback sem JS: garante visibilidade do conteúdo -->
+<noscript>
+  <style>
+    .reveal { opacity: 1 !important; transform: none !important; }
+    .hero-chip, .hero h1, .hero-sub, .hero-btns, .hero-stats {
+      opacity: 1 !important; animation: none !important;
+    }
+  </style>
+</noscript>
+
 </body>
 </html>
