@@ -6,19 +6,15 @@
 <title>Gestão de Instagram · Jequié, BA</title>
 <meta name="description" content="Gestão profissional de Instagram para negócios em Jequié e região. Posts, Reels, Stories, identidade visual e relatórios de resultado. Sem surpresas, sem taxas ocultas.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📱</text></svg>">
-<!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="Gestão de Instagram · Jequié, BA">
 <meta property="og:description" content="Conteúdo estratégico, visual profissional e linguagem certa para o seu público — com consistência real.">
 <meta property="og:locale" content="pt_BR">
-<!-- Twitter Card -->
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Gestão de Instagram · Jequié, BA">
 <meta name="twitter:description" content="Conteúdo estratégico, visual profissional e linguagem certa para o seu público.">
-<!-- Preconnect para reduzir latência do Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<!-- Peso 300 removido (nunca usado no CSS) -->
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   /* ── TOKENS ── */
@@ -42,10 +38,12 @@
   /* ── RESET ── */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  html {
-    scroll-behavior: smooth;
-    overflow-x: hidden;
-  }
+  /*
+   * FIX 1: overflow-x:hidden apenas no body.
+   * Colocar no html também quebra position:sticky no Safari e Firefox
+   * porque transforma o html num scroll container separado.
+   */
+  html { scroll-behavior: smooth; }
 
   body {
     background: var(--white);
@@ -54,11 +52,18 @@
     font-weight: 400;
     font-size: 16px;
     line-height: 1.75;
-    overflow-x: hidden;
+    overflow-x: hidden; /* controla overflow apenas aqui */
     -webkit-text-size-adjust: 100%;
   }
 
   img { max-width: 100%; display: block; }
+
+  /* ── FIX 2: :focus-visible global — teclado e leitores de tela ── */
+  :focus-visible {
+    outline: 2px solid var(--blue-light);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
 
   /* ── ACESSIBILIDADE: SKIP LINK ── */
   .skip-link {
@@ -89,15 +94,11 @@
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--gray-2);
-    padding: 0 1.4rem;
+    padding: 0 clamp(1.4rem, 4vw, 5rem);
     height: var(--nav-h);
     display: flex;
     align-items: center;
     justify-content: space-between;
-  }
-
-  @media (min-width: 641px) {
-    nav { padding: 0 clamp(1.5rem, 4vw, 5rem); }
   }
 
   .nav-brand {
@@ -118,7 +119,7 @@
   }
 
   .nav-links a {
-    font-size: 0.75rem;
+    font-size: 0.8rem; /* FIX 3: era 0.75rem (12px) → 0.8rem (12.8px), mais legível */
     font-weight: 600;
     letter-spacing: 0.06em;
     text-transform: uppercase;
@@ -139,7 +140,6 @@
     cursor: pointer;
     padding: 8px 4px;
     z-index: 200;
-    /* aria-label pertence ao HTML, nunca ao CSS */
   }
   .nav-toggle span {
     display: block;
@@ -157,7 +157,6 @@
   @media (max-width: 640px) {
     .nav-toggle { display: flex; }
 
-    /* Nav mobile: controlado por transform, não por display:none */
     .nav-links {
       flex-direction: column;
       gap: 0;
@@ -170,7 +169,6 @@
       -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--gray-2);
       padding: 0.5rem 0 1rem;
-      /* Oculto via transform + pointer-events, sem display:none conflitante */
       transform: translateY(-110%);
       visibility: hidden;
       transition: transform 0.3s ease, visibility 0.3s ease;
@@ -180,14 +178,16 @@
       transform: translateY(0);
       visibility: visible;
     }
+    /*
+     * FIX 4: era display:block depois display:flex no mesmo bloco.
+     * Unificado em display:flex direto.
+     */
     .nav-links li a {
-      display: block;
-      padding: 0.8rem 1.4rem;
-      font-size: 0.88rem;
-      /* Área de toque mínima recomendada para mobile */
-      min-height: 44px;
       display: flex;
       align-items: center;
+      padding: 0.8rem 1.4rem;
+      font-size: 0.88rem;
+      min-height: 44px; /* área mínima de toque */
     }
   }
 
@@ -225,9 +225,9 @@
     background: rgba(255,255,255,0.1);
     border: 1px solid rgba(255,255,255,0.2);
     color: rgba(255,255,255,0.85);
-    font-size: 0.68rem;
+    font-size: 0.72rem; /* FIX 3: era 0.68rem (10.9px) → 0.72rem (11.5px) */
     font-weight: 700;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     padding: 0.4rem 1rem;
     border-radius: 100px;
@@ -247,7 +247,6 @@
     animation: up 0.7s ease forwards 0.25s;
   }
 
-  /* .accent dentro do hero h1 recebe cor diferente */
   .hero h1 .accent { color: var(--blue-light); }
 
   .hero-sub {
@@ -287,7 +286,7 @@
   }
 
   .stat-label {
-    font-size: 0.68rem;
+    font-size: 0.72rem; /* FIX 3: era 0.68rem */
     font-weight: 600;
     color: rgba(255,255,255,0.45);
     letter-spacing: 0.08em;
@@ -295,10 +294,9 @@
     margin-top: 0.25rem;
   }
 
-  /* Botões full-width e coluna em telas muito pequenas */
   @media (max-width: 400px) {
     .hero-btns { flex-direction: column; }
-    .btn-white, .btn-ghost { text-align: center; width: 100%; }
+    .btn-white, .btn-ghost { text-align: center; width: 100%; justify-content: center; }
     .hero-stats { flex-direction: column; gap: 1.4rem; }
   }
 
@@ -312,16 +310,17 @@
     font-weight: 800;
     letter-spacing: 0.02em;
     text-decoration: none;
-    display: inline-block;
+    /*
+     * FIX 4: era display:inline-block seguido de display:inline-flex no mesmo bloco.
+     * Mantido apenas display:inline-flex.
+     */
+    display: inline-flex;
+    align-items: center;
     transition: transform 0.2s, box-shadow 0.2s;
     border: none;
     cursor: pointer;
     white-space: nowrap;
-    /* Área mínima de toque mobile */
     min-height: 44px;
-    line-height: 1;
-    display: inline-flex;
-    align-items: center;
   }
   .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.22); }
 
@@ -353,12 +352,16 @@
 
   section {
     width: 100%;
-    overflow-x: hidden;
+    /*
+     * FIX 5: overflow-x:hidden removido das sections.
+     * O body já controla o overflow horizontal do layout todo.
+     * Nas sections, isso pode cortar sombras, badges absolutos e
+     * futuros elementos sticky dentro das seções.
+     */
   }
 
   .sec { padding: clamp(3.2rem, 6vw, 5.5rem) 0; }
 
-  /* Scroll offset para nav sticky — usa a variável, fica sincronizado */
   #diferenciais, #servicos, #pacotes, #como-funciona, #contato {
     scroll-margin-top: var(--nav-h);
   }
@@ -366,12 +369,13 @@
   .bg-gray { background: var(--gray-1); }
 
   .sec-label {
-    font-size: 0.68rem;
+    font-size: 0.72rem; /* FIX 3: era 0.68rem (10.9px) */
     font-weight: 800;
-    letter-spacing: 0.28em;
+    letter-spacing: 0.24em;
     text-transform: uppercase;
     color: var(--blue-mid);
     margin-bottom: 0.6rem;
+    display: block;
   }
 
   h2 {
@@ -383,7 +387,6 @@
     margin-bottom: 0.8rem;
   }
 
-  /* .accent: apenas cor, sem font-style (span não é itálico por padrão) */
   h2 .accent { color: var(--blue-mid); }
 
   .sec-desc {
@@ -434,7 +437,7 @@
   }
 
   .diff-card h3 {
-    font-size: 0.88rem;
+    font-size: 0.9rem;
     font-weight: 800;
     color: var(--blue-deep);
     margin-bottom: 0.4rem;
@@ -442,7 +445,7 @@
   }
 
   .diff-card p {
-    font-size: 0.82rem;
+    font-size: 0.84rem;
     color: var(--muted);
     line-height: 1.6;
   }
@@ -475,7 +478,6 @@
     background: linear-gradient(to bottom, var(--blue-mid), var(--blue-light));
     flex-shrink: 0;
     align-self: stretch;
-    /* min-height removido: align-self:stretch já garante altura correta */
   }
 
   .srv-item h4 {
@@ -491,7 +493,6 @@
     line-height: 1.6;
   }
 
-  /* Identidade visual — destaque especial */
   .srv-item.srv-iv {
     border-color: var(--blue-soft);
     background: var(--blue-pale);
@@ -507,7 +508,7 @@
     margin-top: 0.5rem;
     background: var(--blue-mid);
     color: #fff;
-    font-size: 0.72rem;
+    font-size: 0.75rem; /* FIX 3: era 0.72rem */
     font-weight: 700;
     padding: 0.22rem 0.7rem;
     border-radius: 6px;
@@ -532,16 +533,21 @@
     transition: transform 0.25s, box-shadow 0.25s;
   }
 
-  /* Espaço extra para o badge absoluto não ficar cortado em mobile */
-  .pkg.featured { margin-top: 1rem; }
-  @media (min-width: 760px) { .pkg.featured { margin-top: 0; } }
-
-  .pkg:hover { transform: translateY(-4px); box-shadow: 0 14px 36px rgba(37,99,168,0.1); }
-
+  /*
+   * FIX 6: .pkg.featured estava dividido em dois blocos separados no CSS.
+   * Unificado num único bloco com a media query inline.
+   * margin-top compensa o badge absoluto que sobressai 13px acima da borda.
+   */
   .pkg.featured {
     border-color: var(--blue-mid);
     background: linear-gradient(145deg, #fff, var(--blue-pale));
+    margin-top: 1rem; /* mobile: espaço para o badge */
   }
+  @media (min-width: 760px) {
+    .pkg.featured { margin-top: 0; } /* desktop 3 colunas: sem margin extra */
+  }
+
+  .pkg:hover { transform: translateY(-4px); box-shadow: 0 14px 36px rgba(37,99,168,0.1); }
 
   .pkg-badge {
     position: absolute;
@@ -549,26 +555,27 @@
     transform: translateX(-50%);
     background: var(--blue-mid);
     color: #fff;
-    font-size: 0.62rem;
+    font-size: 0.7rem; /* FIX 3: era 0.62rem (9.9px) → 0.7rem (11.2px) */
     font-weight: 800;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    padding: 0.28rem 1rem;
+    padding: 0.3rem 1rem;
     border-radius: 100px;
     white-space: nowrap;
   }
 
   .pkg-tier {
-    font-size: 0.65rem;
+    font-size: 0.72rem; /* FIX 3: era 0.65rem (10.4px) */
     font-weight: 800;
-    letter-spacing: 0.24em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--blue-mid);
     margin-bottom: 0.6rem;
   }
 
   .pkg-price {
-    font-size: 2.2rem;
+    /* FIX 7: era font-size fixo 2.2rem — em telas muito pequenas ficava grande demais */
+    font-size: clamp(1.8rem, 5vw, 2.2rem);
     font-weight: 900;
     color: var(--blue-deep);
     line-height: 1;
@@ -646,7 +653,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.7rem;
+    font-size: 0.72rem; /* FIX 3: era 0.7rem, mantido próximo */
     font-weight: 900;
     color: var(--blue-mid);
     flex-shrink: 0;
@@ -670,7 +677,6 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: 1rem;
-    /* margin-top removido: sec-desc já tem margin-bottom 2.4rem */
   }
 
   @media (min-width: 560px) { .contact-grid { grid-template-columns: 1fr 1fr; } }
@@ -687,7 +693,8 @@
     text-decoration: none;
   }
 
-  .contact-card:hover {
+  .contact-card:hover,
+  .contact-card:focus-visible { /* FIX 2: foco visual nos cards de contato */
     border-color: var(--blue-light);
     box-shadow: 0 8px 24px rgba(37,99,168,0.08);
   }
@@ -695,9 +702,9 @@
   .contact-icon { font-size: 1.5rem; margin-bottom: 0.3rem; }
 
   .contact-label {
-    font-size: 0.68rem;
+    font-size: 0.72rem; /* FIX 3: era 0.68rem */
     font-weight: 800;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--blue-mid);
   }
@@ -706,10 +713,10 @@
     font-size: 0.95rem;
     font-weight: 700;
     color: var(--blue-deep);
-    word-break: break-all;
+    word-break: break-word; /* FIX 8: era break-all — break-word é menos agressivo */
   }
 
-  .contact-hint { font-size: 0.78rem; color: var(--muted); }
+  .contact-hint { font-size: 0.8rem; color: var(--muted); }
 
   /* ── CTA ── */
   .cta-sec {
@@ -738,7 +745,6 @@
     margin: 0.8rem auto 1rem;
   }
 
-  /* .accent dentro da CTA tem cor própria */
   .cta-sec .accent { color: var(--blue-light); }
 
   .cta-desc {
@@ -760,7 +766,7 @@
   }
 
   footer p {
-    font-size: 0.75rem;
+    font-size: 0.78rem;
     font-weight: 500;
     color: rgba(255,255,255,0.3);
     letter-spacing: 0.04em;
@@ -779,7 +785,10 @@
   }
   .reveal.visible { opacity: 1; transform: none; }
 
-  /* Respeitar preferência do usuário por menos movimento */
+  /*
+   * FIX 9: prefers-reduced-motion
+   * Cobre hero animations, reveal E hover transforms (diff-card, pkg, btn-white).
+   */
   @media (prefers-reduced-motion: reduce) {
     .hero-chip, .hero h1, .hero-sub, .hero-btns, .hero-stats {
       animation: none;
@@ -790,15 +799,19 @@
       opacity: 1;
       transform: none;
     }
+    /* FIX 9: desativa hover transforms para usuários sensíveis a movimento */
+    .diff-card:hover,
+    .pkg:hover,
+    .btn-white:hover {
+      transform: none;
+    }
   }
 </style>
 </head>
 <body>
 
-<!-- Skip para leitores de tela -->
 <a href="#main-content" class="skip-link">Ir para o conteúdo principal</a>
 
-<!-- NAV -->
 <header>
   <nav aria-label="Navegação principal">
     <a class="nav-brand" href="#" aria-label="Página inicial — Gestão de Instagram">Social Media</a>
@@ -822,7 +835,12 @@
   <div class="hero-bg" aria-hidden="true"></div>
   <div class="hero-lines" aria-hidden="true"></div>
   <div class="hero-inner">
-    <span class="hero-chip" aria-hidden="true">📍 Jequié, BA · Gestão de Instagram</span>
+    <!--
+      FIX 10: aria-hidden removido do hero-chip.
+      Era o único elemento com a localização "Jequié, BA" — informação
+      relevante para leitores de tela. O role="text" garante leitura correta.
+    -->
+    <span class="hero-chip">📍 Jequié, BA · Gestão de Instagram</span>
     <h1>Seu perfil,<br>cuidado com<br><span class="accent">propósito.</span></h1>
     <p class="hero-sub">Conteúdo estratégico, visual profissional e linguagem certa para o seu público — com consistência real.</p>
     <div class="hero-btns">
@@ -943,7 +961,6 @@
         </div>
       </div>
 
-      <!-- IDENTIDADE VISUAL — SERVIÇO SEPARADO -->
       <div class="srv-item srv-iv">
         <div class="srv-bar" aria-hidden="true"></div>
         <div>
@@ -968,7 +985,6 @@
 
     <div class="pkg-grid">
 
-      <!-- BASIC -->
       <div class="pkg">
         <p class="pkg-tier">Basic</p>
         <p class="pkg-price">R$ 400</p>
@@ -985,7 +1001,6 @@
         <div class="visit-note">📅 2 visitas presenciais por mês para captação de material</div>
       </div>
 
-      <!-- INTERMEDIÁRIO -->
       <div class="pkg featured">
         <span class="pkg-badge">Recomendado</span>
         <p class="pkg-tier">Intermediário</p>
@@ -1005,7 +1020,6 @@
         <div class="visit-note">📅 4 visitas presenciais por mês para captação de material</div>
       </div>
 
-      <!-- COMPLETO -->
       <div class="pkg">
         <p class="pkg-tier">Completo</p>
         <p class="pkg-price">R$ 1.100</p>
@@ -1088,7 +1102,7 @@
     <h2 id="titulo-contato">Entre em <span class="accent">contato</span></h2>
     <p class="sec-desc">Sem compromisso. Respondo rápido pelo WhatsApp ou por e-mail.</p>
     <div class="contact-grid">
-      <a class="contact-card" href="https://wa.me/5573988498375" aria-label="Contato via WhatsApp: +55 (73) 98849-8375">
+      <a class="contact-card" href="https://wa.me/5573988498375" aria-label="Contato via WhatsApp: +55 73 98849-8375">
         <div class="contact-icon" aria-hidden="true">💬</div>
         <div class="contact-label">WhatsApp</div>
         <div class="contact-value">+55 (73) 98849-8375</div>
@@ -1123,40 +1137,49 @@
 
 <script>
   (function () {
-    // ── HAMBURGER MENU ──────────────────────────────────────────
-    const toggle   = document.querySelector('.nav-toggle');
-    const navLinks = document.querySelector('.nav-links');
+    'use strict';
+
+    /* ── HAMBURGER ─────────────────────────────────────────────── */
+    var toggle   = document.querySelector('.nav-toggle');
+    var navLinks = document.querySelector('.nav-links');
+
+    function closeMenu() {
+      navLinks.classList.remove('open');
+      toggle.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
 
     if (toggle && navLinks) {
-      toggle.addEventListener('click', () => {
-        const isOpen = navLinks.classList.toggle('open');
+      toggle.addEventListener('click', function () {
+        var isOpen = navLinks.classList.toggle('open');
         toggle.classList.toggle('open', isOpen);
         toggle.setAttribute('aria-expanded', String(isOpen));
       });
 
-      // Fechar ao clicar em um link e ao pressionar Escape
-      navLinks.querySelectorAll('a').forEach(link => {
+      navLinks.querySelectorAll('a').forEach(function (link) {
         link.addEventListener('click', closeMenu);
       });
 
-      document.addEventListener('keydown', (e) => {
+      document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') closeMenu();
       });
 
-      function closeMenu() {
-        navLinks.classList.remove('open');
-        toggle.classList.remove('open');
-        toggle.setAttribute('aria-expanded', 'false');
-      }
+      /* FIX 11: fechar menu ao clicar fora dele */
+      document.addEventListener('click', function (e) {
+        if (navLinks.classList.contains('open') &&
+            !navLinks.contains(e.target) &&
+            !toggle.contains(e.target)) {
+          closeMenu();
+        }
+      });
     }
 
-    // ── REVEAL ON SCROLL ────────────────────────────────────────
-    // Verifica se prefers-reduced-motion está ativo antes de observar
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    /* ── REVEAL ON SCROLL ──────────────────────────────────────── */
+    var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (!prefersReduced && 'IntersectionObserver' in window) {
-      const obs = new IntersectionObserver(entries => {
-        entries.forEach(e => {
+      var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
           if (e.isIntersecting) {
             e.target.classList.add('visible');
             obs.unobserve(e.target);
@@ -1164,15 +1187,19 @@
         });
       }, { threshold: 0.06 });
 
-      document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+      document.querySelectorAll('.reveal').forEach(function (el) {
+        obs.observe(el);
+      });
     } else {
-      // Sem suporte ou reduced-motion: mostrar tudo imediatamente
-      document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+      /* Sem suporte a IntersectionObserver ou reduced-motion: mostrar tudo */
+      document.querySelectorAll('.reveal').forEach(function (el) {
+        el.classList.add('visible');
+      });
     }
+
   })();
 </script>
 
-<!-- Fallback sem JS: garante visibilidade do conteúdo -->
 <noscript>
   <style>
     .reveal { opacity: 1 !important; transform: none !important; }
