@@ -18,4 +18,5 @@ Site oficial da FARUKSOCIALMEDIA.
 Publicado com GitHub Pages.
 
 ## Acesso
-https://faruksocialmedia.github.io
+[https://faruksocialmedia.github.io](https://brtwfaruk010-ui.github.io/faruksocialmedia.github.io/
+)
