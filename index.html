@@ -3,1211 +3,1353 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gestão de Instagram · Jequié, BA</title>
-<meta name="description" content="Gestão profissional de Instagram para negócios em Jequié e região. Posts, Reels, Stories, identidade visual e relatórios de resultado. Sem surpresas, sem taxas ocultas.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📱</text></svg>">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Gestão de Instagram · Jequié, BA">
-<meta property="og:description" content="Conteúdo estratégico, visual profissional e linguagem certa para o seu público — com consistência real.">
-<meta property="og:locale" content="pt_BR">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Gestão de Instagram · Jequié, BA">
-<meta name="twitter:description" content="Conteúdo estratégico, visual profissional e linguagem certa para o seu público.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<title>Banco de Questões — Diagnóstico por Imagem</title>
 <style>
-  /* ── TOKENS ── */
-  :root {
-    --blue-deep:  #1A3A5C;
-    --blue-mid:   #2563A8;
-    --blue-light: #4A90D9;
-    --blue-pale:  #EBF3FB;
-    --blue-soft:  #D6E8F7;
-    --white:      #FFFFFF;
-    --gray-1:     #F7F9FC;
-    --gray-2:     #EEF2F7;
-    --text:       #0F1E2E;
-    --text-mid:   #3A5068;
-    --muted:      #6A8AA8;
-    --r:          14px;
-    --r-lg:       20px;
-    --nav-h:      60px;
-  }
-
-  /* ── RESET ── */
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  /*
-   * FIX 1: overflow-x:hidden apenas no body.
-   * Colocar no html também quebra position:sticky no Safari e Firefox
-   * porque transforma o html num scroll container separado.
-   */
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--white);
-    color: var(--text);
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 1.75;
-    overflow-x: hidden; /* controla overflow apenas aqui */
-    -webkit-text-size-adjust: 100%;
-  }
-
-  img { max-width: 100%; display: block; }
-
-  /* ── FIX 2: :focus-visible global — teclado e leitores de tela ── */
-  :focus-visible {
-    outline: 2px solid var(--blue-light);
-    outline-offset: 3px;
-    border-radius: 4px;
-  }
-
-  /* ── ACESSIBILIDADE: SKIP LINK ── */
-  .skip-link {
-    position: absolute;
-    top: -999px;
-    left: 0;
-    background: var(--blue-mid);
-    color: #fff;
-    padding: 0.5rem 1rem;
-    font-size: 0.85rem;
-    font-weight: 700;
-    z-index: 9999;
-    border-radius: 0 0 var(--r) 0;
-    text-decoration: none;
-  }
-  .skip-link:focus { top: 0; }
-
-  /* ── NAV ── */
-  header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    width: 100%;
-  }
-
-  nav {
-    background: rgba(255,255,255,0.94);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border-bottom: 1px solid var(--gray-2);
-    padding: 0 clamp(1.4rem, 4vw, 5rem);
-    height: var(--nav-h);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .nav-brand {
-    font-size: 0.78rem;
-    font-weight: 800;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--blue-deep);
-    text-decoration: none;
-    white-space: nowrap;
-  }
-
-  /* ── NAV LINKS (desktop) ── */
-  .nav-links {
-    display: flex;
-    gap: 1.6rem;
-    list-style: none;
-  }
-
-  .nav-links a {
-    font-size: 0.8rem; /* FIX 3: era 0.75rem (12px) → 0.8rem (12.8px), mais legível */
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    white-space: nowrap;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--blue-mid); }
-
-  /* ── HAMBURGER ── */
-  .nav-toggle {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 8px 4px;
-    z-index: 200;
-  }
-  .nav-toggle span {
-    display: block;
-    width: 22px;
-    height: 2px;
-    background: var(--blue-deep);
-    border-radius: 2px;
-    transition: transform 0.3s, opacity 0.3s;
-  }
-  .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-  .nav-toggle.open span:nth-child(2) { opacity: 0; }
-  .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-  /* ── NAV MOBILE ── */
-  @media (max-width: 640px) {
-    .nav-toggle { display: flex; }
-
-    .nav-links {
-      flex-direction: column;
-      gap: 0;
-      position: fixed;
-      top: var(--nav-h);
-      left: 0;
-      right: 0;
-      background: rgba(255,255,255,0.98);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--gray-2);
-      padding: 0.5rem 0 1rem;
-      transform: translateY(-110%);
-      visibility: hidden;
-      transition: transform 0.3s ease, visibility 0.3s ease;
-      z-index: 99;
-    }
-    .nav-links.open {
-      transform: translateY(0);
-      visibility: visible;
-    }
-    /*
-     * FIX 4: era display:block depois display:flex no mesmo bloco.
-     * Unificado em display:flex direto.
-     */
-    .nav-links li a {
-      display: flex;
-      align-items: center;
-      padding: 0.8rem 1.4rem;
-      font-size: 0.88rem;
-      min-height: 44px; /* área mínima de toque */
-    }
-  }
-
-  /* ── HERO ── */
-  .hero {
-    background: linear-gradient(150deg, var(--blue-deep) 0%, #1e4d82 55%, var(--blue-mid) 100%);
-    padding: clamp(3.5rem, 10vw, 7rem) clamp(1.4rem, 5vw, 6rem) clamp(3rem, 8vw, 5rem);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero-bg {
-    position: absolute; inset: 0;
-    background-image:
-      radial-gradient(circle at 85% 15%, rgba(74,144,217,0.2) 0%, transparent 45%),
-      radial-gradient(circle at 10% 85%, rgba(255,255,255,0.04) 0%, transparent 40%);
-    pointer-events: none;
-  }
-
-  .hero-lines {
-    position: absolute; inset: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-    background-size: 44px 44px;
-    pointer-events: none;
-  }
-
-  .hero-inner { position: relative; max-width: 680px; }
-
-  .hero-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.2);
-    color: rgba(255,255,255,0.85);
-    font-size: 0.72rem; /* FIX 3: era 0.68rem (10.9px) → 0.72rem (11.5px) */
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 0.4rem 1rem;
-    border-radius: 100px;
-    margin-bottom: 1.8rem;
-    opacity: 0;
-    animation: up 0.7s ease forwards 0.1s;
-  }
-
-  .hero h1 {
-    font-size: clamp(2.2rem, 7vw, 4rem);
-    font-weight: 900;
-    color: #fff;
-    line-height: 1.08;
-    letter-spacing: -0.025em;
-    margin-bottom: 1.2rem;
-    opacity: 0;
-    animation: up 0.7s ease forwards 0.25s;
-  }
-
-  .hero h1 .accent { color: var(--blue-light); }
-
-  .hero-sub {
-    font-size: clamp(0.95rem, 2.5vw, 1.05rem);
-    font-weight: 400;
-    color: rgba(255,255,255,0.65);
-    max-width: 440px;
-    margin-bottom: 2.2rem;
-    line-height: 1.7;
-    opacity: 0;
-    animation: up 0.7s ease forwards 0.4s;
-  }
-
-  .hero-btns {
-    display: flex;
-    gap: 0.8rem;
-    flex-wrap: wrap;
-    opacity: 0;
-    animation: up 0.7s ease forwards 0.55s;
-  }
-
-  .hero-stats {
-    display: flex;
-    gap: 2.2rem;
-    margin-top: 3rem;
-    flex-wrap: wrap;
-    opacity: 0;
-    animation: up 0.7s ease forwards 0.7s;
-  }
-
-  .stat-num {
-    font-size: 1.7rem;
-    font-weight: 900;
-    color: #fff;
-    line-height: 1;
-    letter-spacing: -0.02em;
-  }
-
-  .stat-label {
-    font-size: 0.72rem; /* FIX 3: era 0.68rem */
-    font-weight: 600;
-    color: rgba(255,255,255,0.45);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-top: 0.25rem;
-  }
-
-  @media (max-width: 400px) {
-    .hero-btns { flex-direction: column; }
-    .btn-white, .btn-ghost { text-align: center; width: 100%; justify-content: center; }
-    .hero-stats { flex-direction: column; gap: 1.4rem; }
-  }
-
-  /* ── BOTÕES ── */
-  .btn-white {
-    background: #fff;
-    color: var(--blue-deep);
-    padding: 0.85rem 1.7rem;
-    border-radius: var(--r);
-    font-size: 0.88rem;
-    font-weight: 800;
-    letter-spacing: 0.02em;
-    text-decoration: none;
-    /*
-     * FIX 4: era display:inline-block seguido de display:inline-flex no mesmo bloco.
-     * Mantido apenas display:inline-flex.
-     */
-    display: inline-flex;
-    align-items: center;
-    transition: transform 0.2s, box-shadow 0.2s;
-    border: none;
-    cursor: pointer;
-    white-space: nowrap;
-    min-height: 44px;
-  }
-  .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.22); }
-
-  .btn-ghost {
-    background: transparent;
-    border: 1.5px solid rgba(255,255,255,0.3);
-    color: rgba(255,255,255,0.9);
-    padding: 0.85rem 1.7rem;
-    border-radius: var(--r);
-    font-size: 0.88rem;
-    font-weight: 600;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    transition: background 0.2s;
-    white-space: nowrap;
-    min-height: 44px;
-  }
-  .btn-ghost:hover { background: rgba(255,255,255,0.1); }
-
-  /* ── LAYOUT ── */
-  .wrap {
-    max-width: 1040px;
-    margin: 0 auto;
-    padding-left: clamp(1.4rem, 4vw, 3.5rem);
-    padding-right: clamp(1.4rem, 4vw, 3.5rem);
-    width: 100%;
-  }
-
-  section {
-    width: 100%;
-    /*
-     * FIX 5: overflow-x:hidden removido das sections.
-     * O body já controla o overflow horizontal do layout todo.
-     * Nas sections, isso pode cortar sombras, badges absolutos e
-     * futuros elementos sticky dentro das seções.
-     */
-  }
-
-  .sec { padding: clamp(3.2rem, 6vw, 5.5rem) 0; }
-
-  #diferenciais, #servicos, #pacotes, #como-funciona, #contato {
-    scroll-margin-top: var(--nav-h);
-  }
-
-  .bg-gray { background: var(--gray-1); }
-
-  .sec-label {
-    font-size: 0.72rem; /* FIX 3: era 0.68rem (10.9px) */
-    font-weight: 800;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-    color: var(--blue-mid);
-    margin-bottom: 0.6rem;
-    display: block;
-  }
-
-  h2 {
-    font-size: clamp(1.65rem, 3.8vw, 2.4rem);
-    font-weight: 900;
-    color: var(--blue-deep);
-    line-height: 1.15;
-    letter-spacing: -0.02em;
-    margin-bottom: 0.8rem;
-  }
-
-  h2 .accent { color: var(--blue-mid); }
-
-  .sec-desc {
-    font-size: clamp(0.92rem, 2vw, 1rem);
-    color: var(--muted);
-    max-width: 520px;
-    margin-bottom: 2.4rem;
-    font-weight: 400;
-    line-height: 1.7;
-  }
-
-  .divider { height: 1px; background: var(--gray-2); }
-
-  /* ── DIFERENCIAIS ── */
-  .diff-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  @media (min-width: 480px) { .diff-grid { grid-template-columns: 1fr 1fr; } }
-  @media (min-width: 720px) { .diff-grid { grid-template-columns: repeat(4, 1fr); } }
-
-  .diff-card {
-    background: var(--gray-1);
-    border: 1px solid var(--gray-2);
-    border-radius: var(--r-lg);
-    padding: 1.6rem 1.3rem;
-    transition: border-color 0.22s, transform 0.22s, box-shadow 0.22s;
-  }
-
-  .diff-card:hover {
-    border-color: var(--blue-soft);
-    transform: translateY(-3px);
-    box-shadow: 0 10px 28px rgba(37,99,168,0.09);
-  }
-
-  .diff-icon {
-    width: 42px; height: 42px;
-    border-radius: 10px;
-    background: var(--blue-pale);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.15rem;
-    margin-bottom: 1rem;
-    flex-shrink: 0;
-  }
-
-  .diff-card h3 {
-    font-size: 0.9rem;
-    font-weight: 800;
-    color: var(--blue-deep);
-    margin-bottom: 0.4rem;
-    line-height: 1.3;
-  }
-
-  .diff-card p {
-    font-size: 0.84rem;
-    color: var(--muted);
-    line-height: 1.6;
-  }
-
-  /* ── SERVIÇOS ── */
-  .srv-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.85rem;
-  }
-
-  @media (min-width: 640px) { .srv-grid { grid-template-columns: 1fr 1fr; } }
-
-  .srv-item {
-    background: var(--white);
-    border: 1px solid var(--gray-2);
-    border-radius: var(--r);
-    padding: 1.3rem 1.5rem;
-    display: flex;
-    gap: 1rem;
-    align-items: flex-start;
-    transition: border-color 0.2s;
-  }
-
-  .srv-item:hover { border-color: var(--blue-light); }
-
-  .srv-bar {
-    width: 3px;
-    border-radius: 4px;
-    background: linear-gradient(to bottom, var(--blue-mid), var(--blue-light));
-    flex-shrink: 0;
-    align-self: stretch;
-  }
-
-  .srv-item h4 {
-    font-size: 0.92rem;
-    font-weight: 800;
-    color: var(--blue-deep);
-    margin-bottom: 0.25rem;
-  }
-
-  .srv-item p {
-    font-size: 0.84rem;
-    color: var(--muted);
-    line-height: 1.6;
-  }
-
-  .srv-item.srv-iv {
-    border-color: var(--blue-soft);
-    background: var(--blue-pale);
-    grid-column: 1 / -1;
-  }
-
-  .srv-item.srv-iv .srv-bar {
-    background: linear-gradient(to bottom, var(--blue-deep), var(--blue-mid));
-  }
-
-  .srv-iv-price {
-    display: inline-block;
-    margin-top: 0.5rem;
-    background: var(--blue-mid);
-    color: #fff;
-    font-size: 0.75rem; /* FIX 3: era 0.72rem */
-    font-weight: 700;
-    padding: 0.22rem 0.7rem;
-    border-radius: 6px;
-    letter-spacing: 0.03em;
-  }
-
-  /* ── PACOTES ── */
-  .pkg-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.1rem;
-  }
-
-  @media (min-width: 760px) { .pkg-grid { grid-template-columns: repeat(3, 1fr); } }
-
-  .pkg {
-    background: var(--white);
-    border: 1.5px solid var(--gray-2);
-    border-radius: var(--r-lg);
-    padding: 2rem 1.6rem;
-    position: relative;
-    transition: transform 0.25s, box-shadow 0.25s;
-  }
-
-  /*
-   * FIX 6: .pkg.featured estava dividido em dois blocos separados no CSS.
-   * Unificado num único bloco com a media query inline.
-   * margin-top compensa o badge absoluto que sobressai 13px acima da borda.
-   */
-  .pkg.featured {
-    border-color: var(--blue-mid);
-    background: linear-gradient(145deg, #fff, var(--blue-pale));
-    margin-top: 1rem; /* mobile: espaço para o badge */
-  }
-  @media (min-width: 760px) {
-    .pkg.featured { margin-top: 0; } /* desktop 3 colunas: sem margin extra */
-  }
-
-  .pkg:hover { transform: translateY(-4px); box-shadow: 0 14px 36px rgba(37,99,168,0.1); }
-
-  .pkg-badge {
-    position: absolute;
-    top: -13px; left: 50%;
-    transform: translateX(-50%);
-    background: var(--blue-mid);
-    color: #fff;
-    font-size: 0.7rem; /* FIX 3: era 0.62rem (9.9px) → 0.7rem (11.2px) */
-    font-weight: 800;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 0.3rem 1rem;
-    border-radius: 100px;
-    white-space: nowrap;
-  }
-
-  .pkg-tier {
-    font-size: 0.72rem; /* FIX 3: era 0.65rem (10.4px) */
-    font-weight: 800;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--blue-mid);
-    margin-bottom: 0.6rem;
-  }
-
-  .pkg-price {
-    /* FIX 7: era font-size fixo 2.2rem — em telas muito pequenas ficava grande demais */
-    font-size: clamp(1.8rem, 5vw, 2.2rem);
-    font-weight: 900;
-    color: var(--blue-deep);
-    line-height: 1;
-    letter-spacing: -0.03em;
-  }
-
-  .pkg-period {
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--muted);
-    margin-bottom: 1.4rem;
-  }
-
-  .pkg-div { height: 1px; background: var(--gray-2); margin-bottom: 1.4rem; }
-
-  .pkg ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
-
-  .pkg ul li {
-    font-size: 0.85rem;
-    color: var(--text-mid);
-    display: flex;
-    gap: 0.6rem;
-    font-weight: 500;
-    line-height: 1.5;
-    align-items: flex-start;
-  }
-
-  .pkg ul li::before {
-    content: '✓';
-    color: var(--blue-mid);
-    font-weight: 900;
-    flex-shrink: 0;
-    margin-top: 0.05rem;
-  }
-
-  .visit-note {
-    margin-top: 1.3rem;
-    background: var(--blue-pale);
-    border-radius: 8px;
-    padding: 0.7rem 1rem;
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: var(--blue-deep);
-    line-height: 1.5;
-  }
-
-  /* ── PROCESSO ── */
-  .steps {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.85rem;
-  }
-
-  @media (min-width: 640px) { .steps { grid-template-columns: 1fr 1fr; } }
-  @media (min-width: 900px) { .steps { grid-template-columns: repeat(3, 1fr); } }
-
-  .step {
-    background: var(--white);
-    border: 1px solid var(--gray-2);
-    border-radius: var(--r);
-    padding: 1.5rem 1.3rem;
-    display: flex;
-    gap: 1rem;
-    align-items: flex-start;
-    transition: border-color 0.2s;
-  }
-
-  .step:hover { border-color: var(--blue-light); }
-
-  .step-num {
-    width: 36px; height: 36px;
-    border-radius: 50%;
-    background: var(--blue-pale);
-    border: 1.5px solid var(--blue-soft);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.72rem; /* FIX 3: era 0.7rem, mantido próximo */
-    font-weight: 900;
-    color: var(--blue-mid);
-    flex-shrink: 0;
-  }
-
-  .step h4 {
-    font-size: 0.92rem;
-    font-weight: 800;
-    color: var(--blue-deep);
-    margin-bottom: 0.25rem;
-  }
-
-  .step p {
-    font-size: 0.84rem;
-    color: var(--muted);
-    line-height: 1.6;
-  }
-
-  /* ── CONTATO ── */
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  @media (min-width: 560px) { .contact-grid { grid-template-columns: 1fr 1fr; } }
-
-  .contact-card {
-    background: var(--white);
-    border: 1px solid var(--gray-2);
-    border-radius: var(--r-lg);
-    padding: 1.8rem 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    text-decoration: none;
-  }
-
-  .contact-card:hover,
-  .contact-card:focus-visible { /* FIX 2: foco visual nos cards de contato */
-    border-color: var(--blue-light);
-    box-shadow: 0 8px 24px rgba(37,99,168,0.08);
-  }
-
-  .contact-icon { font-size: 1.5rem; margin-bottom: 0.3rem; }
-
-  .contact-label {
-    font-size: 0.72rem; /* FIX 3: era 0.68rem */
-    font-weight: 800;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--blue-mid);
-  }
-
-  .contact-value {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--blue-deep);
-    word-break: break-word; /* FIX 8: era break-all — break-word é menos agressivo */
-  }
-
-  .contact-hint { font-size: 0.8rem; color: var(--muted); }
-
-  /* ── CTA ── */
-  .cta-sec {
-    background: linear-gradient(135deg, var(--blue-deep), var(--blue-mid));
-    padding: clamp(3rem, 7vw, 6rem) clamp(1.4rem, 6vw, 6rem);
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .cta-sec::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: radial-gradient(circle at 25% 50%, rgba(255,255,255,0.05), transparent 60%);
-    pointer-events: none;
-  }
-
-  .cta-inner { position: relative; }
-
-  .cta-sec .sec-label { color: rgba(255,255,255,0.55); }
-
-  .cta-sec h2 {
-    color: #fff;
-    font-size: clamp(1.5rem, 3.8vw, 2.2rem);
-    max-width: 480px;
-    margin: 0.8rem auto 1rem;
-  }
-
-  .cta-sec .accent { color: var(--blue-light); }
-
-  .cta-desc {
-    font-size: 0.92rem;
-    color: rgba(255,255,255,0.55);
-    margin-bottom: 2rem;
-  }
-
-  /* ── FOOTER ── */
-  footer {
-    background: var(--blue-deep);
-    padding: 1.6rem clamp(1.4rem, 5vw, 5rem);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    border-top: 1px solid rgba(255,255,255,0.06);
-  }
-
-  footer p {
-    font-size: 0.78rem;
-    font-weight: 500;
-    color: rgba(255,255,255,0.3);
-    letter-spacing: 0.04em;
-  }
-
-  /* ── ANIMAÇÕES ── */
-  @keyframes up {
-    from { opacity: 0; transform: translateY(18px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .reveal {
-    opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-  .reveal.visible { opacity: 1; transform: none; }
-
-  /*
-   * FIX 9: prefers-reduced-motion
-   * Cobre hero animations, reveal E hover transforms (diff-card, pkg, btn-white).
-   */
-  @media (prefers-reduced-motion: reduce) {
-    .hero-chip, .hero h1, .hero-sub, .hero-btns, .hero-stats {
-      animation: none;
-      opacity: 1;
-    }
-    .reveal {
-      transition: none;
-      opacity: 1;
-      transform: none;
-    }
-    /* FIX 9: desativa hover transforms para usuários sensíveis a movimento */
-    .diff-card:hover,
-    .pkg:hover,
-    .btn-white:hover {
-      transform: none;
-    }
-  }
+:root {
+  --bg: #EDF2F7;
+  --card: #FFFFFF;
+  --header: #1A2A3A;
+  --primary: #2B6CB0;
+  --primary-light: #EBF8FF;
+  --accent: #3182CE;
+  --green: #38A169;
+  --green-light: #F0FFF4;
+  --red: #E53E3E;
+  --red-light: #FFF5F5;
+  --amber: #D69E2E;
+  --amber-light: #FFFFF0;
+  --purple: #805AD5;
+  --teal: #00897B;
+  --gray: #718096;
+  --gray-light: #F7FAFC;
+  --border: #E2E8F0;
+  --text: #1A202C;
+  --text2: #4A5568;
+  --shadow: 0 2px 8px rgba(0,0,0,.10);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,.14);
+  --radius: 14px;
+  --radius-sm: 8px;
+  --transition: .2s ease;
+}
+[data-theme="dark"] {
+  --bg: #0F1117;
+  --card: #1A1D27;
+  --header: #080F1A;
+  --primary: #4299E1;
+  --primary-light: #1A2744;
+  --accent: #63B3ED;
+  --green: #68D391;
+  --green-light: #1A2E22;
+  --red: #FC8181;
+  --red-light: #2D1515;
+  --amber: #F6E05E;
+  --amber-light: #2D2700;
+  --purple: #B794F4;
+  --teal: #4DB6AC;
+  --gray: #A0AEC0;
+  --gray-light: #1E2130;
+  --border: #2D3748;
+  --text: #F7FAFC;
+  --text2: #A0AEC0;
+  --shadow: 0 2px 8px rgba(0,0,0,.4);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,.5);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;transition:background var(--transition),color var(--transition)}
+
+/* HEADER */
+#header{position:sticky;top:0;z-index:100;background:var(--header);box-shadow:0 2px 12px rgba(0,0,0,.35);padding:0 20px}
+.header-inner{max-width:1340px;margin:auto;display:flex;align-items:center;gap:12px;height:58px;flex-wrap:wrap}
+.logo{font-size:1.05rem;font-weight:700;color:#fff;white-space:nowrap;display:flex;align-items:center;gap:8px}
+.logo-icon{width:32px;height:32px;background:linear-gradient(135deg,#4299E1,#63B3ED);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.logo span{opacity:.8;font-weight:400;font-size:.85rem}
+.header-stats{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap}
+.hstat{background:rgba(255,255,255,.12);border-radius:20px;padding:4px 12px;font-size:.78rem;color:#fff;display:flex;align-items:center;gap:5px;cursor:default;transition:background .2s}
+.hstat:hover{background:rgba(255,255,255,.2)}
+.hstat b{font-weight:700}
+.hstat-icon{font-size:.9rem}
+#timer-display{background:rgba(255,165,0,.2);border:1px solid rgba(255,165,0,.4)}
+.header-actions{display:flex;gap:8px;align-items:center;margin-left:8px}
+.btn-sm{padding:6px 14px;border-radius:20px;border:none;cursor:pointer;font-size:.8rem;font-weight:600;transition:all .2s;white-space:nowrap}
+.btn-dark{background:rgba(255,255,255,.15);color:#fff}
+.btn-dark:hover{background:rgba(255,255,255,.25)}
+.btn-sim{background:linear-gradient(135deg,#38A169,#276749);color:#fff}
+.btn-sim:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(56,161,105,.4)}
+.btn-sim.active{background:linear-gradient(135deg,#E53E3E,#9B2C2C)}
+
+/* LAYOUT */
+.container{max-width:1340px;margin:0 auto;padding:24px 20px;display:grid;grid-template-columns:268px 1fr;gap:24px;align-items:start}
+@media(max-width:880px){.container{grid-template-columns:1fr}}
+
+/* SIDEBAR */
+#sidebar{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;position:sticky;top:82px;max-height:calc(100vh - 100px);overflow-y:auto}
+@media(max-width:880px){#sidebar{position:static;max-height:none}}
+.sidebar-title{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gray);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.filter-group{margin-bottom:18px}
+.filter-btn{display:flex;align-items:center;gap:8px;width:100%;padding:8px 12px;border-radius:var(--radius-sm);border:none;cursor:pointer;background:transparent;color:var(--text2);font-size:.87rem;text-align:left;transition:all .15s;margin-bottom:3px}
+.filter-btn:hover{background:var(--gray-light);color:var(--text)}
+.filter-btn.active{background:var(--primary-light);color:var(--primary);font-weight:600}
+.filter-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.dot-all{background:var(--gray)}
+.dot-rad{background:#3182CE}
+.dot-tc{background:#38A169}
+.dot-rm{background:#805AD5}
+.dot-f{background:#38A169}
+.dot-m{background:#D69E2E}
+.dot-d{background:#E53E3E}
+.dot-res{background:#38A169}
+.dot-nao{background:#718096}
+.dot-fav{background:#F6AD55}
+.dot-rev{background:#9F7AEA}
+.sidebar-progress{margin-top:6px}
+.prog-label{display:flex;justify-content:space-between;font-size:.78rem;color:var(--text2);margin-bottom:4px}
+.prog-bar{height:8px;background:var(--border);border-radius:4px;overflow:hidden}
+.prog-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--primary),var(--accent));transition:width .4s ease}
+.stats-mini{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.stat-box{background:var(--gray-light);border-radius:var(--radius-sm);padding:10px;text-align:center}
+.stat-box b{display:block;font-size:1.4rem;color:var(--primary);line-height:1}
+.stat-box span{font-size:.72rem;color:var(--gray)}
+
+/* CONTROLS BAR */
+.controls-bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:20px}
+.btn-corrigir{padding:10px 24px;border-radius:24px;border:none;cursor:pointer;font-size:.9rem;font-weight:700;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;box-shadow:var(--shadow);transition:all .2s}
+.btn-corrigir:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.btn-corrigir:disabled{opacity:.4;pointer-events:none}
+.nav-btns{display:flex;gap:6px;margin-left:auto}
+.btn-nav{padding:8px 16px;border-radius:20px;border:1px solid var(--border);cursor:pointer;background:var(--card);color:var(--text2);font-size:.83rem;transition:all .15s}
+.btn-nav:hover{background:var(--primary-light);color:var(--primary);border-color:var(--primary)}
+.q-jump{display:flex;align-items:center;gap:6px;font-size:.83rem;color:var(--text2)}
+.q-jump input{width:55px;padding:6px 8px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--card);color:var(--text);font-size:.83rem;text-align:center}
+.btn-go{padding:6px 12px;border-radius:var(--radius-sm);border:none;cursor:pointer;background:var(--primary);color:#fff;font-size:.8rem;font-weight:600}
+
+/* QUESTION CARD */
+.q-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:20px;overflow:hidden;transition:box-shadow .2s;border:2px solid transparent}
+.q-card:hover{box-shadow:var(--shadow-lg)}
+.q-card.answered{border-color:var(--border)}
+.q-card.graded-correct{border-color:var(--green)}
+.q-card.graded-wrong{border-color:var(--red)}
+.q-card.highlighted{border-color:var(--amber)}
+.q-header{display:flex;align-items:flex-start;gap:10px;padding:16px 20px 12px;border-bottom:1px solid var(--border)}
+.q-num{font-size:1rem;font-weight:800;color:var(--text);min-width:32px}
+.q-badges{display:flex;gap:6px;flex-wrap:wrap;flex:1}
+.badge{padding:3px 10px;border-radius:12px;font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.badge-rad{background:#EBF8FF;color:#2B6CB0}
+.badge-tc{background:#F0FFF4;color:#276749}
+.badge-rm{background:#FAF5FF;color:#6B46C1}
+[data-theme="dark"] .badge-rad{background:#1A2744;color:#63B3ED}
+[data-theme="dark"] .badge-tc{background:#1A2E22;color:#68D391}
+[data-theme="dark"] .badge-rm{background:#1A1030;color:#B794F4}
+.badge-f{background:#F0FFF4;color:#276749}
+.badge-m{background:#FFFFF0;color:#975A16}
+.badge-d{background:#FFF5F5;color:#9B2C2C}
+[data-theme="dark"] .badge-f{background:#1A2E22;color:#68D391}
+[data-theme="dark"] .badge-m{background:#2D2700;color:#F6E05E}
+[data-theme="dark"] .badge-d{background:#2D1515;color:#FC8181}
+.badge-banca{background:var(--gray-light);color:var(--gray)}
+.q-actions{display:flex;gap:6px;margin-left:auto}
+.btn-icon{background:none;border:none;cursor:pointer;font-size:1.1rem;padding:4px;border-radius:6px;transition:transform .15s;opacity:.6}
+.btn-icon:hover{opacity:1;transform:scale(1.15)}
+.btn-icon.active{opacity:1}
+.q-body{padding:16px 20px}
+.q-text{font-size:.95rem;color:var(--text);margin-bottom:18px;line-height:1.75}
+.alt-list{display:flex;flex-direction:column;gap:8px}
+.alt-item{display:flex;align-items:center;gap:8px}
+.btn-elim{background:none;border:1px solid var(--border);border-radius:6px;width:26px;height:26px;cursor:pointer;font-size:.7rem;color:var(--gray);transition:all .15s;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.btn-elim:hover{background:var(--red-light);border-color:var(--red);color:var(--red)}
+.btn-elim.elim-active{background:var(--red-light);border-color:var(--red);color:var(--red)}
+.alt-btn{flex:1;display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:10px;border:2px solid var(--border);background:var(--gray-light);cursor:pointer;text-align:left;transition:all .15s;font-size:.88rem;color:var(--text)}
+.alt-btn:hover:not(.eliminated):not(:disabled){border-color:var(--primary);background:var(--primary-light);transform:translateX(2px)}
+.alt-btn.selected{border-color:var(--primary);background:var(--primary-light);color:var(--primary)}
+.alt-btn.eliminated{opacity:.35;text-decoration:line-through;pointer-events:none}
+.alt-btn.correct-ans{border-color:var(--green);background:var(--green-light);color:var(--green)}
+.alt-btn.wrong-ans{border-color:var(--red);background:var(--red-light);color:var(--red)}
+.alt-btn:disabled{cursor:default}
+.alt-letter{font-weight:800;font-size:.88rem;flex-shrink:0;width:18px}
+.alt-item.eliminated .alt-btn{opacity:.35;text-decoration:line-through}
+.q-footer{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-top:1px solid var(--border);gap:10px;flex-wrap:wrap}
+.q-status{font-size:.8rem;color:var(--gray);display:flex;align-items:center;gap:6px}
+.status-dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.dot-answered{background:var(--green)}
+.dot-unanswered{background:var(--gray)}
+.q-timer{font-size:.78rem;color:var(--gray);font-variant-numeric:tabular-nums}
+.btn-gabarito{padding:7px 16px;border-radius:20px;border:1px solid var(--border);cursor:pointer;background:var(--card);color:var(--text2);font-size:.82rem;transition:all .15s}
+.btn-gabarito:hover{background:var(--primary-light);color:var(--primary);border-color:var(--primary)}
+
+/* COMMENTARY */
+.commentary{margin:0 20px 16px;border-radius:10px;overflow:hidden;border:1px solid var(--border)}
+.comm-header{padding:12px 16px;background:var(--gray-light);cursor:pointer;display:flex;align-items:center;justify-content:space-between;font-size:.85rem;font-weight:600;color:var(--text2);transition:background .15s}
+.comm-header:hover{background:var(--border)}
+.comm-chevron{transition:transform .25s}
+.comm-chevron.open{transform:rotate(180deg)}
+.comm-body{padding:14px 16px;display:none;border-top:1px solid var(--border)}
+.comm-body.open{display:block}
+.comm-correct{padding:8px 12px;border-radius:8px;background:var(--green-light);border-left:4px solid var(--green);margin-bottom:12px;font-size:.85rem;color:var(--green)}
+.comm-just{font-size:.87rem;color:var(--text);line-height:1.75;margin-bottom:12px}
+.comm-wrong-title{font-size:.8rem;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+.comm-wrong-item{margin-bottom:8px;padding:8px 12px;border-radius:8px;background:var(--red-light);border-left:3px solid var(--red);font-size:.83rem;color:var(--text)}
+.comm-wrong-item b{color:var(--red)}
+
+/* DASHBOARD */
+#dashboard{display:none;background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow-lg);margin-bottom:24px;overflow:hidden;border:2px solid var(--primary)}
+.dash-header{background:linear-gradient(135deg,#0F2A4A,#1A3A6A,#2B6CB0);padding:28px 32px;color:#fff;text-align:center}
+.dash-title{font-size:1.6rem;font-weight:800;margin-bottom:6px}
+.dash-sub{opacity:.8;font-size:.95rem}
+.dash-grade{font-size:3rem;font-weight:900;margin:16px 0 4px}
+.dash-class{display:inline-block;padding:6px 20px;border-radius:20px;background:rgba(255,255,255,.2);font-size:.9rem;font-weight:700}
+.dash-body{padding:28px 32px}
+.dash-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:28px}
+.dash-metric{background:var(--gray-light);border-radius:var(--radius-sm);padding:18px;text-align:center;border:1px solid var(--border)}
+.dash-metric b{display:block;font-size:1.8rem;font-weight:800;line-height:1.1}
+.dash-metric span{font-size:.78rem;color:var(--gray);display:block;margin-top:4px}
+.dash-metric.good b{color:var(--green)}
+.dash-metric.bad b{color:var(--red)}
+.dash-metric.neutral b{color:var(--primary)}
+.dash-metric.time b{color:var(--purple)}
+.dash-section-title{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray);margin-bottom:12px}
+.dash-bars{display:flex;flex-direction:column;gap:12px;margin-bottom:24px}
+.dbar-row{display:flex;align-items:center;gap:12px;font-size:.87rem}
+.dbar-label{min-width:150px;color:var(--text2)}
+.dbar-track{flex:1;height:12px;background:var(--border);border-radius:6px;overflow:hidden}
+.dbar-fill{height:100%;border-radius:6px;transition:width .8s ease;background:var(--primary)}
+.dbar-fill.green{background:var(--green)}
+.dbar-fill.amber{background:var(--amber)}
+.dbar-fill.red{background:var(--red)}
+.dbar-fill.teal{background:var(--teal)}
+.dbar-fill.purple{background:var(--purple)}
+.dbar-pct{min-width:40px;text-align:right;font-weight:700;color:var(--text)}
+.dash-export{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.btn-export{padding:10px 20px;border-radius:20px;border:1px solid var(--border);cursor:pointer;background:var(--gray-light);color:var(--text2);font-size:.85rem;font-weight:600;transition:all .2s;display:flex;align-items:center;gap:6px}
+.btn-export:hover{background:var(--primary-light);color:var(--primary);border-color:var(--primary);transform:translateY(-1px)}
+
+/* TOAST */
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#1A202C;color:#fff;padding:12px 24px;border-radius:24px;font-size:.88rem;font-weight:600;z-index:999;transition:transform .3s ease;pointer-events:none;box-shadow:var(--shadow-lg)}
+#toast.show{transform:translateX(-50%) translateY(0)}
+
+/* BACK TO TOP */
+#btt{position:fixed;bottom:24px;right:24px;width:44px;height:44px;border-radius:50%;background:var(--primary);color:#fff;border:none;cursor:pointer;font-size:1.2rem;box-shadow:var(--shadow-lg);transition:all .2s;opacity:0;pointer-events:none;z-index:50;display:flex;align-items:center;justify-content:center}
+#btt.show{opacity:1;pointer-events:all}
+#btt:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(43,108,176,.4)}
+
+.res-correct{color:var(--green);font-weight:700}
+.res-wrong{color:var(--red);font-weight:700}
+.res-skip{color:var(--gray)}
+
+.empty-state{text-align:center;padding:60px 20px;color:var(--gray)}
+.empty-state .emoji{font-size:3rem;display:block;margin-bottom:12px}
+
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--gray)}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.q-card{animation:fadeIn .3s ease both}
+
+@media print{
+  #header,#sidebar,.btn-corrigir,.nav-btns,.q-jump,.btn-icon,.btn-elim,.q-jump,#btt,#toast,.dash-export{display:none!important}
+  .container{display:block}
+  .q-card{break-inside:avoid;border:1px solid #ccc!important;box-shadow:none}
+  #dashboard{border:1px solid #ccc}
+}
+@media(max-width:600px){
+  .header-inner{height:auto;padding:8px 0;gap:6px}
+  .header-stats{gap:4px}
+  .hstat{padding:3px 8px;font-size:.7rem}
+  .controls-bar{gap:6px}
+  .btn-corrigir{padding:9px 18px;font-size:.85rem}
+  .dash-grid{grid-template-columns:1fr 1fr}
+  .dash-body{padding:20px 16px}
+  .dbar-label{min-width:110px}
+}
 </style>
 </head>
 <body>
 
-<a href="#main-content" class="skip-link">Ir para o conteúdo principal</a>
-
-<header>
-  <nav aria-label="Navegação principal">
-    <a class="nav-brand" href="#" aria-label="Página inicial — Gestão de Instagram">Social Media</a>
-    <button class="nav-toggle" aria-label="Abrir menu de navegação" aria-expanded="false" aria-controls="nav-menu">
-      <span></span><span></span><span></span>
-    </button>
-    <ul class="nav-links" id="nav-menu">
-      <li><a href="#diferenciais">Diferenciais</a></li>
-      <li><a href="#servicos">Serviços</a></li>
-      <li><a href="#pacotes">Pacotes</a></li>
-      <li><a href="#como-funciona">Como funciona</a></li>
-      <li><a href="#contato">Contato</a></li>
-    </ul>
-  </nav>
-</header>
-
-<main id="main-content">
-
-<!-- HERO -->
-<section class="hero" aria-label="Apresentação">
-  <div class="hero-bg" aria-hidden="true"></div>
-  <div class="hero-lines" aria-hidden="true"></div>
-  <div class="hero-inner">
-    <!--
-      FIX 10: aria-hidden removido do hero-chip.
-      Era o único elemento com a localização "Jequié, BA" — informação
-      relevante para leitores de tela. O role="text" garante leitura correta.
-    -->
-    <span class="hero-chip">📍 Jequié, BA · Gestão de Instagram</span>
-    <h1>Seu perfil,<br>cuidado com<br><span class="accent">propósito.</span></h1>
-    <p class="hero-sub">Conteúdo estratégico, visual profissional e linguagem certa para o seu público — com consistência real.</p>
-    <div class="hero-btns">
-      <a href="#pacotes" class="btn-white">Ver pacotes e valores</a>
-      <a href="#como-funciona" class="btn-ghost">Como funciona</a>
+<!-- HEADER -->
+<div id="header">
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-icon">🩻</div>
+      <div>Banco de Questões <span>| Diagnóstico por Imagem</span></div>
     </div>
-    <div class="hero-stats" aria-label="Números do serviço">
-      <div>
-        <div class="stat-num" aria-label="3 planos disponíveis">3</div>
-        <div class="stat-label" aria-hidden="true">Planos disponíveis</div>
-      </div>
-      <div>
-        <div class="stat-num" aria-label="8 serviços incluídos">8</div>
-        <div class="stat-label" aria-hidden="true">Serviços incluídos</div>
-      </div>
-      <div>
-        <div class="stat-num" aria-label="100% aprovação prévia">100%</div>
-        <div class="stat-label" aria-hidden="true">Aprovação prévia</div>
-      </div>
+    <div class="header-stats">
+      <div class="hstat" title="Respondidas"><span class="hstat-icon">✅</span> <span id="hs-resp">0</span>/<b>50</b></div>
+      <div class="hstat" title="Não respondidas"><span class="hstat-icon">⭕</span> <b id="hs-nao">50</b></div>
+      <div class="hstat" title="Favoritas"><span class="hstat-icon">⭐</span> <b id="hs-fav">0</b></div>
+      <div class="hstat" title="Para revisar"><span class="hstat-icon">📌</span> <b id="hs-rev">0</b></div>
+      <div class="hstat" id="timer-display" title="Tempo de prova"><span class="hstat-icon">⏱</span> <b id="hs-time">00:00</b></div>
+    </div>
+    <div class="header-actions">
+      <button class="btn-sm btn-sim" id="btn-sim" onclick="toggleSimulado()">▶ Simulado</button>
+      <button class="btn-sm btn-dark" onclick="toggleDark()">🌙</button>
     </div>
   </div>
-</section>
+</div>
 
-<!-- DIFERENCIAIS -->
-<section id="diferenciais" aria-labelledby="titulo-diferenciais">
-  <div class="wrap sec reveal">
-    <p class="sec-label">Por que me escolher</p>
-    <h2 id="titulo-diferenciais">Vantagens de trabalhar <span class="accent">comigo</span></h2>
-    <p class="sec-desc">Atendimento pessoal, da sua cidade, com comprometimento real e conhecimento da área de saúde.</p>
-    <div class="diff-grid">
-      <div class="diff-card">
-        <div class="diff-icon" aria-hidden="true">🎓</div>
-        <h3>Formação em saúde</h3>
-        <p>Acadêmico de Fisioterapia. Comunico saúde com precisão técnica e responsabilidade.</p>
+<!-- LAYOUT -->
+<div class="container">
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <div class="filter-group">
+      <div class="sidebar-title">📊 Progresso</div>
+      <div class="sidebar-progress">
+        <div class="prog-label"><span>Respondidas</span><span id="prog-pct">0%</span></div>
+        <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
       </div>
-      <div class="diff-card">
-        <div class="diff-icon" aria-hidden="true">📍</div>
-        <h3>Sou de Jequié</h3>
-        <p>Atendimento presencial disponível. Conheço o público local e vou até você para captar conteúdo real.</p>
-      </div>
-      <div class="diff-card">
-        <div class="diff-icon" aria-hidden="true">🎨</div>
-        <h3>Design com cuidado</h3>
-        <p>Feed organizado, estética coerente e identidade visual consistente em cada publicação.</p>
-      </div>
-      <div class="diff-card">
-        <div class="diff-icon" aria-hidden="true">✅</div>
-        <h3>Você aprova tudo</h3>
-        <p>Nada vai ao ar sem sua aprovação. Comunicação direta, sem intermediários.</p>
+      <div class="stats-mini">
+        <div class="stat-box"><b id="sm-resp">0</b><span>Respondidas</span></div>
+        <div class="stat-box"><b id="sm-nao">50</b><span>Pendentes</span></div>
+        <div class="stat-box"><b id="sm-fav">0</b><span>Favoritas</span></div>
+        <div class="stat-box"><b id="sm-rev">0</b><span>Revisão</span></div>
       </div>
     </div>
-  </div>
-</section>
-
-<div class="divider" role="separator"></div>
-
-<!-- SERVIÇOS -->
-<section id="servicos" class="bg-gray" aria-labelledby="titulo-servicos">
-  <div class="wrap sec reveal">
-    <p class="sec-label">O que está incluído</p>
-    <h2 id="titulo-servicos">O que você <span class="accent">recebe</span></h2>
-    <p class="sec-desc">Tudo que seu perfil precisa para crescer com consistência e profissionalismo.</p>
-    <div class="srv-grid">
-
-      <div class="srv-item">
-        <div class="srv-bar" aria-hidden="true"></div>
-        <div>
-          <h4>Posts para o Feed</h4>
-          <p>Artes visuais com identidade do negócio, legenda e hashtags estratégicas.</p>
-        </div>
-      </div>
-
-      <div class="srv-item">
-        <div class="srv-bar" aria-hidden="true"></div>
-        <div>
-          <h4>Stories</h4>
-          <p>Bastidores, rotina, enquetes e informações rápidas para manter o engajamento diário.</p>
-        </div>
-      </div>
-
-      <div class="srv-item">
-        <div class="srv-bar" aria-hidden="true"></div>
-        <div>
-          <h4>Reels com roteiro</h4>
-          <p>Crio o roteiro e edito os vídeos curtos para ampliar o alcance orgânico.</p>
-        </div>
-      </div>
-
-      <div class="srv-item">
-        <div class="srv-bar" aria-hidden="true"></div>
-        <div>
-          <h4>Visitas para captação</h4>
-          <p>Vou até você para filmar e fotografar o dia a dia. Conteúdo real gera mais conexão.</p>
-        </div>
-      </div>
-
-      <div class="srv-item">
-        <div class="srv-bar" aria-hidden="true"></div>
-        <div>
-          <h4>Agenda de conteúdo</h4>
-          <p>Planejo as visitas conforme os dias mais movimentados do seu negócio.</p>
-        </div>
-      </div>
-
-      <div class="srv-item">
-        <div class="srv-bar" aria-hidden="true"></div>
-        <div>
-          <h4>Planejamento mensal</h4>
-          <p>Calendário completo com todos os conteúdos organizados com antecedência.</p>
-        </div>
-      </div>
-
-      <div class="srv-item">
-        <div class="srv-bar" aria-hidden="true"></div>
-        <div>
-          <h4>Relatório de resultados</h4>
-          <p>Resumo mensal com alcance, engajamento e crescimento do perfil.</p>
-        </div>
-      </div>
-
-      <div class="srv-item srv-iv">
-        <div class="srv-bar" aria-hidden="true"></div>
-        <div>
-          <h4>Identidade Visual</h4>
-          <p>Criação de logo, paleta de cores, tipografia e manual de marca — para que o negócio tenha uma cara profissional e reconhecível em todos os canais.</p>
-          <span class="srv-iv-price">💰 Precificação à parte · valor consultado e repassado ao cliente</span>
-        </div>
-      </div>
-
+    <div class="filter-group">
+      <div class="sidebar-title">📚 Tema</div>
+      <button class="filter-btn active" onclick="setFilter('topic','all')" id="f-topic-all"><span class="filter-dot dot-all"></span> Todos (50)</button>
+      <button class="filter-btn" onclick="setFilter('topic','radiografia')" id="f-topic-radiografia"><span class="filter-dot dot-rad"></span> Radiografia (17)</button>
+      <button class="filter-btn" onclick="setFilter('topic','tc')" id="f-topic-tc"><span class="filter-dot dot-tc"></span> Tomografia (17)</button>
+      <button class="filter-btn" onclick="setFilter('topic','rm')" id="f-topic-rm"><span class="filter-dot dot-rm"></span> Ressonância (16)</button>
     </div>
-  </div>
-</section>
-
-<div class="divider" role="separator"></div>
-
-<!-- PACOTES -->
-<section id="pacotes" aria-labelledby="titulo-pacotes">
-  <div class="wrap sec reveal">
-    <p class="sec-label">Investimento</p>
-    <h2 id="titulo-pacotes">Pacotes e <span class="accent">valores</span></h2>
-    <p class="sec-desc">Planos pensados para negócios em Jequié e região. Sem surpresas, sem taxas ocultas.</p>
-
-    <div class="pkg-grid">
-
-      <div class="pkg">
-        <p class="pkg-tier">Basic</p>
-        <p class="pkg-price">R$ 400</p>
-        <p class="pkg-period">por mês</p>
-        <div class="pkg-div"></div>
-        <ul>
-          <li>6 posts no feed por mês</li>
-          <li>3 stories por publicação, 3× por semana</li>
-          <li>1 reel por mês com roteiro</li>
-          <li>Legenda e hashtags em cada post</li>
-          <li>Planejamento mensal</li>
-          <li>Aprovação prévia de tudo</li>
-        </ul>
-        <div class="visit-note">📅 2 visitas presenciais por mês para captação de material</div>
-      </div>
-
-      <div class="pkg featured">
-        <span class="pkg-badge">Recomendado</span>
-        <p class="pkg-tier">Intermediário</p>
-        <p class="pkg-price">R$ 700</p>
-        <p class="pkg-period">por mês</p>
-        <div class="pkg-div"></div>
-        <ul>
-          <li>10 posts no feed por mês</li>
-          <li>5 stories todos os dias</li>
-          <li>2 reels por mês com roteiro</li>
-          <li>Legenda e hashtags em cada post</li>
-          <li>Agenda de conteúdo personalizada</li>
-          <li>Planejamento mensal</li>
-          <li>Aprovação prévia de tudo</li>
-          <li>Relatório de resultados</li>
-        </ul>
-        <div class="visit-note">📅 4 visitas presenciais por mês para captação de material</div>
-      </div>
-
-      <div class="pkg">
-        <p class="pkg-tier">Completo</p>
-        <p class="pkg-price">R$ 1.100</p>
-        <p class="pkg-period">por mês</p>
-        <div class="pkg-div"></div>
-        <ul>
-          <li>12 posts no feed por mês</li>
-          <li>5 a 8 stories todos os dias</li>
-          <li>4 reels por mês com roteiro</li>
-          <li>Legenda e hashtags em cada post</li>
-          <li>Agenda de conteúdo personalizada</li>
-          <li>Planejamento mensal</li>
-          <li>Aprovação prévia de tudo</li>
-          <li>Relatório completo de resultados</li>
-        </ul>
-        <div class="visit-note">📅 6 visitas presenciais por mês para captação de material</div>
-      </div>
-
+    <div class="filter-group">
+      <div class="sidebar-title">🎯 Dificuldade</div>
+      <button class="filter-btn active" onclick="setFilter('diff','all')" id="f-diff-all"><span class="filter-dot dot-all"></span> Todas</button>
+      <button class="filter-btn" onclick="setFilter('diff','facil')" id="f-diff-facil"><span class="filter-dot dot-f"></span> Fácil (15)</button>
+      <button class="filter-btn" onclick="setFilter('diff','medio')" id="f-diff-medio"><span class="filter-dot dot-m"></span> Médio (25)</button>
+      <button class="filter-btn" onclick="setFilter('diff','dificil')" id="f-diff-dificil"><span class="filter-dot dot-d"></span> Difícil (10)</button>
     </div>
-  </div>
-</section>
+    <div class="filter-group">
+      <div class="sidebar-title">📋 Status</div>
+      <button class="filter-btn active" onclick="setFilter('status','all')" id="f-status-all"><span class="filter-dot dot-all"></span> Todas</button>
+      <button class="filter-btn" onclick="setFilter('status','respondidas')" id="f-status-respondidas"><span class="filter-dot dot-res"></span> Respondidas</button>
+      <button class="filter-btn" onclick="setFilter('status','nao')" id="f-status-nao"><span class="filter-dot dot-nao"></span> Não respondidas</button>
+      <button class="filter-btn" onclick="setFilter('status','favoritas')" id="f-status-favoritas"><span class="filter-dot dot-fav"></span> Favoritas</button>
+      <button class="filter-btn" onclick="setFilter('status','revisao')" id="f-status-revisao"><span class="filter-dot dot-rev"></span> Revisar depois</button>
+    </div>
+  </aside>
 
-<!-- PROCESSO -->
-<section id="como-funciona" class="bg-gray" aria-labelledby="titulo-como-funciona">
-  <div class="wrap sec reveal">
-    <p class="sec-label">Processo de trabalho</p>
-    <h2 id="titulo-como-funciona">Como <span class="accent">funciona</span></h2>
-    <p class="sec-desc">Do primeiro contato até o perfil no ar, de forma simples e organizada.</p>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num" aria-hidden="true">01</div>
-        <div>
-          <h4>Briefing</h4>
-          <p>Entendo seus objetivos, público e expectativas. Presencial ou WhatsApp.</p>
-        </div>
+  <!-- MAIN -->
+  <main>
+    <!-- DASHBOARD -->
+    <div id="dashboard">
+      <div class="dash-header">
+        <div class="dash-title">📊 Resultado da Prova</div>
+        <div class="dash-sub">Banco de Questões — Diagnóstico por Imagem</div>
+        <div class="dash-grade" id="d-grade">0%</div>
+        <div class="dash-class" id="d-class">Calculando...</div>
       </div>
-      <div class="step">
-        <div class="step-num" aria-hidden="true">02</div>
-        <div>
-          <h4>Proposta</h4>
-          <p>Apresento o pacote mais adequado com escopo, valor e prazo definidos.</p>
+      <div class="dash-body">
+        <div class="dash-grid">
+          <div class="dash-metric good"><b id="d-acertos">0</b><span>Acertos</span></div>
+          <div class="dash-metric bad"><b id="d-erros">0</b><span>Erros</span></div>
+          <div class="dash-metric neutral"><b id="d-puladas">0</b><span>Não respondidas</span></div>
+          <div class="dash-metric time"><b id="d-tempo">00:00</b><span>Tempo total</span></div>
+          <div class="dash-metric neutral"><b id="d-avg">00:00</b><span>Média por questão</span></div>
+          <div class="dash-metric neutral"><b id="d-pct-rad">0%</b><span>🩻 Radiografia</span></div>
+          <div class="dash-metric neutral"><b id="d-pct-tc">0%</b><span>💻 Tomografia</span></div>
+          <div class="dash-metric neutral"><b id="d-pct-rm">0%</b><span>🧲 Ressonância</span></div>
         </div>
-      </div>
-      <div class="step">
-        <div class="step-num" aria-hidden="true">03</div>
-        <div>
-          <h4>Agenda de visitas</h4>
-          <p>Organizamos os melhores dias conforme a rotina do seu negócio.</p>
+        <div class="dash-section-title">Desempenho por Tema</div>
+        <div class="dash-bars">
+          <div class="dbar-row"><span class="dbar-label">🩻 Radiografia (17 q.)</span><div class="dbar-track"><div class="dbar-fill" id="db-rad"></div></div><span class="dbar-pct" id="dbp-rad">0%</span></div>
+          <div class="dbar-row"><span class="dbar-label">💻 Tomografia (17 q.)</span><div class="dbar-track"><div class="dbar-fill teal" id="db-tc"></div></div><span class="dbar-pct" id="dbp-tc">0%</span></div>
+          <div class="dbar-row"><span class="dbar-label">🧲 Ressonância (16 q.)</span><div class="dbar-track"><div class="dbar-fill purple" id="db-rm"></div></div><span class="dbar-pct" id="dbp-rm">0%</span></div>
         </div>
-      </div>
-      <div class="step">
-        <div class="step-num" aria-hidden="true">04</div>
-        <div>
-          <h4>Produção e aprovação</h4>
-          <p>Crio cada conteúdo e envio para aprovação. Ajustes sem custo extra.</p>
+        <div class="dash-section-title">Desempenho por Dificuldade</div>
+        <div class="dash-bars">
+          <div class="dbar-row"><span class="dbar-label">🟢 Fácil (15 q.)</span><div class="dbar-track"><div class="dbar-fill green" id="db-f"></div></div><span class="dbar-pct" id="dbp-f">0%</span></div>
+          <div class="dbar-row"><span class="dbar-label">🟡 Médio (25 q.)</span><div class="dbar-track"><div class="dbar-fill amber" id="db-m"></div></div><span class="dbar-pct" id="dbp-m">0%</span></div>
+          <div class="dbar-row"><span class="dbar-label">🔴 Difícil (10 q.)</span><div class="dbar-track"><div class="dbar-fill red" id="db-d"></div></div><span class="dbar-pct" id="dbp-d">0%</span></div>
         </div>
-      </div>
-      <div class="step">
-        <div class="step-num" aria-hidden="true">05</div>
-        <div>
-          <h4>Publicação</h4>
-          <p>Publico nos melhores horários e acompanho o desempenho ao longo do mês.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num" aria-hidden="true">06</div>
-        <div>
-          <h4>Relatório e renovação</h4>
-          <p>Resultados do mês e alinhamento para o próximo ciclo.</p>
+        <div class="dash-export">
+          <button class="btn-export" onclick="window.print()">🖨 Imprimir Resultado</button>
+          <button class="btn-export" onclick="exportStats()">📄 Exportar Estatísticas</button>
+          <button class="btn-export" onclick="scrollToComm()">💬 Ver Gabarito Comentado</button>
+          <button class="btn-export" onclick="resetAll()" style="color:var(--red)">🔄 Reiniciar Prova</button>
         </div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- CONTATO -->
-<section id="contato" aria-labelledby="titulo-contato">
-  <div class="wrap sec reveal">
-    <p class="sec-label">Fale comigo</p>
-    <h2 id="titulo-contato">Entre em <span class="accent">contato</span></h2>
-    <p class="sec-desc">Sem compromisso. Respondo rápido pelo WhatsApp ou por e-mail.</p>
-    <div class="contact-grid">
-      <a class="contact-card" href="https://wa.me/5573988498375" aria-label="Contato via WhatsApp: +55 73 98849-8375">
-        <div class="contact-icon" aria-hidden="true">💬</div>
-        <div class="contact-label">WhatsApp</div>
-        <div class="contact-value">+55 (73) 98849-8375</div>
-        <div class="contact-hint">Atendimento rápido · clique para abrir</div>
-      </a>
-      <a class="contact-card" href="mailto:brtwfaruk010@gmail.com" aria-label="Contato via e-mail: brtwfaruk010@gmail.com">
-        <div class="contact-icon" aria-hidden="true">✉️</div>
-        <div class="contact-label">E-mail</div>
-        <div class="contact-value">brtwfaruk010@gmail.com</div>
-        <div class="contact-hint">Para propostas e orçamentos</div>
-      </a>
+    <!-- CONTROLS -->
+    <div class="controls-bar">
+      <button class="btn-corrigir" id="btn-corrigir" onclick="corrigir()">✅ Corrigir Prova</button>
+      <div class="nav-btns">
+        <button class="btn-nav" onclick="navPrev()">← Anterior</button>
+        <button class="btn-nav" onclick="navNext()">Próxima →</button>
+      </div>
+      <div class="q-jump">
+        Ir para: <input type="number" id="q-goto" min="1" max="50" placeholder="Nº">
+        <button class="btn-go" onclick="goToQ()">Ir</button>
+      </div>
     </div>
-  </div>
-</section>
 
-<!-- CTA FINAL -->
-<section class="cta-sec reveal" aria-label="Chamada para ação">
-  <div class="cta-inner">
-    <p class="sec-label">Vamos começar</p>
-    <h2>Pronto para um Instagram que <span class="accent">funciona de verdade?</span></h2>
-    <p class="cta-desc">Entre em contato agora, sem compromisso.</p>
-    <a href="https://wa.me/5573988498375" class="btn-white" aria-label="Falar pelo WhatsApp">💬 Falar no WhatsApp</a>
-  </div>
-</section>
+    <!-- QUESTIONS -->
+    <div id="q-container"></div>
+    <div id="empty-state" class="empty-state" style="display:none">
+      <span class="emoji">🔍</span>
+      <p>Nenhuma questão corresponde ao filtro selecionado.</p>
+    </div>
 
-</main>
+    <!-- GABARITO COMENTADO -->
+    <div id="gabarito-section" style="display:none;margin-top:32px">
+      <h2 style="font-size:1.2rem;font-weight:800;margin-bottom:16px;padding:16px 0 12px;border-bottom:2px solid var(--primary);color:var(--primary)">💬 Gabarito Comentado</h2>
+      <div id="gabarito-container"></div>
+    </div>
+  </main>
+</div>
 
-<footer>
-  <p>Gestão de Instagram · Jequié, BA</p>
-  <p>© 2025 · Todos os direitos reservados</p>
-</footer>
+<!-- BACK TO TOP -->
+<button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Voltar ao topo">↑</button>
+<div id="toast"></div>
 
 <script>
-  (function () {
-    'use strict';
+// ============================================================
+// DADOS DAS QUESTÕES — DIAGNÓSTICO POR IMAGEM
+// ============================================================
+const QUESTIONS = [
+// ===================== RADIOGRAFIA — FÁCIL =====================
+{id:1,topic:"radiografia",difficulty:"facil",banca:"VUNESP",
+q:"Os raios-X foram descobertos em 1895, inaugurando a era do diagnóstico por imagem. Qual cientista é creditado por essa descoberta e em que país ela ocorreu?",
+alts:["Marie Curie, na França, em 1895, durante estudos sobre radioatividade","Wilhelm Conrad Röntgen, na Alemanha, em 1895, ao observar que um feixe desconhecido de radiação atravessava a matéria","Paul Lauterbur, nos EUA, em 1895, ao desenvolver as primeiras imagens por ressonância","Godfrey Hounsfield, na Inglaterra, em 1895, ao construir o primeiro tomógrafo","Allan Cormack, na África do Sul, em 1895, ao formular a base matemática para imagens seccionais"],
+correct:"B",
+just:"Wilhelm Conrad Röntgen, físico alemão, descobriu os raios-X em 1895 durante experimentos com tubos de descarga de elétrons (tubos de Crookes). Ao observar que um feixe desconhecido era capaz de atravessar materiais opacos à luz e impressionar chapas fotográficas, denominou-os 'raios-X' (X de desconhecido). Röntgen recebeu o primeiro Prêmio Nobel de Física em 1901 por essa descoberta. Paul Lauterbur e Peter Mansfield receberam o Nobel de Medicina em 2003 pela RM, e Hounsfield e Cormack receberam o Nobel de Medicina em 1979 pela TC.",
+wrong:{A:"Marie Curie estudou radioatividade (rádio e polônio), não raios-X, e recebeu Nobel em 1903 (Física) e 1911 (Química).",C:"Paul Lauterbur é co-inventor da Ressonância Magnética (Nobel 2003), não dos raios-X.",D:"Godfrey Hounsfield é o co-inventor da Tomografia Computadorizada (Nobel 1979), não dos raios-X.",E:"Allan Cormack é o co-inventor da Tomografia Computadorizada (Nobel 1979), não dos raios-X."}
+},
+{id:2,topic:"radiografia",difficulty:"facil",banca:"FGV",
+q:"Na escala de densidades radiológicas usada na interpretação de radiografias convencionais, qual estrutura anatômica apresenta coloração mais ESCURA (preta) na imagem?",
+alts:["Osso compacto, por sua elevada concentração de cálcio e alto número atômico","Metal (implantes e próteses), por ser extremamente radiopaco","Tecido mole (músculos e órgãos), por apresentar densidade intermediária","Ar, presente nos pulmões, traqueia e alças intestinais, por ser altamente radiotransparente","Gordura subcutânea, por ter densidade próxima à da água"],
+correct:"D",
+just:"O ar é a estrutura mais radiotransparente, absorvendo mínima quantidade de radiação. Por isso, quase toda a radiação atravessa o ar e atinge o detector, registrando uma área de máxima exposição — que na radiografia convencional aparece como preto intenso. Essa propriedade é observada nos pulmões, traqueia, estômago e alças intestinais em condições normais.",
+wrong:{A:"O osso compacto é radiopaco (branco), pois o cálcio tem alto número atômico e absorve muita radiação.",B:"O metal é o mais radiopaco de todos, aparecendo como branco intenso (pura radiopacidade).",C:"O tecido mole/líquido aparece em cinza claro — radiopaco moderado — não como preto.",E:"A gordura aparece como cinza escuro (radiotransparente moderada), mas ainda mais clara que o ar."}
+},
+{id:3,topic:"radiografia",difficulty:"facil",banca:"CESPE",
+q:"O princípio fundamental da formação de imagem radiográfica é a atenuação diferencial. Qual alternativa descreve CORRETAMENTE o mecanismo pelo qual uma estrutura aparece BRANCA (radiopaca) na radiografia?",
+alts:["Alta transmissão do feixe de raios-X pela estrutura, resultando em maior exposição do detector nessa região","Alta atenuação do feixe pelo tecido — absorção de grande quantidade de radiação —, reduzindo a intensidade do feixe residual que atinge o detector, gerando menor exposição nessa área","Reflexão total do feixe de raios-X pela superfície da estrutura, impedindo a formação de imagem local","Difração dos raios-X ao atravessar tecidos heterogêneos, criando padrão de interferência que escurece o detector","Absorção total pelo detector, sem dependência das características do tecido interposto"],
+correct:"B",
+just:"Estruturas radiopacas (brancas na radiografia) são aquelas que ATENUAM intensamente o feixe de raios-X — ou seja, absorvem grande quantidade de radiação. Como menos radiação chega ao detector nessa região, o detector registra menor exposição → área clara/branca na imagem. Os três fatores que determinam o grau de atenuação são: densidade do tecido (ρ), número atômico (Z) e espessura (d). Osso, cálcio e metal têm alta densidade e/ou alto Z, resultando em grande atenuação.",
+wrong:{A:"Alta transmissão significa MENOR atenuação → mais radiação atinge o detector → área escura/preta (radiotransparente), não branca.",C:"Os raios-X sofrem transmissão, absorção e espalhamento (efeito Compton), mas não reflexão total como a luz.",D:"A difração é irrelevante para fins de formação de imagem diagnóstica na faixa de energia dos raios-X médicos.",E:"A formação da imagem depende fundamentalmente das características dos tecidos atravessados (densidade, Z, espessura)."}
+},
+{id:4,topic:"radiografia",difficulty:"facil",banca:"IBFC",
+q:"Nas radiografias convencionais, reconhecem-se 5 densidades radiológicas distintas. Assinale a alternativa que apresenta a ordenação CORRETA dessas densidades, da mais densa (aparência mais branca) para a menos densa (aparência mais preta):",
+alts:["Ar → Gordura → Tecido mole → Osso → Metal","Metal → Osso → Tecido mole → Gordura → Ar","Osso → Metal → Gordura → Ar → Tecido mole","Metal → Tecido mole → Osso → Gordura → Ar","Osso → Gordura → Metal → Tecido mole → Ar"],
+correct:"B",
+just:"A sequência das 5 densidades radiológicas, do mais radiopaco (branco) ao mais radiotransparente (preto), é: (1) Metal — branco intenso, absorve quase toda a radiação (implantes, projéteis, próteses); (2) Osso/Cálcio — branco, Z elevado do cálcio; (3) Tecido mole/Líquido — cinza claro (músculos, órgãos, sangue, água); (4) Gordura — cinza escuro (tecido adiposo subcutâneo e visceral); (5) Ar — preto, mínima atenuação (pulmões, traqueia, alças intestinais).",
+wrong:{A:"Esta alternativa apresenta a ordem invertida, da menos densa para a mais densa.",C:"Osso não é mais denso que metal; metal é sempre a densidade mais alta. A ordem interna também está errada.",D:"Tecido mole não é mais denso que osso; a sequência intermediária está incorreta.",E:"Metal é sempre o mais denso; osso não supera o metal em radiopacidade."}
+},
+{id:5,topic:"radiografia",difficulty:"facil",banca:"AOCP",
+q:"No tubo de raios-X, o processo de geração ocorre pela aceleração de elétrons em direção ao ânodo. Qual componente do tubo é responsável por LIBERAR os elétrons iniciais através do fenômeno de emissão termiônica?",
+alts:["Ânodo, pois é o polo positivo que atrai os elétrons do filamento externo","Gantry, estrutura que abriga e gira o tubo durante o exame","Cátodo, composto pelo filamento de tungstênio aquecido por corrente elétrica que libera elétrons por emissão termiônica","Bobina de gradiente, responsável pela variação do campo magnético no tubo","Detector de imagem (filme ou sensor digital), que converte a radiação residual em sinal"],
+correct:"C",
+just:"O cátodo é o eletrodo negativo do tubo de raios-X. É composto por um filamento fino de tungstênio que, ao ser aquecido por uma corrente elétrica (efeito Joule), emite elétrons por emissão termiônica — processo pelo qual elétrons adquirem energia suficiente para escapar da superfície metálica. Esses elétrons são então acelerados pela alta tensão (kV) em direção ao ânodo. O ânodo (polo positivo) é o alvo metálico (tungstênio) onde os elétrons colidem para gerar os raios-X.",
+wrong:{A:"O ânodo é o alvo metálico onde os elétrons colidem para gerar os raios-X, não o local de emissão de elétrons.",B:"O gantry é um componente da TC (estrutura circular que abriga tubo e detectores), não do tubo convencional de raios-X.",D:"Bobinas de gradiente são componentes dos aparelhos de Ressonância Magnética, não dos tubos de raios-X.",E:"O detector registra o feixe residual após atravessar o paciente; não é responsável pela geração de elétrons."}
+},
 
-    /* ── HAMBURGER ─────────────────────────────────────────────── */
-    var toggle   = document.querySelector('.nav-toggle');
-    var navLinks = document.querySelector('.nav-links');
+// ===================== RADIOGRAFIA — MÉDIO =====================
+{id:6,topic:"radiografia",difficulty:"medio",banca:"CESPE",
+q:"Paciente masculino de 32 anos, vítima de trauma torácico fechado, chega ao pronto-socorro com dispneia súbita e dor pleurítica. A radiografia de tórax em PA evidencia hipertransparência no hemitórax direito, ausência de marcas vasculares nessa região e desvio de traqueia para a esquerda. Qual é o diagnóstico radiológico mais provável e qual mecanismo fisiopatológico explica a hipertransparência?",
+alts:["Pneumonia lobar direita — a consolidação alveolar por exsudato inflamatório cria área hipertransparente por destruição do parênquima","Derrame pleural volumoso — o acúmulo de líquido no espaço pleural eleva a radiotransparência da base pulmonar","Pneumotórax hipertensivo — presença de ar livre no espaço pleural (radiotransparente) que colapsa o parênquima pulmonar, eliminando as marcas vasculares; o aumento da pressão intratorácica desvia o mediastino para o lado oposto","Enfisema pulmonar difuso — a destruição alveolar cria hipertransparência bilateral por aprisionamento de ar","Atelectasia lobar — o colapso do lobo superior gera hipotransparência, não hipertransparência"],
+correct:"C",
+just:"O quadro descreve pneumotórax hipertensivo: o ar livre no espaço pleural é radiotransparente (preto), eliminando as marcas vasculares do parênquima pulmonar normalmente visíveis. A ausência de marcas vasculares é o achado-chave que diferencia o pneumotórax de pulmão normal. O desvio da traqueia para o lado contralateral indica tensão (pressão positiva no espaço pleural) — emergência que exige descompressão imediata.",
+wrong:{A:"A pneumonia causa OPACIDADE (radiopacidade/branco), não hipertransparência, pois os alvéolos são preenchidos por exsudato.",B:"O derrame pleural também causa OPACIDADE (cinza/branco) pela densidade do líquido, e usualmente não desvia a traqueia para longe, ou sim desvia por efeito de massa.",D:"O enfisema causa hipertransparência BILATERAL, mas não há ausência completa de marcas vasculares em um hemitórax e não há desvio de traqueia.",E:"A atelectasia causa HIPOTRANSPARÊNCIA (opacidade) pelo colapso do parênquima, com eventual desvio da traqueia para o MESMO lado da lesão (ao contrário do pneumotórax)."}
+},
+{id:7,topic:"radiografia",difficulty:"medio",banca:"FGV",
+q:"Sobre o princípio da atenuação diferencial — base física da formação de imagem radiográfica —, assinale a alternativa CORRETA:",
+alts:["O feixe de raios-X atravessa todos os tecidos com intensidade idêntica, sendo as diferenças de imagem criadas artificialmente pelo processamento digital do detector","Diferentes tecidos absorvem quantidades distintas de radiação em função de três fatores: densidade (ρ), número atômico (Z) e espessura (d) do tecido; essas diferenças na intensidade do feixe residual que atinge o detector geram o contraste da imagem","Os raios-X são absorvidos integralmente pela pele e tecidos superficiais, de modo que a imagem representa apenas a superfície corporal","Apenas o número atômico do tecido determina o grau de atenuação; a densidade e a espessura são fatores irrelevantes para a formação da imagem","O feixe residual que atinge o detector é sempre homogêneo — os tecidos não interferem na intensidade — e a imagem é criada por variações locais na sensibilidade do detector"],
+correct:"B",
+just:"A atenuação diferencial é o mecanismo central da formação de imagem por raios-X. Os três fatores que governam o grau de atenuação são: (1) Densidade (ρ) — tecidos mais densos atenuam mais (osso > tecido mole > gordura > ar); (2) Número atômico (Z) — elementos de Z elevado (cálcio: Z=20, iodo: Z=53) atenuam mais; (3) Espessura (d) — quanto mais espessa a estrutura, maior a atenuação. As variações na intensidade do feixe residual que emerge do paciente e atinge o detector criam o contraste que compõe a imagem radiográfica.",
+wrong:{A:"Todos os tecidos modificam a intensidade do feixe de formas distintas — é exatamente isso que possibilita a imagem radiográfica.",C:"Os raios-X são radiação penetrante por natureza; atravessam todas as camadas do corpo em graus diferentes de atenuação.",D:"Os três fatores (ρ, Z e d) são igualmente relevantes. Um tecido pouco denso mas muito espesso pode atenuar tão bem quanto um tecido denso e fino.",E:"A intensidade do feixe residual varia em função das estruturas atravessadas — essa variação é a base física da imagem radiográfica."}
+},
+{id:8,topic:"radiografia",difficulty:"medio",banca:"AOCP",
+q:"Paciente de 65 anos é internada com febre (39°C), tosse produtiva com escarro purulento e dispneia há 4 dias. A radiografia de tórax mostra opacidade homogênea no lobo inferior direito, com presença de broncograma aéreo. Qual é o diagnóstico radiológico mais provável e o que o broncograma aéreo representa fisiopatologicamente?",
+alts:["Derrame pleural, e o broncograma aéreo representa a curvatura superior do líquido (sinal do menisco)","Enfisema pulmonar, e o broncograma aéreo indica destruição do parênquima alveolar com aprisionamento de ar nos brônquios","Consolidação pulmonar (pneumonia), e o broncograma aéreo representa os brônquios permeáveis (cheios de ar) visíveis como linhas escuras dentro da opacidade branca, confirmando a ocupação alveolar","Atelectasia por obstrução brônquica, e o broncograma aéreo confirma a permeabilidade do brônquio","Pneumotórax lobar, e o broncograma aéreo representa a periferia do pulmão colapsado"],
+correct:"C",
+just:"A consolidação pulmonar (como a pneumonia bacteriana) ocorre quando os alvéolos, normalmente preenchidos por ar, são substituídos por exsudato inflamatório (líquido, células, debris). Na radiografia, aparecem como opacidade homogênea (branca/cinza claro). O broncograma aéreo é o sinal patognomônico: os brônquios, que permanecem permeáveis e cheios de ar (radiotransparentes), aparecem como linhas escuras dentro da opacidade branca. Isso confirma que a opacidade é de origem alveolar e que o brônquio central está pérvio.",
+wrong:{A:"O derrame pleural causa opacidade côncava (sinal do menisco) nas bases, geralmente sem broncograma aéreo, pois é líquido no espaço pleural — fora do parênquima.",B:"O enfisema causa hipertransparência (excesso de ar), não opacidade. A destruição alveolar não produz broncograma aéreo.",D:"Na atelectasia por obstrução, os brônquios são obstruídos — logo, o broncograma aéreo ESTÁ AUSENTE. Sua presença diferencia consolidação de atelectasia.",E:"O pneumotórax causa hipertransparência periférica, sem opacidade e sem broncograma aéreo."}
+},
+{id:9,topic:"radiografia",difficulty:"medio",banca:"CESGRANRIO",
+q:"No tubo de raios-X, a energia cinética dos elétrons acelerados é convertida ao colidirem com o ânodo de tungstênio. Qual é a relação CORRETA entre as formas de conversão de energia?",
+alts:["Aproximadamente 99% da energia cinética é convertida em raios-X, com apenas 1% em calor — daí a alta eficiência do tubo de raios-X","Toda a energia cinética é convertida igualmente em calor e raios-X (50% cada), sendo essa razão constante independentemente da tensão aplicada","Aproximadamente 99% da energia cinética é convertida em CALOR, e apenas 1% é efetivamente transformada em raios-X — daí a necessidade de dissipação térmica no tubo","A conversão de energia depende exclusivamente do material do cátodo (filamento), sendo o ânodo apenas um eletrodo passivo","A energia cinética é convertida apenas em luz visível pelo ânodo de tungstênio, sendo os raios-X um subproduto da fluorescência"],
+correct:"C",
+just:"O processo de geração de raios-X é extremamente ineficiente: quando os elétrons de alta velocidade colidem com o ânodo de tungstênio, aproximadamente 99% da energia cinética é convertida em CALOR (vibração da rede cristalina do tungstênio) e apenas ~1% é convertida em raios-X (via bremsstrahlung e radiação característica). Essa baixa eficiência explica por que os tubos de raios-X exigem sistemas eficientes de dissipação de calor: ânodos rotativos, resfriamento a óleo e carcaças com dissipação térmica.",
+wrong:{A:"A afirmativa está invertida. Apenas ~1% gera raios-X; a grande maioria (~99%) é dissipada como calor.",B:"A razão não é 50/50 — o tubo é essencialmente um gerador de calor que, como subproduto, gera raios-X (apenas ~1% da energia).",D:"A conversão energética ocorre principalmente no ÂNODO, onde os elétrons colidem e transferem energia para o material. O cátodo apenas emite os elétrons.",E:"O tungstênio não emite fluorescência visível relevante nesse processo. Os raios-X são produzidos por bremsstrahlung (desaceleração pelo núcleo) e radiação característica."}
+},
+{id:10,topic:"radiografia",difficulty:"medio",banca:"IBFC",
+q:"Paciente com histórico de neoplasia renal apresenta radiografia de bacia e coluna lombar. O laudo descreve 'múltiplas lesões líticas com áreas de radiotransparência dentro do tecido ósseo'. Qual é o diagnóstico mais provável e por que essas lesões aparecem escuras no osso normalmente branco?",
+alts:["Fratura por compressão vertebral — a perda de altura vertebral gera radiotransparência linear entre as vértebras","Osteossarcoma — tumores ósseos sempre depositam cálcio, gerando hiperdensidade e não radiotransparência","Lesões ósseas líticas por metástases — o tecido ósseo mineralizado (rico em cálcio, responsável pela radiopacidade) é destruído e substituído por tecido tumoral de baixa densidade, gerando áreas escuras (radiotransparentes) dentro do osso branco","Osteoporose grave — a perda global de mineral ósseo gera áreas focais de radiotransparência","Calcificação distrófica — depósitos de cálcio em tecido necrótico aparecem como áreas escuras em osso cortical"],
+correct:"C",
+just:"As lesões ósseas líticas representam destruição e reabsorção do tecido ósseo mineralizado. O cálcio (Z=20, alta densidade) é o principal responsável pela radiopacidade do osso — aparência branca nas radiografias. Quando o câncer metastático (neste caso, carcinoma renal) destrói o tecido ósseo, a área perde cálcio e passa a ser ocupada por tecido tumoral de baixa densidade → radiotransparência (área escura) dentro do osso branco. Além de metástases (principalmente carcinomas de rim, pulmão, mama, próstata e tireoide), outras causas de lesões líticas incluem mieloma múltiplo e osteomielite.",
+wrong:{A:"Fraturas de compressão geram perda de altura vertebral sem necessariamente criar áreas líticas típicas; o padrão descrito é de lesões múltiplas características de metástases.",B:"Osteossarcoma geralmente causa lesões MISTAS (osteolíticas e osteoblásticas) — nem sempre puramente líticas. Além disso, metástases são muito mais comuns que osteossarcoma em adultos.",D:"A osteoporose causa redução DIFUSA e uniforme da densidade óssea, não lesões focais líticas múltiplas.",E:"Calcificações distróficas são hiperdensas (brancas), não hipodensas (escuras). São o oposto do descrito."}
+},
+{id:11,topic:"radiografia",difficulty:"medio",banca:"Consulplan",
+q:"Na radiografia convencional de abdômen de um paciente com suspeita de obstrução intestinal, o laudo menciona 'nível hidroaéreo em múltiplas alças de delgado'. Qual é a interpretação CORRETA desse achado radiológico com base nas densidades radiológicas?",
+alts:["O nível hidroaéreo aparece como área completamente branca, pois tanto o ar quanto o líquido são radiopacos em alças distendidas","O ar, sendo radiotransparente (preto), ocupa a porção superior da alça distendida, enquanto o líquido, sendo radiopaco (cinza/branco), ocupa a porção inferior; a interface horizontal entre as duas densidades forma o clássico nível hidroaéreo","O ar e o líquido possuem densidades radiológicas idênticas, tornando impossível sua diferenciação sem uso de contraste","O nível hidroaéreo é visto apenas no cólon, e não no intestino delgado","O líquido intestinal é mais radiotransparente que o ar, aparecendo mais escuro e formando a porção superior do nível"],
+correct:"B",
+just:"O nível hidroaéreo é um achado clássico de obstrução intestinal (ou íleo paralítico). Dentro de uma alça distendida, o ar (radiotransparente → preto) migra para a porção superior pelo seu menor peso, enquanto o líquido (densidade de tecido mole → cinza/branco) acumula-se na porção inferior. A interface horizontal entre essas duas densidades distintas forma o nível hidroaéreo característico — um 'corte' entre o preto do ar e o cinza do líquido, visível tanto em PA quanto em decúbito lateral com raios horizontais.",
+wrong:{A:"O ar é radiotransparente (preto) e o líquido é radiopaco (cinza). O nível hidroaéreo é definido justamente pela diferença entre essas duas densidades, não pela uniformidade.",C:"Ar e líquido têm densidades radiológicas claramente diferentes: ar = preto (−1000 UH em TC) e líquido/tecido mole = cinza (~0-30 UH em TC).",D:"Níveis hidroaéreos podem ocorrer em qualquer segmento do intestino, incluindo alças do delgado — isso é inclusive sugestivo de obstrução de delgado.",E:"O ar é SEMPRE mais radiotransparente (preto) e ocupa a porção superior pela menor densidade física (g/mL). O líquido, mais denso, ocupa a porção inferior."}
+},
+{id:12,topic:"radiografia",difficulty:"medio",banca:"VUNESP",
+q:"Na radiografia de tórax em PA, o derrame pleural manifesta-se inicialmente como obliteração do seio costofrênico, evoluindo para opacidade homogênea com 'sinal do menisco'. O que representa esse sinal e qual é a fisiopatologia do achado?",
+alts:["O sinal do menisco é a opacidade convexa para cima formada pelo pulmão consolidado; o seio costofrênico livre indica ausência de derrame","O sinal do menisco é uma calcificação pleural côncava, tipicamente associada ao mesotelioma maligno","O sinal do menisco representa a curvatura côncava superior do líquido acumulado no espaço pleural; é gerado pela interface entre o líquido (denso, cinza/branco) e o pulmão aerado (preto), moldada pela pressão pleural negativa; o seio costofrênico é a primeira estrutura obliterada","O sinal do menisco representa o ar subpleural formado no pneumotórax e é sempre bilateral","O sinal do menisco é visto apenas na incidência em decúbito lateral e nunca na PA em ortostase"],
+correct:"C",
+just:"O derrame pleural acumula-se gravitacionalmente no espaço costofrênico (entre a pleura parietal e visceral, nas bases pulmonares). Na radiografia PA em ortostase: (1) O seio costofrênico (ângulo entre o diafragma e a costela) é obliterado primeiro — necessário ~200-300 mL de líquido para isso. (2) Com maior volume, o líquido sobe lateralmente e forma a curva côncava superior (sinal do menisco), moldada pela pressão pleural negativa. O líquido (densidade de tecido mole → cinza/branco) contrasta com o pulmão aerado adjacente (ar → preto), criando o aspecto característico.",
+wrong:{A:"O pulmão consolidado cria opacidade mas sem o aspecto côncavo curvo típico do líquido. O derrame oblitera o seio costofrênico, não o libera.",B:"A calcificação pleural seria hiperopaca (branca intensa) e geraria contornos irregulares — diferente do aspecto meniscoide homogêneo do derrame.",D:"O pneumotórax cria hipertransparência (ar) com linha pleural visível — completamente diferente do sinal do menisco, que é uma opacidade.",E:"O sinal do menisco é visível na PA em ortostase (posição padrão do exame). A incidência em decúbito lateral revela derrames menores (abaixo de 200 mL)."}
+},
+{id:13,topic:"radiografia",difficulty:"medio",banca:"CESGRANRIO",
+q:"Sobre as propriedades fundamentais dos raios-X que os caracterizam como radiação eletromagnética ionizante, assinale a alternativa INCORRETA:",
+alts:["São invisíveis a olho nu e viajam à velocidade da luz no vácuo, tal como a luz visível e as ondas de rádio","Possuem alta capacidade de penetração, atravessando a matéria com diferentes graus de atenuação conforme as propriedades do material","São radiação ionizante — capazes de remover elétrons dos átomos —, o que fundamenta tanto a formação de imagem quanto os riscos biológicos","Possuem massa significativa (similar à massa do elétron), o que explica sua capacidade de penetrar os tecidos corporais","São uma forma de radiação eletromagnética de alta energia e curto comprimento de onda, integrando o espectro eletromagnético entre os raios ultravioleta e os raios gama"],
+correct:"D",
+just:"A alternativa D está INCORRETA. Os raios-X, como toda radiação eletromagnética, são compostos por fótons — partículas SEM MASSA de repouso. Não é a massa que determina sua capacidade de penetração, mas sim sua alta energia (associada ao curto comprimento de onda e alta frequência). A penetração é possível porque os fótons de raios-X carregam energia suficiente para interagir com os elétrons dos átomos dos tecidos, sendo parcialmente absorvidos ou espalhados durante esse processo.",
+wrong:{A:"Correto. Como toda radiação eletromagnética, os raios-X viajam à velocidade da luz (c ≈ 3×10⁸ m/s) e são invisíveis.",B:"Correto. A alta penetração é uma das propriedades essenciais que torna os raios-X úteis para diagnóstico.",C:"Correto. A ionização é a capacidade de remover elétrons de átomos, base tanto da formação de imagem (interação com o detector) quanto dos riscos biológicos (dano ao DNA).",E:"Correto. Os raios-X ocupam a faixa entre os raios ultravioleta (UV) e os raios gama no espectro eletromagnético, com comprimentos de onda de 0,01 a 10 nm."}
+},
 
-    function closeMenu() {
-      navLinks.classList.remove('open');
-      toggle.classList.remove('open');
-      toggle.setAttribute('aria-expanded', 'false');
+// ===================== RADIOGRAFIA — DIFÍCIL =====================
+{id:14,topic:"radiografia",difficulty:"dificil",banca:"FGV",
+q:"Paciente feminina de 2 anos é trazida ao PS com engasgamento e sialorréia. A radiografia de tórax em AP mostra objeto ovóide de densidade metálica (branco intenso) na projeção do esôfago cervical. Baseado nos princípios da interpretação radiológica e na clínica pediátrica, analise e assinale a alternativa mais adequada sobre a conduta e o raciocínio diagnóstico:",
+alts:["A densidade branca intensa pode ser artefato de incidência; deve-se repetir a radiografia em PA antes de qualquer conduta","O objeto com densidade metálica no esôfago é diagnóstico de arco aórtico direito — variante anatômica normal em lactentes","O objeto de alta densidade metálica no esôfago torácico inferior requer avaliação urgente; moedas exigem observação clínica, mas pilhas (baterias) de disco são emergência absoluta pois causam queimadura química progressiva por corrente elétrica e liberação de hidróxido de sódio — podendo perfurar o esôfago em horas","A localização esofágica exclui corpo estranho; somente objetos na traqueia causam sialorréia","O branco intenso indica necrose tissular por hipóxia — o achado radiológico representa calcificação pós-inflamatória e não requer intervenção imediata"],
+correct:"C",
+just:"Corpos estranhos metálicos aparecem como branco intenso (radiopacidade máxima) na radiografia, pois o metal possui altíssima densidade e Z elevado. Em crianças, a ingestão acidental de moedas, baterias e pilhas de disco é frequente. As baterias de disco são emergência absoluta: o campo elétrico gerado pela corrente entre os polos causa necrose liquefativa da mucosa esofágica em menos de 2 horas, podendo progredir para perfuração, fístula traqueoesofágica ou lesão vascular fatal. A sialorréia indica obstrução esofágica alta. Endoscopia urgente é obrigatória.",
+wrong:{A:"A alta densidade metálica é inequívoca e não é artefato. Repetir radiografia atrasa a conduta em uma emergência potencial.",B:"O arco aórtico direito é uma variante vascular que não aparece como objeto sólido com densidade metálica intensa — é uma estrutura vascular com densidade de tecido mole.",D:"A sialorréia é sinal de obstrução do esôfago. Objetos no esôfago impedem a deglutição de saliva, sendo a localização esofágica a mais comum para corpos estranhos em crianças.",E:"A calcificação pós-inflamatória teria contornos irregulares e história clínica diferente. O contexto de criança com engasgamento agudo e densidade metálica é inequívoco."}
+},
+{id:15,topic:"radiografia",difficulty:"dificil",banca:"CESPE",
+q:"Um paciente de 72 anos com insuficiência cardíaca congestiva descompensada apresenta, na radiografia de tórax, os seguintes achados: opacidade perihilar bilateral, redistribuição vascular com predomínio apical, linhas de Kerley B nas bases e obliteração bilateral dos seios costofrênicos. Com base nas 5 densidades radiológicas e na fisiopatologia da ICC, qual alternativa descreve CORRETAMENTE o mecanismo gerador de cada achado?",
+alts:["Todos os achados representam consolidações pneumônicas bilaterais; as linhas de Kerley B são bronquiectasias e a obliteração dos seios é pneumotórax bilateral","A opacidade perihilar é ar aprisionado; as linhas de Kerley B são calcificações; a redistribuição vascular indica enfisema; a obliteração dos seios indica atelectasias basais","A opacidade perihilar reflete edema pulmonar (líquido extravasado nos alvéolos e interstício = densidade de tecido mole/cinza); as linhas de Kerley B representam espessamento dos septos interlobulares por líquido intersticial; a obliteração dos seios costofrênicos indica derrame pleural bilateral (líquido = cinza); a redistribuição vascular reflete hipertensão venosa pulmonar com dilatação das veias apicais","A redistribuição vascular indica redução do fluxo apical por hipertensão pulmonar arterial; as linhas de Kerley B são nervos intercostais edemaciados; a obliteração dos seios representa metástases pleurais","Todos os achados são normais para paciente idoso com tórax enfisematoso e não requerem correlação clínica"],
+correct:"C",
+just:"Na ICC descompensada, o aumento da pressão venosa pulmonar resulta em extravasamento de líquido (densidade de tecido mole = cinza/branco) para diferentes compartimentos: (1) OPACIDADE PERIHILAR — edema alveolar/intersticial perihilar, típico de ICC (distribuição em 'asa de borboleta'); (2) LINHAS DE KERLEY B — espessamento dos septos interlobulares por líquido intersticial → linhas horizontais de 1-2 cm nas bases, perpendiculares à pleura; (3) OBLITERAÇÃO DOS SEIOS COSTOFRÊNICOS — derrame pleural bilateral por transudação (proteínas baixas → liquido sai dos capilares); (4) REDISTRIBUIÇÃO VASCULAR — dilatação das veias dos lobos superiores por hipertensão venosa pulmonar, visível como predomínio vascular nos ápices.",
+wrong:{A:"Consolidações pneumônicas não explicam a distribuição perihilar bilateral simétrica, as linhas de Kerley B e a redistribuição vascular — que são achados típicos e específicos de ICC.",B:"Na ICC, o excesso é de LÍQUIDO (opacidades/densidades moles), não de ar. As linhas de Kerley B são septos interlobulares espessados, não calcificações.",D:"A redistribuição vascular na ICC é para os ÁPICES (dilatação das veias superiores por hipertensão venosa), e as linhas de Kerley B são septos edemaciados, não nervos.",E:"O conjunto de achados descrito é altamente específico para edema pulmonar cardiogênico — correlação clínica é fundamental para conduta terapêutica imediata."}
+},
+{id:16,topic:"radiografia",difficulty:"dificil",banca:"AOCP",
+q:"Paciente masculino de 62 anos, tabagista há 35 anos (50 maços/ano), submetido a radiografia de tórax de rotina. O laudo descreve 'nódulo pulmonar solitário de 2,2 cm no lobo superior direito, com bordas espiculadas e captação de contraste'. Baseado na semiologia radiológica e nos fatores de risco, assinale a alternativa CORRETA sobre a conduta clínica e o raciocínio diagnóstico:",
+alts:["Bordas espiculadas em nódulo pulmonar são sinal de benignidade (granuloma em fase de cicatrização) e não requerem investigação adicional em tabagistas","Um nódulo de 2,2 cm com bordas espiculadas em tabagista de longa data tem alta probabilidade de malignidade; a radiografia convencional detecta o nódulo, mas não tem acurácia suficiente para caracterização — TC de alta resolução e/ou PET-CT e biópsia são necessários para diagnóstico definitivo","A radiografia convencional é suficiente para excluir malignidade em nódulos abaixo de 3 cm; seguimento clínico em 5 anos é adequado","Bordas espiculadas indicam calcificação em pipoca (granuloma), sinal patognomônico de hamartoma benigno","A captação de contraste em nódulo pulmonar na radiografia indica sempre hemangioma — condição benigna que não requer investigação"],
+correct:"B",
+just:"Nódulo pulmonar solitário com bordas espiculadas (margens irregulares com extensões em forma de espícula irradiando do nódulo) é um achado de ALTA SUSPEIÇÃO para carcinoma broncogênico, especialmente em tabagista de longa data (carga tabágica de 50 maços/ano é fator de risco crítico). As espículas representam infiltração tumoral nos septos interlobulares ou reação desmoplásica (fibrosa) peritumoral. A radiografia convencional tem limitações importantes para caracterização de nódulos — a TC de alta resolução (TC-AR) é o exame padrão para avaliação, permitindo análise de bordas, densitometria e tamanho com precisão. Biópsia (broncoscopia, CT-guiada ou cirúrgica) é necessária para diagnóstico histológico definitivo.",
+wrong:{A:"Bordas espiculadas são sinal de ALTA SUSPEIÇÃO de malignidade — exatamente o oposto de benignidade.",C:"Nódulos com bordas espiculadas e fatores de risco elevados (tabagismo, tamanho > 2 cm) requerem investigação imediata, não seguimento tardio.",D:"A calcificação em pipoca é sinal de hamartoma, mas aparece como calcificações internas irregulares — não como espiculação das bordas. São achados completamente diferentes.",E:"A radiografia convencional não permite avaliação de captação de contraste (essa avaliação é feita em TC ou RM). Captação de contraste em nódulo pulmonar na TC pode indicar vascularização intensa, sugestiva de malignidade."}
+},
+{id:17,topic:"radiografia",difficulty:"dificil",banca:"VUNESP",
+q:"No tubo de raios-X convencional, dois processos físicos geram o espectro de radiação emitida: a radiação de freamento (Bremsstrahlung) e a radiação característica. Assinale a alternativa que descreve CORRETAMENTE o mecanismo físico de cada processo:",
+alts:["A radiação característica representa ~95% dos raios-X produzidos; o Bremsstrahlung gera apenas linhas espectrais discretas dependentes do material do ânodo","O Bremsstrahlung ocorre quando elétrons incidentes colidem com elétrons das camadas externas do tungstênio e emitem fótons de energias fixas específicas do elemento","A radiação de Bremsstrahlung é produzida pela desaceleração dos elétrons no campo elétrico nuclear do tungstênio, gerando um espectro contínuo de energias; a radiação característica resulta de transições de elétrons entre camadas eletrônicas do átomo de tungstênio após ejeção do elétron interno, emitindo fótons de energias específicas e características do elemento","Ambos os processos geram exclusivamente calor; os raios-X propriamente ditos são produzidos apenas por fluorescência do filamento de tungstênio do cátodo","O Bremsstrahlung é eliminado por filtros de alumínio nos tubos modernos, sendo os raios-X diagnósticos produzidos unicamente pela radiação característica do tungstênio"],
+correct:"C",
+just:"Dois mecanismos geram raios-X no tubo: (1) BREMSSTRAHLUNG ('radiação de freamento'): elétrons incidentes de alta velocidade passam próximos ao núcleo atômico do tungstênio e são desacelerados pelo campo elétrico nuclear. A energia cinética perdida é emitida como fótons de raios-X. Como os elétrons podem perder qualquer quantidade de energia (desde zero até a energia máxima), o Bremsstrahlung gera um ESPECTRO CONTÍNUO de energias — responsável pela maior parte dos raios-X diagnósticos. (2) RADIAÇÃO CARACTERÍSTICA: ocorre quando elétrons incidentes ejetam elétrons das camadas internas (ex: camada K) do tungstênio. Elétrons de camadas externas saltam para preencher a vaga, emitindo fótons com energias DISCRETAS e específicas do tungstênio (ex: ~69 keV para a transição L→K).",
+wrong:{A:"A radiação característica contribui com fração menor do espectro total; o Bremsstrahlung é contínuo (não gera linhas espectrais) e é o componente predominante.",B:"O Bremsstrahlung envolve interação do elétron incidente com o NÚCLEO ATÔMICO (campo elétrico nuclear), não com elétrons das camadas externas. A energia emitida é contínua, não fixa.",D:"Os raios-X são gerados no ânodo por dois processos físicos reais (Bremsstrahlung e radiação característica). O calor é o subproduto predominante, não o produto principal.",E:"Os filtros de alumínio removem raios-X de baixa energia (baixa penetração), mas não eliminam o Bremsstrahlung. Os raios-X diagnósticos são uma mistura de Bremsstrahlung e radiação característica."}
+},
+
+// ===================== TOMOGRAFIA COMPUTADORIZADA — FÁCIL =====================
+{id:18,topic:"tc",difficulty:"facil",banca:"CESPE",
+q:"A Tomografia Computadorizada (TC) foi desenvolvida na década de 1970 e seus criadores foram laureados com o Prêmio Nobel de Medicina em 1979. Quais foram os cientistas responsáveis por esse desenvolvimento?",
+alts:["Felix Bloch e Edward Purcell, que descobriram o fenômeno da ressonância magnética nuclear","Wilhelm Röntgen e Marie Curie, pioneiros da radiologia e da radioatividade","Godfrey Hounsfield, engenheiro britânico, e Allan Cormack, físico sul-africano, que desenvolveram os fundamentos físico-matemáticos e o primeiro protótipo de tomógrafo","Paul Lauterbur e Peter Mansfield, que desenvolveram as imagens por ressonância magnética com gradientes de campo","Raymond Damadian e Richard Ernst, pioneiros da ressonância magnética diagnóstica"],
+correct:"C",
+just:"Godfrey Hounsfield (engenheiro da EMI, Reino Unido) e Allan Cormack (físico sul-africano, Universidade Tufts, EUA) desenvolveram independentemente os fundamentos matemáticos e tecnológicos da Tomografia Computadorizada. Hounsfield construiu o primeiro protótipo clínico, e o primeiro exame clínico de TC foi realizado em 1971. Em 1979, ambos receberam o Prêmio Nobel de Medicina. Felix Bloch e Purcell receberam o Nobel de Física em 1952 pela RMN; Lauterbur e Mansfield receberam o Nobel de Medicina em 2003 pela RM.",
+wrong:{A:"Felix Bloch e Edward Purcell receberam o Nobel de Física em 1952 pela descoberta da Ressonância Magnética Nuclear (RMN), não pela TC.",B:"Röntgen descobriu os raios-X em 1895 (Nobel 1901); Marie Curie pesquisou radioatividade — nenhum deles desenvolveu a TC.",D:"Paul Lauterbur e Peter Mansfield receberam o Nobel de Medicina em 2003 pelas imagens por Ressonância Magnética.",E:"Raymond Damadian demonstrou o potencial diagnóstico da RM; Richard Ernst contribuiu com técnicas matemáticas da RM — nenhum recebeu o Nobel da TC."}
+},
+{id:19,topic:"tc",difficulty:"facil",banca:"FGV",
+q:"As Unidades Hounsfield (UH) constituem a escala numérica padrão utilizada na Tomografia Computadorizada para quantificar a densidade radiológica dos tecidos. Qual é o valor de referência estabelecido para a ÁGUA nessa escala?",
+alts:["+1000 UH, pois a água é o tecido mais denso do corpo humano","-1000 UH, pois a água é completamente radiotransparente na TC","0 UH, sendo o ponto central e de referência da escala de Hounsfield","+500 UH, valor intermediário entre ar e osso compacto","-500 UH, valor intermediário entre ar e gordura"],
+correct:"C",
+just:"A escala de Hounsfield foi padronizada com a água como ponto de referência central = 0 UH. Os extremos da escala são: Ar = -1000 UH (extremo negro na imagem) e Osso compacto = +1000 UH (extremo branco). A água é usada como referência universal porque é de fácil obtenção, pureza controlável e suas propriedades físicas são bem estabelecidas. Essa padronização permite a comparação de densidades entre diferentes exames e equipamentos, tornando possível a caracterização precisa dos tecidos (gordura: -80 a -100 UH; tecido mole: 20-80 UH; sangue agudo: 50-70 UH).",
+wrong:{A:"+1000 UH é o valor do osso compacto, não da água.",B:"-1000 UH é o valor do ar, o tecido de menor densidade na escala.",D:"+500 UH aproxima-se da densidade óssea trabecular e não corresponde à água.",E:"-500 UH é um valor intermediário que não corresponde a nenhum tecido de referência — não é padronizado."}
+},
+{id:20,topic:"tc",difficulty:"facil",banca:"IBFC",
+q:"A Tomografia Computadorizada representa um avanço fundamental em relação à radiografia convencional. Qual é a principal diferença conceitual entre as duas modalidades de imagem?",
+alts:["A TC utiliza campos magnéticos e pulsos de radiofrequência, enquanto a radiografia utiliza raios-X — por isso a TC é completamente segura e sem radiação ionizante","A radiografia produz imagens seccionais (cortes axiais) sem sobreposição de estruturas, enquanto a TC produz imagem plana com sobreposição de todas as estruturas do corpo","A TC utiliza raios-X com processamento computacional para criar imagens seccionais (cortes axiais) eliminando a sobreposição de estruturas; a radiografia convencional produz imagem de projeção (soma 2D) com sobreposição de todas as estruturas traversadas pelo feixe","A TC e a radiografia são tecnicamente idênticas, diferindo apenas no custo e na disponibilidade nos serviços de saúde","A TC substitui completamente a radiografia em todas as situações clínicas, sendo a radiografia considerada obsoleta"],
+correct:"C",
+just:"A diferença fundamental é de natureza técnica e diagnóstica: (1) RADIOGRAFIA: imagem de projeção (2D) em que todas as estruturas atravessadas pelo feixe se sobrepõem em um único plano, reduzindo a capacidade de diferenciação de tecidos adjacentes. (2) TC: o tubo de raios-X gira 360° ao redor do paciente (gantry), coletando dados de atenuação de múltiplas direções. Algoritmos matemáticos (retroprojeção filtrada ou reconstrução iterativa) reconstroem imagens seccionais que eliminam a sobreposição, permitem visualização 3D e diferenciam tecidos com densidades próximas (diferença de ~0,5% possível na TC vs ~1-2% na radiografia).",
+wrong:{A:"A TC utiliza raios-X (radiação ionizante), não campos magnéticos. São os aparelhos de Ressonância Magnética (RM) que não utilizam radiação ionizante.",B:"É exatamente o contrário: a RADIOGRAFIA produz imagem plana com sobreposição, enquanto a TC produz imagens seccionais sem sobreposição.",D:"As duas modalidades diferem fundamentalmente em tecnologia, capacidade diagnóstica, custo, dose de radiação e indicações clínicas.",E:"Radiografia e TC são complementares. A radiografia permanece como exame de primeira linha em diversas situações (triagem, tórax, ortopedia) por ser rápida, acessível e de baixa dose."}
+},
+{id:21,topic:"tc",difficulty:"facil",banca:"AOCP",
+q:"O princípio ALARA é a base ética e técnica da radioproteção em radiologia diagnóstica. O que significa esse acrônimo e qual é seu objetivo em relação à dose de radiação?",
+alts:["ALARA significa 'Alta Linearidade com Acurácia e Resolução de Artefatos' — objetivo de melhorar a qualidade técnica das imagens tomográficas","ALARA significa 'As Low As Reasonably Achievable' (em português: Tão Baixo Quanto Razoavelmente Exequível) — guia fundamental que preconiza a menor dose de radiação possível que ainda forneça imagem diagnóstica de qualidade adequada","ALARA significa 'Atenuação Linear Alinhada com Resolução e Amplitude' — parâmetro técnico dos equipamentos de TC modernos","ALARA significa 'All Levels Are Restricted Always' — norma que proíbe o uso de radiação ionizante em qualquer dose em pacientes pediátricos","ALARA significa 'Atividade de Limitação e Análise de Radiação Acumulada' — protocolo de monitoramento da exposição cumulativa dos profissionais de saúde"],
+correct:"B",
+just:"ALARA (As Low As Reasonably Achievable) é o guia fundamental de todas as práticas em radiologia diagnóstica. Preconiza que a dose de radiação utilizada deve ser a menor que ainda permita obter uma imagem diagnóstica de qualidade adequada. Práticas alinhadas ao ALARA incluem: colimação do feixe de raios-X, otimização dos parâmetros de dose (kV e mAs), uso de protetores de chumbo, justificação clínica do exame, evitar exames repetidos desnecessários e o uso de protocolos de baixa dose em populações de risco (crianças, gestantes, jovens).",
+wrong:{A:"Essa definição é inventada e não corresponde ao significado real de ALARA.",C:"Essa definição é inventada; ALARA não é um parâmetro técnico de equipamento.",D:"ALARA não proíbe o uso de radiação — orienta para sua minimização racional, balanceando risco e benefício diagnóstico.",E:"ALARA aplica-se primariamente à dose recebida pelos pacientes, embora também oriente a proteção dos profissionais. A definição descrita não é a correta."}
+},
+{id:22,topic:"tc",difficulty:"facil",banca:"Consulplan",
+q:"Na Tomografia Computadorizada com contraste, qual substância é utilizada por via intravenosa para realçar estruturas vasculares e lesões, e de que forma ela aparece nas imagens?",
+alts:["Gadolínio, metal paramagnético utilizado em RM, que aparece como hipossinal em sequências T2 na TC","Sulfato de bário, utilizado por via intravenosa para opacificação das artérias pulmonares","Contraste iodado (baseado em iodo), injetado via intravenosa, que aparece hiperdenso (branco/claro) na TC por possuir alto número atômico e atenuar intensamente os raios-X","Carvão ativado, administrado por via intravenosa para redução de artefatos metálicos nos exames de TC","Contraste paramagnético de óxido de ferro, que aparece hipointenso nos vasos e órgãos na TC"],
+correct:"C",
+just:"O contraste iodado intravenoso (CIVI) é baseado em iodo (Z=53), elemento com alto número atômico que atenuam fortemente os raios-X. Nas imagens TC, as estruturas com contraste iodado aparecem como HIPERDENSAS (brancas/claras), diferenciando-se do parênquima adjacente e permitindo a visualização de: vasos sanguíneos, lesões hipervascularizadas, áreas de realce tumoral e zonas de inflamação. O gadolínio é o contraste utilizado em RESSONÂNCIA MAGNÉTICA (não em TC). O sulfato de bário é usado como contraste ORAL/RETAL em TC abdominal (não intravenoso).",
+wrong:{A:"O gadolínio é o contraste específico para Ressonância Magnética (RM), e 'hipossinal em T2' é terminologia de RM — não de TC.",B:"O sulfato de bário é usado como contraste gastrointestinal por via oral ou retal, nunca intravenosa, e com indicações específicas.",D:"Carvão ativado não é contraste radiológico e não é usado em exames de imagem por via intravenosa.",E:"Os contrastes de óxido de ferro são usados em RM hepática. A terminologia 'hipointenso' é da RM, não da TC."}
+},
+
+// ===================== TOMOGRAFIA COMPUTADORIZADA — MÉDIO =====================
+{id:23,topic:"tc",difficulty:"medio",banca:"VUNESP",
+q:"Na aquisição de imagens tomográficas, o gantry desempenha papel central no processo de coleta de dados. Qual é a função específica do gantry e como ele contribui para a geração da imagem seccional sem sobreposição?",
+alts:["O gantry é a mesa motorizada sobre a qual o paciente está posicionado, que se move linear e continuamente durante a aquisição para percorrer o volume de interesse","O gantry é o console do operador, responsável por processar matematicamente os dados de atenuação e gerar as imagens seccionais axiais","O gantry é a estrutura circular (em formato de anel) que abriga simultaneamente o tubo de raios-X e os detectores; ao girar 360° ao redor do paciente, coleta milhares de 'perfis de atenuação' de diferentes ângulos, que são processados por algoritmos matemáticos para reconstruir imagens seccionais","O gantry é o sistema de injeção automatizado do contraste iodado, sincronizando a injeção com a fase de aquisição desejada","O gantry é o sistema de refrigeração do tubo de raios-X, prevenindo o superaquecimento durante aquisições prolongadas"],
+correct:"C",
+just:"O gantry é a estrutura circular característica dos tomógrafos (aspecto em 'donut' ou anel), que aloja o tubo de raios-X e os detectores diametralmente opostos. Durante a aquisição, o gantry gira continuamente em 360° ao redor do paciente. A cada rotação, o tubo emite o feixe de raios-X que atravessa o paciente e é captado pelos detectores em múltiplos ângulos. Esses dados (perfis de atenuação) são enviados ao computador, que aplica algoritmos de reconstrução (retroprojeção filtrada ou reconstrução iterativa) para gerar as imagens seccionais. A mesa se move linearmente durante a rotação (TC helicoidal), permitindo a aquisição volumétrica.",
+wrong:{A:"A mesa (table) é o componente que se move linearmente, posicionando o paciente — é diferente do gantry.",B:"O processamento matemático é realizado pelo sistema computacional (estação de trabalho/console), não pelo gantry.",D:"O sistema de injeção é o injetor automático (power injector), um equipamento separado do tomógrafo.",E:"O sistema de resfriamento do tubo é parte interna do conjunto tubo-gantry, mas o gantry em si é a estrutura circular rotativa — não especificamente o sistema de refrigeração."}
+},
+{id:24,topic:"tc",difficulty:"medio",banca:"FGV",
+q:"A TC de crânio sem contraste é o exame de escolha na avaliação inicial de pacientes com suspeita de acidente vascular cerebral (AVC). Qual das alternativas justifica CORRETAMENTE essa preferência em relação à Ressonância Magnética na emergência?",
+alts:["A TC não utiliza radiação ionizante, tornando-a mais segura que a RM para realização de múltiplos exames seriados em emergências neurológicas","A TC de crânio sem contraste é rapidamente disponível, realizada em segundos e identifica com alta sensibilidade o sangue fresco (hiperdenso/branco, +50 a +70 UH) no parênquima cerebral, espaço subdural ou subaracnóideo — essencial para diferenciar AVC hemorrágico de isquêmico antes de iniciar trombólise","A TC é preferida pois oferece resolução de contraste superior à RM para o parênquima cerebral e lesões de substância branca","A TC é o exame de escolha no AVC isquêmico agudo porque detecta a área de infarto cerebral nas primeiras horas com maior sensibilidade que qualquer outra modalidade","A TC sempre requer contraste iodado para visualização adequada das estruturas cerebrais e detecção de AVC"],
+correct:"B",
+just:"A TC de crânio SEM CONTRASTE é o primeiro exame na emergência neurológica por três razões críticas: (1) RAPIDEZ: realizada em segundos, essencial em quadro onde 'tempo é cérebro'; (2) DISPONIBILIDADE UNIVERSAL: presente em todos os hospitais de emergência, ao contrário da RM; (3) DETECÇÃO DE HEMORRAGIA: o sangue fresco (rico em hemoglobina íntegra/deoxiemoglobina) é naturalmente hiperdenso (+50 a +70 UH) em relação ao parênquima cerebral (~35-40 UH) e ao LCR (0-15 UH), aparecendo BRANCO na TC SEM contraste. Isso permite distinguir AVC hemorrágico (que contraindica trombólise) de AVC isquêmico (candidato à trombólise).",
+wrong:{A:"A TC UTILIZA radiação ionizante (raios-X). A RM é que não utiliza radiação ionizante.",C:"Para parênquima cerebral e substância branca, a RM tem SUPERIOR resolução de contraste em relação à TC — esta é uma das vantagens da RM. A TC é preferida na emergência por outros motivos.",D:"A TC tem baixa sensibilidade para AVC isquêmico nas primeiras 6-24 horas. É a RM (sequência DWI) que detecta isquemia em minutos. A TC serve principalmente para EXCLUIR hemorragia.",E:"A TC de crânio na emergência é realizada SEMPRE SEM contraste — o contraste pode mascarar hemorragias e é desnecessário para a avaliação inicial de AVC."}
+},
+{id:25,topic:"tc",difficulty:"medio",banca:"CESPE",
+q:"Na TC abdominal contrastada, o exame é realizado em múltiplas fases temporais. Sobre a fase portal/venosa, assinale a alternativa CORRETA:",
+alts:["É a fase arterial precoce (20-30 segundos após injeção), na qual as artérias abdominais e lesões hipervascularizadas estão em máximo realce","É a fase sem contraste (baseline), realizada antes da injeção, utilizada para avaliação de calcificações e sangramento agudo","É a fase realizada 60-90 segundos após a injeção, na qual o contraste já permeia o sistema venoso portal e o parênquima dos órgãos sólidos (fígado, pâncreas, rins e baço), sendo a fase mais versátil para avaliação abdominal geral","É a fase tardia (3-5 minutos), utilizada especificamente para avaliação da excreção renal (fase excretória) e caracterização de lesões com captação lenta de contraste","É a fase de equilíbrio (10-15 minutos), utilizada para avaliação de lesões que persistem hiperdensas em relação ao parênquima circundante"],
+correct:"C",
+just:"A fase portal/venosa é realizada 60-90 segundos após o início da injeção IV do contraste iodado. Nesse momento: (1) o contraste já circulou pelo leito arterial, atravessou os capilares e retorna pelo sistema venoso portal ao fígado; (2) o parênquima dos órgãos sólidos (fígado, pâncreas, rins, baço) está em máximo realce; (3) as veias portais e hepáticas são bem visíveis. É a fase mais frequentemente utilizada e versátil para avaliação abdominal geral, incluindo diagnóstico de apendicite, diverticulite, patologias hepáticas, pancreáticas e renais.",
+wrong:{A:"A fase arterial é realizada em 20-30 segundos, não 60-90 segundos. Realça artérias e lesões hipervascularizadas (hepatocarcinoma, ilhotas pancreáticas).",B:"A fase baseline (sem contraste) é realizada ANTES da injeção, é a primeira da sequência e avalia calcificações, gordura e sangue fresco.",D:"A fase tardia (3-5 minutos) é a que avalia excreção renal e caracterização de lesões de captação lenta. É diferente da fase portal.",E:"A fase de equilíbrio (10-15 minutos) existe para avaliações específicas (como colangiopancreatografia); não é a fase portal."}
+},
+{id:26,topic:"tc",difficulty:"medio",banca:"IBFC",
+q:"Um paciente de 52 anos, internado por cirurgia ortopédica, apresenta súbita dispneia, taquicardia e hipoxemia. A suspeita clínica é de tromboembolismo pulmonar (TEP). Qual fase do contraste e qual achado na Angio-TC de tórax confirmam o diagnóstico?",
+alts:["Fase portal/venosa (60-90 segundos), onde os trombos aparecem como áreas hipertransparentes (escuras) nas artérias pulmonares opacificadas","Fase tardia (3-5 minutos), onde o trombo aparece como área branca (hiperopaca) nas veias pulmonares","Fase arterial (20-30 segundos após injeção), que opacifica maximamente as artérias pulmonares; trombos aparecem como defeitos de preenchimento (falhas de opacificação) dentro do vaso contrastado — área escura dentro do vaso branco","TC sem contraste, pois trombos são naturalmente hiperdensos e dispensam contraste para visualização","Fase de equilíbrio (10 minutos), que melhor diferencia trombo agudo de crônico nas artérias pulmonares"],
+correct:"C",
+just:"A Angio-TC de tórax é o padrão-ouro para diagnóstico de TEP. Utiliza-se a FASE ARTERIAL (bolus tracking ou 20-30 segundos), com alto fluxo de injeção do contraste iodado, sincronizando a aquisição com o pico de opacificação das artérias pulmonares. O trombo (tecido não vascularizado) não capta contraste → aparece como DEFEITO DE PREENCHIMENTO (filling defect): área hipodensa (escura) dentro do vaso opacificado (branco). Os diferentes tipos de TEP têm classificações específicas: central (artéria pulmonar principal), lobar, segmentar e subsegmentar.",
+wrong:{A:"A fase portal/venosa avalia primariamente o abdome e o parênquima dos órgãos sólidos — não é a fase utilizada para Angio-TC pulmonar.",B:"Os trombos não aparecem como hiperdensidade nas veias pulmonares na fase tardia — o protocolo de TEP é arterial pulmonar.",D:"Trombos AGUDOS podem ser discretamente hiperdensos em TC sem contraste em alguns casos, mas a sensibilidade é muito baixa (<50%) — o protocolo padrão usa contraste intravenoso.",E:"A fase de equilíbrio (10 minutos) não é utilizada para TEP; a janela temporal para opacificação das artérias pulmonares é muito curta."}
+},
+{id:27,topic:"tc",difficulty:"medio",banca:"Consulplan",
+q:"Sobre a nefrotoxicidade induzida por contraste (NIC) associada ao uso do contraste iodado intravenoso na TC, assinale a alternativa CORRETA:",
+alts:["O contraste iodado é completamente inócuo para os rins em qualquer dose e em qualquer paciente, sendo contraindicado apenas em casos de alergia severa","A NIC é uma complicação potencial, especialmente em pacientes com função renal comprometida (creatinina elevada, diabéticos, idosos, desidratados); medidas preventivas incluem avaliação prévia da função renal (creatinina/TFG), hidratação adequada e uso de contraste isosmolar ou de baixa osmolaridade","A nefrotoxicidade afeta exclusivamente pacientes jovens sem comorbidades prévias e é independente da função renal","O contraste iodado causa insuficiência renal apenas se utilizado em TC de tórax, sendo completamente seguro nas demais indicações abdominais","A NIC é exclusiva do gadolínio (contraste de RM), não se aplicando ao contraste iodado da TC"],
+correct:"B",
+just:"A NIC (Nefrotoxicidade Induzida por Contraste) é uma complicação real do uso do contraste iodado IV. Mecanismos: vasoconstrição renal (redução do fluxo sanguíneo medular) e toxicidade tubular direta pelos compostos iodados. Fatores de risco: DRC (TFG < 60 mL/min), diabetes mellitus, desidratação, insuficiência cardíaca, uso de AINEs/metformina. Prevenção: (1) avaliar creatinina/TFG antes do exame; (2) suspender metformina 48h antes; (3) hidratação com soro fisiológico IV antes e após; (4) preferir contraste de baixa osmolaridade ou isosmolar; (5) minimizar a dose de contraste.",
+wrong:{A:"Afirmativa falsa e perigosa. O contraste iodado tem risco real de nefrotoxicidade e reações alérgicas, especialmente em pacientes de risco.",C:"O risco de NIC é MAIOR em pacientes com disfunção renal prévia, diabetes e idosos — exatamente o oposto do afirmado.",D:"A nefrotoxicidade independe da indicação anatômica (tórax ou abdome); o que importa é a via de administração IV e a quantidade de contraste administrada.",E:"O gadolínio pode causar Fibrose Sistêmica Nefrogênica (FSN), que é diferente da NIC. Ambas são complicações de seus respectivos contrastes, mas são entidades distintas."}
+},
+{id:28,topic:"tc",difficulty:"medio",banca:"CESGRANRIO",
+q:"Comparando TC e Ressonância Magnética, assinale a situação clínica em que a TC é PREFERIDA em relação à RM:",
+alts:["Avaliação de lesão do ligamento cruzado anterior do joelho em atleta jovem","Estadiamento de câncer de próstata localizado com suspeita de extensão extraprostática","Diagnóstico de lesões desmielinizantes em substância branca (esclerose múltipla)","Avaliação de paciente com instabilidade hemodinâmica e suspeita de hemorragia intra-abdominal após trauma — urgência diagnóstica onde rapidez é fator crítico para decisão cirúrgica","Avaliação de hérnia discal lombar com radiculopatia em paciente sem contraindicação à RM"],
+correct:"D",
+just:"A TC é preferida sobre a RM em situações que exigem RAPIDEZ diagnóstica e DISPONIBILIDADE imediata, como no trauma abdominal com instabilidade hemodinâmica. A TC FAST (trauma) permite em 2-5 minutos identificar sangramento intra-abdominal, lesões de órgãos sólidos (fígado, baço, rins), pneumoperitônio e fraturas — informações críticas para decisão cirúrgica. A RM, com tempo de 15-45 minutos, é inviável nesse cenário. As demais situações (ligamento cruzado anterior, próstata, esclerose múltipla, hérnia discal) são indicações clássicas de RM por sua superior resolução de contraste em partes moles.",
+wrong:{A:"Lesões ligamentares são avaliadas por RM — superior resolução de contraste em ligamentos, tendões e cartilagens.",B:"Câncer de próstata é estadiado por RM multiparamétrica (mpMRI), que avalia extensão extraprostática, invasão de vesículas seminais e linfonodos regionais com alta acurácia.",C:"Lesões de substância branca são detectadas por RM (T2/FLAIR), com sensibilidade muito superior à TC.",E:"Hérnia discal e compressão de raízes nervosas são avaliadas por RM da coluna lombossacral, que visualiza disco, raízes, canal e medula com alta resolução."}
+},
+{id:29,topic:"tc",difficulty:"medio",banca:"VUNESP",
+q:"A evolução tecnológica dos tomógrafos levou ao desenvolvimento da tomografia multislice (MSCT). Sobre essa tecnologia, assinale a alternativa CORRETA:",
+alts:["A tomografia multislice utiliza apenas uma fileira de detectores, adquirindo um corte por rotação, similar ao tomógrafo de corte único original","A tomografia multislice substitui os raios-X por ultrassom de alta frequência, eliminando a necessidade de radiação ionizante","A tomografia multislice possui múltiplas fileiras de detectores (4, 8, 16, 32, 64 fileiras ou mais), que adquirem vários cortes simultâneos por rotação — reduzindo drasticamente o tempo de exame, aumentando a resolução espacial e permitindo reconstruções volumétricas 3D de alta qualidade","A tomografia multislice tem desempenho inferior ao tomógrafo helicoidal, sendo usada apenas em aplicações de pesquisa experimental","A tomografia multislice requer doses de radiação ionizante proporcionalmente maiores que os tomógrafos de corte único, sem oferecer benefício clínico compensador"],
+correct:"C",
+just:"A TC multislice (MSCT) representa uma revolução tecnológica: em vez de uma única fileira de detectores (coletando um corte por rotação), os detectores são dispostos em múltiplas fileiras paralelas (atualmente até 320 fileiras). Cada rotação adquire simultaneamente vários cortes, resultando em: (1) RAPIDEZ: redução dramática do tempo de exame (ex: coração em 0,28 segundos com gating cardíaco); (2) RESOLUÇÃO ESPACIAL: cortes mais finos (< 0,5 mm) com menor dose; (3) QUALIDADE: menos artefatos de movimento; (4) RECONSTRUÇÕES 3D volumétricas de alta fidelidade; (5) NOVAS APLICAÇÕES: colonoscopia virtual, coronariografia por TC, angiografia de vasos finos.",
+wrong:{A:"O tomógrafo de fileira única (helicoidal) é o predecessor — a inovação da MSCT é exatamente ter múltiplas fileiras.",B:"A TC multislice continua utilizando raios-X (radiação ionizante). A ausência de radiação é característica da RM.",D:"A TC multislice supera o desempenho helicoidal em velocidade, resolução e qualidade de imagem — é a tecnologia padrão atual.",E:"A TC multislice, na prática, pode ser realizada com MENOR dose por corte (pois os cortes são mais finos e mais eficientes), especialmente com reconstrução iterativa. A relação dose/benefício é favorável."}
+},
+{id:30,topic:"tc",difficulty:"medio",banca:"IBFC",
+q:"Uma criança de 5 anos com suspeita de apendicite é encaminhada para TC de abdômen. Baseado no princípio ALARA e nas diretrizes de radioproteção pediátrica, qual conduta está CORRETA?",
+alts:["Utilizar os mesmos parâmetros de dose (kV e mAs) usados para adultos, pois a melhor qualidade de imagem garante diagnóstico mais preciso e é sempre prioritária","Aplicar protocolo pediátrico específico com redução dos parâmetros de dose (mAs e kV ajustados ao peso/tamanho da criança), visando a menor dose possível que ainda permita diagnóstico adequado; considerar proteção gonádica e questionar se a ecografia prévia foi inconclusiva","Realizar múltiplas séries sequenciais (sem e com contraste, e fase tardia) em todas as crianças suspeitas de apendicite, para garantir diagnóstico definitivo em uma única visita","A radioproteção pediátrica é desnecessária, pois crianças têm menor sensibilidade à radiação ionizante que adultos por sua maior capacidade de reparo do DNA","Realizar TC de crânio associada à TC de abdômen em crianças com suspeita de apendicite, para rastreio de possíveis anormalidades neurológicas concomitantes"],
+correct:"B",
+just:"Em crianças, o princípio ALARA é ESPECIALMENTE crítico porque: (1) Células pediátricas têm maior radiosensibilidade (tecidos em divisão ativa); (2) Maior expectativa de vida → maior potencial de acúmulo de dose e efeitos estocásticos; (3) O volume corporal menor resulta em maior dose relativa por órgão. Os protocolos pediátricos ajustam mAs e kV pelo peso/tamanho (tabelas weight-based), reduzindo a dose em até 50-70% vs. adulto. Em apendicite pediátrica, a ecografia é o exame de primeira linha; a TC é reservada para casos inconclusivos. Proteção gonádica, colimação precisa e limitação do campo de visão ao abdome/pelve são medidas complementares.",
+wrong:{A:"Usar parâmetros de adulto em crianças resulta em dose excessiva desnecessária — viola o princípio ALARA.",C:"Múltiplas séries aumentam desnecessariamente a dose. O protocolo deve ser o mínimo necessário para diagnóstico.",D:"Afirmativa FALSA e perigosa. Crianças têm MAIOR sensibilidade à radiação que adultos, não menor.",E:"TC de crânio é desnecessária na investigação de apendicite — seria exposição adicional sem indicação clínica, violando o princípio ALARA."}
+},
+{id:31,topic:"tc",difficulty:"medio",banca:"CESPE",
+q:"Na avaliação de um nódulo hepático por TC sem contraste, o médico observa valor de atenuação de -85 UH na lesão. Com base na escala de Hounsfield, qual tecido ou conteúdo está presente na lesão e qual é o diagnóstico mais provável?",
+alts:["Calcificação, pois valores negativos indicam alta densidade de cálcio","Sangue agudo, que tipicamente apresenta valores entre +50 e +70 UH","Gordura, que possui atenuação naturalmente negativa (tipicamente entre -20 e -120 UH em tecido adiposo); valor de -85 UH em nódulo hepático é altamente sugestivo de conteúdo lipídico, como ocorre em angiomiolipoma ou esteatose focal","Ar livre intra-hepático, que teria valores próximos a -1000 UH","Contraste iodado residual, que apresenta valores altamente positivos (+200 a +400 UH)"],
+correct:"C",
+just:"Na escala de Hounsfield, a gordura tem atenuação negativa: tecido adiposo subcutâneo/perivisceral = -80 a -120 UH; gordura medular = -20 a -60 UH. Um valor de -85 UH em nódulo hepático indica CONTEÚDO GORDUROSO (lipídico). As causas de lesão hepática com conteúdo gorduroso incluem: (1) Angiomiolipoma — tumor benigno com componente gorduroso; (2) Esteatose focal; (3) Metástase lipomatosa (rara). O achado de macrogordura (valores < -10 UH) em nódulo hepático é critério diagnóstico de benignidade em angiomiolipoma quando combinado com o padrão clínico (raro caso de malignidade co-existente).",
+wrong:{A:"Calcificações têm valores ALTAMENTE POSITIVOS (> +200 UH), não negativos.",B:"Sangue agudo tem valores positivos (+50 a +70 UH) — completamente diferente dos -85 UH da gordura.",D:"Ar livre teria valores próximos a -1000 UH, não -85 UH. Pneumobilia (ar nos ductos biliares) também tem valores muito mais negativos.",E:"Contraste iodado residual seria detectado após exame com contraste e teria valores altamente positivos (+200 a +400 UH) — o oposto de valores negativos."}
+},
+
+// ===================== TOMOGRAFIA COMPUTADORIZADA — DIFÍCIL =====================
+{id:32,topic:"tc",difficulty:"dificil",banca:"FGV",
+q:"Paciente de 58 anos chega ao PS com cefaleia de início súbito, descrita como 'a pior dor de cabeça da vida', associada a rigidez de nuca e fotofobia. A TC de crânio sem contraste mostra hiperdensidade difusa nas cisternas basais e espaço subaracnóideo. Qual é o diagnóstico mais provável e qual é o fundamento físico que torna o sangue agudo HIPERDENSO na TC sem contraste?",
+alts:["Meningite bacteriana — o exsudato purulento tem alta densidade por concentração bacteriana que aumenta a atenuação dos raios-X","Hidrocefalia aguda — o LCR retido sob pressão se torna hiperdenso em relação ao parênquima cerebral","Hemorragia subaracnóidea — o sangue agudo é hiperdenso (+50 a +70 UH) porque contém hemoglobina globular (proteína densa com ferro) que aumenta a densidade eletrônica e a atenuação dos raios-X, em contraste com o LCR normal (0-15 UH)","Trombose de seio venoso — os trombos venosos são sempre hiperdensos nas cisternas basais independentemente do tempo de evolução","Gliomatose cerebral — a infiltração neoplásica difusa causa hiperdensidade nas cisternas subaracnóideas"],
+correct:"C",
+just:"A cefaleia 'em trovoada' (thunderclap headache) + rigidez de nuca + hiperdensidade nas cisternas basais na TC sem contraste é o padrão diagnóstico de HEMORRAGIA SUBARACNÓIDEA (HSA), cuja causa mais comum é a ruptura de aneurisma cerebral. O sangue agudo é HIPERDENSO na TC sem contraste porque: (1) A hemoglobina (proteína globular com quatro grupos heme contendo ferro) tem densidade eletrônica mais alta que o LCR ou o parênquima cerebral; (2) O sangue coagulado (hematócrito elevado) tem ainda maior densidade → +50-90 UH. O LCR normal tem 0-15 UH. A TC tem ~98% de sensibilidade para HSA nas primeiras 12 horas (sensibilidade cai progressivamente com o tempo pela lise do sangue).",
+wrong:{A:"Meningite bacteriana raramente gera hiperdensidade nas cisternas na TC sem contraste. O diagnóstico é por punção lombar e clínica.",B:"O LCR na hidrocefalia é isodensoo ou ligeiramente menos denso que o parênquima — não hiperdenso.",D:"Trombose de seio venoso pode ser hiperdenso no seio afetado (não nas cisternas basais) e a hiperdensidade diminui com o tempo de evolução do trombo.",E:"Gliomatose cerebral é infiltração do parênquima, não das cisternas subaracnóideas; e não gera hiperdensidade nas cisternas."}
+},
+{id:33,topic:"tc",difficulty:"dificil",banca:"CESPE",
+q:"Uma gestante de 22 semanas é internada com dispneia súbita, taquicardia e D-dímero elevado. A cintilografia V/Q está indisponível. A equipe considera a realização de Angio-TC pulmonar para investigar TEP. Considerando os princípios de radioproteção e os riscos do contraste iodado em gestantes, assinale a alternativa CORRETA sobre a conduta:",
+alts:["A Angio-TC é contraindicada em absolutamente todas as gestantes, independentemente da urgência clínica e do risco materno","A Angio-TC pode ser realizada quando o benefício diagnóstico superar o risco; o contraste iodado é teratogênico comprovado e sempre deve ser evitado na gestação, substituído por contraste baritado oral","A Angio-TC pulmonar pode ser realizada em gestante com suspeita de TEP quando o benefício supera o risco — pois TEP não tratado tem mortalidade materna elevada (15-30%); o contraste iodado pode cruzar a placenta e atingir a tireoide fetal (que capta iodo), podendo causar hipotireoidismo neonatal transitório — portanto, é necessário monitorar a função tireoidiana neonatal; a dose fetal de radiação é baixa pois os pulmões estão distantes do útero","A dose fetal na Angio-TC pulmonar equivale à de um exame de abdômen/pelve, sendo muito alta e suficiente para causar malformações fetais mesmo no segundo trimestre","A gestante deve aguardar o parto para qualquer exame com radiação ionizante, independente do risco de morte materna"],
+correct:"C",
+just:"O manejo da gestante com suspeita de TEP é clinicamente complexo. Pontos fundamentais: (1) RISCO DO TEP NÃO TRATADO: mortalidade materna de 15-30% — risco muito superior ao dos exames de imagem; (2) DOSE FETAL: na Angio-TC PULMONAR, o útero está fora do campo primário de irradiação → dose fetal é baixa (< 0,2 mGy, muito abaixo do limiar teratogênico de ~100 mGy); (3) CONTRASTE IODADO: atravessa a placenta, pode alcançar a tireoide fetal (que capta iodo ativamente a partir da 10ª-12ª semana) e causar hipotireoidismo transitório → monitorar TSH neonatal; não é comprovadamente teratogênico nas doses diagnósticas; (4) DECISÃO: benefício materno geralmente supera risco fetal.",
+wrong:{A:"Contraindicação absoluta ignoraria o risco de morte materna por TEP não diagnosticado — conduta inadequada.",B:"O contraste iodado NÃO é teratogênico comprovado em doses diagnósticas. O contraste baritado é oral/retal — nunca substitui o contraste IV para angiografia.",D:"A dose fetal na Angio-TC PULMONAR é baixa (< 0,2 mGy) — muito inferior à da TC de abdômen/pelve (1,5-8 mGy). Não causa malformações no segundo trimestre.",E:"Aguardar o parto diante de suspeita de TEP materno é conduta que pode resultar em morte materna — completamente inadequada."}
+},
+{id:34,topic:"tc",difficulty:"dificil",banca:"VUNESP",
+q:"Os algoritmos de reconstrução iterativa (IR) representam avanço significativo em relação à retroprojeção filtrada (FBP) historicamente utilizada na TC. Qual alternativa descreve CORRETAMENTE a principal vantagem dos algoritmos iterativos?",
+alts:["A reconstrução iterativa é mais rápida computacionalmente e produz imagens com mais ruído, sendo utilizada apenas quando o FBP não consegue reconstruir a imagem","O FBP é matematicamente superior à reconstrução iterativa e é o método preferido em protocolos pediátricos de baixa dose","A reconstrução iterativa permite obter imagens de qualidade diagnóstica equivalente ou superior com doses de radiação significativamente menores (redução de 25-80%), pois processa os dados em múltiplos ciclos — comparando a imagem estimada com os dados reais e corrigindo iterativamente o ruído — diferentemente do FBP que amplifica o ruído ao processar os dados apenas uma vez","Ambos os métodos produzem imagens com a mesma qualidade diagnóstica e a mesma dose de radiação — a diferença é apenas de terminologia comercial dos fabricantes","A reconstrução iterativa é exclusivamente utilizada em TC cardíaca e não pode ser aplicada a outras regiões anatômicas"],
+correct:"C",
+just:"O FBP (Filtered Back Projection) é um algoritmo matemático direto: os dados de atenuação são retroprojetados com filtros matemáticos — processo que amplifica o ruído inerente aos dados, especialmente quando a dose de radiação é baixa. Isso obriga ao uso de doses maiores para manter o ruído em nível aceitável. Os algoritmos iterativos (ex: ASIR, SAFIRE, AIDR, iDose): (1) Geram uma imagem inicial estimada; (2) Comparam os dados de atenuação gerados pela imagem estimada com os dados reais; (3) Corrigem a diferença; (4) Repetem o ciclo (iteração) até convergência. Resultado: redução do ruído sem amplificação → qualidade equivalente ou superior com 25-80% menos dose. Aplicações: protocolos pediátricos, triagem de nódulo pulmonar (LDCT), colonoscopia virtual.",
+wrong:{A:"A reconstrução iterativa produz imagens com MENOS ruído, não mais. Atualmente é o método padrão em equipamentos modernos.",B:"O FBP NÃO é superior à IR — é o método mais antigo e com maior amplificação de ruído, exigindo doses mais altas.",D:"As diferenças entre IR e FBP em termos de redução de dose e qualidade de imagem são clinicamente significativas e bem documentadas em estudos.",E:"A reconstrução iterativa é aplicável a TODOS os protocolos de TC: abdômen, tórax, crânio, musculoesquelético, cardíaco, entre outros."}
+},
+
+// ===================== RESSONÂNCIA MAGNÉTICA — FÁCIL =====================
+{id:35,topic:"rm",difficulty:"facil",banca:"CESPE",
+q:"A Ressonância Magnética baseia-se nas propriedades magnéticas de determinados núcleos atômicos. Qual elemento atômico é o principal alvo da RM diagnóstica no corpo humano e por quê?",
+alts:["Carbono-12, por ser o elemento mais abundante nos tecidos orgânicos e possuir grande momento magnético nuclear","Fósforo-31, por sua importância no metabolismo energético celular (ATP) e presença nos ácidos nucleicos","O Próton de Hidrogênio (¹H), por ser o núcleo mais abundante no corpo humano (presente em água e gordura), possuir momento magnético intrínseco (spin) elevado e produzir sinal forte para formação de imagem de alta qualidade","Cálcio-40, por estar em alta concentração nos ossos e ser responsável pela radiopacidade no RX","Sódio-23, por ser o eletrólito mais importante no espaço extracelular e na condução do impulso nervoso"],
+correct:"C",
+just:"O Próton de Hidrogênio (¹H) é o alvo preferencial da RM diagnóstica por três razões: (1) ABUNDÂNCIA: é o núcleo mais abundante no corpo humano — presente na água (H₂O, ~60% do peso corporal) e na gordura (CH₂, lipídios); (2) SPIN: possui número quântico de spin = ½ (número ímpar de prótons), tornando-o ativo em RM — o próton se comporta como um pequeno ímã que se orienta com o campo magnético externo; (3) SENSIBILIDADE: a combinação de abundância e elevada relação giromagnética (γ) do ¹H resulta em sinal forte, ideal para imagens de alta resolução.",
+wrong:{A:"O carbono-12 tem spin = 0 (número par de nêutrons e prótons), sendo RM-inativo (não produz sinal na RM convencional).",B:"O fósforo-31 é RM-ativo e usado em RM espectroscópica, mas é muito menos abundante que o ¹H e produz sinal insuficiente para imagem diagnóstica convencional.",D:"O cálcio-40 tem spin = 0, sendo RM-inativo. Sua radiopacidade no RX é irrelevante para a RM.",E:"O sódio-23 é RM-ativo mas presente em concentrações muito menores que o ¹H. Exige equipamentos especializados e não é utilizado na RM diagnóstica convencional."}
+},
+{id:36,topic:"rm",difficulty:"facil",banca:"FGV",
+q:"A Ressonância Magnética é classificada como um método de diagnóstico por imagem que NÃO utiliza radiação ionizante. O que é utilizado para gerar as imagens na RM?",
+alts:["Raios-X de alta energia organizados em múltiplos detectores ao redor do paciente — similar à TC, mas em diferentes planos de incidência","Campo magnético intenso e estático gerado pelo magneto, que orienta os prótons de hidrogênio; pulsos de radiofrequência (RF) que excitam os prótons; e a detecção do sinal de RF emitido pelos prótons ao retornarem ao equilíbrio após a excitação","Ultrassom de alta frequência que penetra os tecidos moles e é refletido nas interfaces acústicas, gerando imagens seccional","Radiação gama emitida por isótopos radioativos (como FDG-F18) administrados ao paciente e captada por detectores externos","Feixe de laser infravermelho que mede diferenças de temperatura nos tecidos para gerar contraste na imagem"],
+correct:"B",
+just:"A RM utiliza três elementos físicos principais, NENHUM deles ionizante: (1) CAMPO MAGNÉTICO ESTÁTICO (B₀): gerado pelo magneto supercondutor (ex: 1,5T = 30.000 vezes o campo magnético da Terra), alinha os prótons de ¹H com o eixo do campo; (2) PULSOS DE RADIOFREQUÊNCIA (RF): emitidos pela bobina de transmissão na frequência de Larmor específica do ¹H para cada intensidade de campo → excitam os prótons, desviando a magnetização do eixo do campo; (3) GRADIENTES DE CAMPO: bobinas que criam variações controladas do campo magnético para codificação espacial (localização tridimensional de cada voxel); (4) DETECÇÃO: bobinas de recepção captam o sinal de RF emitido pelos prótons ao relaxar.",
+wrong:{A:"Raios-X são utilizados na TC e na radiografia convencional, não na RM. A RM não usa radiação ionizante.",C:"Ultrassom usa ondas sonoras mecânicas — é uma modalidade completamente diferente da RM.",D:"Radioisótopos são utilizados em Medicina Nuclear (PET-CT, cintilografia) — não na RM.",E:"Laser infravermelho não é utilizado em diagnóstico por imagem convencional desta forma; não há aplicação na RM diagnóstica."}
+},
+{id:37,topic:"rm",difficulty:"facil",banca:"IBFC",
+q:"A história da Ressonância Magnética começa com a descoberta do fenômeno da Ressonância Magnética Nuclear (RMN) em 1946, premiada com o Nobel de Física em 1952. Quais foram os cientistas responsáveis por essa descoberta fundamental?",
+alts:["Paul Lauterbur e Peter Mansfield, que obtiveram as primeiras imagens por RM usando gradientes de campo e desenvolveram o Echo-Planar Imaging (EPI)","Felix Bloch e Edward Purcell, que descobriram independentemente o fenômeno da RMN — a absorção de energia por núcleos atômicos em campo magnético quando irradiados na frequência de Larmor correta","Raymond Damadian e Godfrey Hounsfield, que demonstraram a diferença de sinal entre tecidos normais e tumorais na RM","Wilhelm Röntgen e Henri Becquerel, pioneiros das radiações ionizantes em geral","Richard Ernst e Kurt Wüthrich, que aplicaram a Transformada de Fourier à RMN e desenvolveram a espectroscopia de proteínas"],
+correct:"B",
+just:"Em 1946, Felix Bloch (Universidade de Stanford, EUA) e Edward Purcell (Universidade de Harvard, EUA) descobriram independentemente o fenômeno da Ressonância Magnética Nuclear: núcleos atômicos com spin não-nulo absorvem energia de radiofrequência específica (frequência de Larmor: ω = γ × B₀) quando imersos em um campo magnético. Por essa descoberta fundamental, receberam o Prêmio Nobel de Física em 1952. Paul Lauterbur e Peter Mansfield receberam o Nobel de Medicina em 2003 pelas imagens diagnósticas por RM.",
+wrong:{A:"Lauterbur (primeiras imagens com gradientes, 1973) e Mansfield (Echo-Planar Imaging, 1977) receberam o Nobel de Medicina em 2003 — pela aplicação diagnóstica, não pela descoberta da RMN.",C:"Raymond Damadian (1971) demonstrou o potencial diagnóstico da RM; Hounsfield desenvolveu a TC — nenhum deles descobriu a RMN.",D:"Röntgen descobriu os raios-X (1895) e Becquerel descobriu a radioatividade natural (1896) — ambos anterior e independente da RM.",E:"Richard Ernst recebeu o Nobel de Química em 1991 pela Transformada de Fourier em RMN/espectroscopia; Wüthrich pelo Nobel de Química em 2002. Importantes para a RM espectroscópica, mas não descobriram a RMN."}
+},
+{id:38,topic:"rm",difficulty:"facil",banca:"AOCP",
+q:"Em imagens de Ressonância Magnética ponderadas em T2, quais estruturas apresentam sinal BRILHANTE (hiperintenso)?",
+alts:["Gordura e proteínas, que têm T2 curto e aparecem brilhantes em T2","Tecidos fibrosos (tendões, meniscos) e calcificações, que têm T2 curto","Líquidos, edemas e inflamações, que têm T2 longo — a coerência de fase dos prótons persiste por mais tempo, gerando maior sinal transversal","Osso cortical e ar, que produzem sinal intenso por suas propriedades diamagnéticas","Metal e implantes, que sempre aparecem como hipersinal em T2 por artefatos de susceptibilidade"],
+correct:"C",
+just:"Em imagens ponderadas em T2, o BRILHO (hipersinal) é determinado pelo tempo de relaxamento transversal T2. Tecidos com T2 LONGO mantêm a coerência de fase dos prótons por mais tempo após o pulso de RF → emitem sinal por mais tempo → APARECEM BRILHANTES. LCR, urina, bile, sangue degradado (metahemoglobina), edema, inflamação e a maioria das patologias têm T2 longo e aparecem brilhantes em T2. Essa propriedade faz as imagens T2 serem altamente SENSÍVEIS para detecção de patologias (edema e inflamação prolongam o T2).",
+wrong:{A:"Gordura tem T2 CURTO em tecido adiposo puro, aparecendo hipointensa (escura) em T2. Proteínas ligadas encurtam T2.",B:"Tecidos fibrosos (tendões, ligamentos, meniscos) têm T2 muito CURTO e aparecem HIPOINTENSOS (escuros) em T2 — é por isso que lesões ligamentares são vistas como alterações de sinal brilhante dentro de estrutura normalmente escura.",D:"O osso cortical tem praticamente NENHUM sinal em RM (prótons ligados em estrutura rígida, sem mobilidade para ressonar). Ar também tem sinal ausente.",E:"Metal e implantes causam artefatos de SUSCEPTIBILIDADE MAGNÉTICA: distorção e perda de sinal ao redor do implante — geralmente aparecem como área de hipossinal (escura) com halo de distorção, não hipersinal."}
+},
+{id:39,topic:"rm",difficulty:"facil",banca:"Consulplan",
+q:"Sobre a segurança em Ressonância Magnética, qual das seguintes situações representa uma CONTRAINDICAÇÃO ABSOLUTA para a realização do exame?",
+alts:["Presença de cicatriz cirúrgica cutânea sem componente metálico subjacente","Alergia leve a contraste iodado (de TC) documentada em histórico prévio","Claustrofobia leve controlada com medicação ansiolítica oral","Marca-passo cardíaco antigo não compatível com RM implantado há 3 anos","Histórico de cirurgia artroscópica de joelho sem implante metálico residual"],
+correct:"D",
+just:"O marca-passo cardíaco NÃO compatível com RM representa CONTRAINDICAÇÃO ABSOLUTA. O campo magnético estático intenso (B₀) pode: (1) Exercer forças mecânicas sobre componentes ferromagnéticos do marca-passo (translação, torção); (2) Induzir correntes elétricas nos eletrodos que podem estimular o miocárdio de forma inadequada ou inibir o marca-passo; (3) Reprogramar ou danificar o gerador de pulsos; (4) Causar aquecimento nos eletrodos. Os resultados podem ser fatais. IMPORTANTE: marca-passos MR Conditional (certificados) podem ser usados sob condições específicas — verificar sempre o modelo exato.",
+wrong:{A:"Cicatriz cutânea sem metal não representa risco na RM.",B:"Alergia a contraste IODADO (TC) não é contraindicação para RM, pois o contraste de RM é o GADOLÍNIO — quimicamente diferente. Pode-se fazer RM sem contraste com segurança.",C:"Claustrofobia é uma contraindicação RELATIVA, manejável com medicação ansiolítica, RM aberta ou anestesia/sedação.",E:"Cirurgia artroscópica sem implante metálico residual não contraindica a RM."}
+},
+
+// ===================== RESSONÂNCIA MAGNÉTICA — MÉDIO =====================
+{id:40,topic:"rm",difficulty:"medio",banca:"VUNESP",
+q:"O relaxamento T1 e T2 são os parâmetros físicos centrais que geram o contraste nas imagens de RM. Assinale a alternativa que CORRETAMENTE descreve o mecanismo físico e a terminologia de cada um:",
+alts:["T1 é o tempo de relaxamento transversal por interação spin-spin; T2 é o tempo de recuperação longitudinal por interação spin-lattice — os dois processos são independentes e sequenciais","T1 é o tempo de recuperação longitudinal (spin-lattice): após o pulso de RF, os prótons transferem energia para o meio circundante (lattice), e a magnetização longitudinal (Mz) recupera 63% de seu valor original; T2 é o tempo de decaimento transversal (spin-spin): os prótons interagem entre si, perdendo coerência de fase — a magnetização transversal (Mxy) decai 63% de seu valor inicial","T1 e T2 são fisicamente idênticos, diferindo apenas no plano em que a magnetização é medida e no número de pulsos de RF utilizados","T1 mede o decaimento do sinal no plano transversal após o pulso de RF; T2 mede a recuperação do sinal no eixo longitudinal — definição inversa à convencionada","T1 é específico para ¹H em água, e T2 é específico para ¹H em gordura — não havendo sobreposição entre os dois parâmetros"],
+correct:"B",
+just:"Após o pulso de RF excitador: (1) T1 (RECUPERAÇÃO LONGITUDINAL / SPIN-LATTICE): a magnetização longitudinal (Mz, paralela a B₀) cresce exponencialmente. T1 é o tempo para Mz atingir 63% de M₀. Representa a transferência de energia dos prótons excitados para o ambiente molecular (lattice). Tecidos com T1 curto (gordura, proteínas, gadolínio) recuperam rápido → brilhantes em T1. Tecidos com T1 longo (líquidos) recuperam lento → escuros em T1. (2) T2 (DECAIMENTO TRANSVERSAL / SPIN-SPIN): a magnetização transversal (Mxy, perpendicular a B₀) decai exponencialmente. T2 é o tempo para Mxy perder 63% de seu valor. Representa inhomogeneidades de campo local por interações entre prótons vizinhos. Tecidos com T2 longo (líquidos) → brilhantes em T2; T2 curto (fibrosos, calcificações) → escuros.",
+wrong:{A:"As definições de T1 e T2 estão INVERTIDAS nesta alternativa. T1 é longitudinal/spin-lattice; T2 é transversal/spin-spin.",C:"T1 e T2 são parâmetros FISICAMENTE DISTINTOS: medem fenômenos diferentes em eixos diferentes e têm valores diferentes para o mesmo tecido.",D:"As definições estão invertidas. T1 é LONGITUDINAL (recuperação do eixo z); T2 é TRANSVERSAL (decaimento do plano xy).",E:"Ambos os parâmetros (T1 e T2) existem para todos os tecidos e para ¹H em água, gordura e qualquer outro ambiente molecular — a diferença é nos valores, não na especificidade."}
+},
+{id:41,topic:"rm",difficulty:"medio",banca:"FGV",
+q:"Em uma RM de crânio, observam-se lesões ovoides periventriculares na substância branca, hiperintensas em T2 e FLAIR, e isointensas em T1, em mulher jovem de 28 anos com histórico de dois episódios de neurite óptica e um episódio de paresia transitória de MMII. Qual é o diagnóstico mais provável e qual princípio físico explica a hiperintensidade em T2?",
+alts:["AVC isquêmico agudo — o edema citotóxico causa hipersinal em T2 e a lesão periventricular é típica de isquemia por doença de pequenos vasos","Encefalite viral — a inflamação difusa do parênquima causa hipersinal em T2, especialmente periventricular","Esclerose Múltipla — as placas de desmielinização têm T2 prolongado porque a perda de mielina (que normalmente encurtaria o T2 dos prótons adjacentes) e o edema inflamatório aumentam o teor de água livre com T2 intrínseco longo; o padrão periventricular ovoide é característico ('dedos de Dawson')","Glioblastoma multiforme — tumores de alto grau apresentam invariavelmente hipersinal T2 periventricular com morfologia ovoide em jovens","Neurocisticercose em fase coloidal — os cistos periventriculares com escólex aparecem como hipersinal T2 ovoide em jovens brasileiro"],
+correct:"C",
+just:"O quadro é altamente sugestivo de Esclerose Múltipla (EM), preenchendo critérios de McDonald: disseminação no espaço (lesões em múltiplas localizações) e no tempo (dois episódios distintos). Fundamento físico do hipersinal T2: (1) A mielina normalmente encurta o T2 dos prótons adjacentes por interações magnéticas de curto alcance; (2) A desmielinização elimina essa influência → T2 mais longo; (3) O edema inflamatório perilesional aumenta o teor de água livre (T2 intrínseco longo); (4) Resultado: hipersinal em T2 e FLAIR. O padrão 'dedos de Dawson' (lesões periventriculares perpendiculares ao ventrículo, visíveis no plano sagital) é altamente específico para EM.",
+wrong:{A:"O AVC isquêmico de pequenos vasos pode ser periventricular, mas restringe difusão na DWI (fase aguda) e tipicamente é assimétrico e pontual, sem histórico de recidivas com diferentes topografias.",B:"Encefalite viral geralmente tem envolvimento temporal e/ou mesial, febre e pleocitose no LCR; o padrão periventricular ovoide bilateral é mais sugestivo de EM.",D:"Glioblastoma raramente é múltiplo e periventricular ovoide bilateral; tem características de massa (efeito de massa, captação de contraste em anel) e é improvável em mulher jovem.",E:"Neurocisticercose em fase coloidal tem aspecto de cisto com escólex ('ponto branco') e reação inflamatória; o padrão periventricular ovoide bilateral sem escólex é mais típico de EM."}
+},
+{id:42,topic:"rm",difficulty:"medio",banca:"CESPE",
+q:"Os aparelhos de RM modernos de alto campo utilizam magnetos supercondutores que requerem um sistema de criogenia. Qual é a função desse sistema e qual temperatura é necessária para manter a supercondutividade?",
+alts:["O sistema de criogenia resfria o paciente a 4°C durante o exame para reduzir o movimento causado por tremores involuntários do frio","O sistema de criogenia resfria as bobinas de gradiente para aumentar sua eficiência e reduzir o consumo de energia elétrica","O sistema de criogenia mantém o magneto supercondutor (bobinas de nióbio-titânio) em temperatura extremamente baixa (~-269°C, próxima ao zero absoluto, usando hélio líquido), condição necessária para que o material mantenha a supercondutividade — propriedade de conduzir corrente elétrica sem resistência, sustentando o campo magnético intenso indefinidamente","O sistema de criogenia resfria o contraste (gadolínio) à temperatura de 0°C antes da injeção, aumentando sua viscosidade e tempo de circulação","O sistema de criogenia é necessário apenas em aparelhos de baixo campo (abaixo de 0,3T) para compensar a menor intensidade do campo magnético gerado"],
+correct:"C",
+just:"Os magnetos supercondutores utilizados na maioria dos aparelhos de RM (1,5T, 3T, 7T) são fabricados com ligas de nióbio-titânio (NbTi). Abaixo de uma temperatura crítica (~9,2 K para NbTi, ou seja ~-263°C), o material torna-se SUPERCONDUTOR: a resistência elétrica cai a zero e a corrente flui indefinidamente sem dissipação de energia. O hélio líquido (ponto de ebulição: -269°C = 4 K) é o criogênico utilizado para manter essa temperatura. Uma vez estabelecida, a corrente circula continuamente nas bobinas e mantém o campo magnético permanentemente. O sistema de criogenia garante que o hélio líquido não evapore (helicoidais vaporizam lentamente em qualquer sistema, exigendo reposição periódica).",
+wrong:{A:"O paciente nunca é resfriado pelo sistema de criogenia. O sistema é para o magneto — o paciente fica em temperatura ambiente.",B:"As bobinas de gradiente têm sistema de resfriamento separado a água — o sistema de criogenia é especificamente para o magneto supercondutor.",D:"O gadolínio é injetado na temperatura ambiente normal — o sistema de criogenia não tem relação com o contraste.",E:"A supercondutividade é necessária ESPECIALMENTE para campos altos (1,5T, 3T, 7T). Magnetos de baixo campo (<0,5T) geralmente são ímãs permanentes ou resistivos, sem sistema de criogenia."}
+},
+{id:43,topic:"rm",difficulty:"medio",banca:"IBFC",
+q:"A RM Funcional (fMRI) permite o mapeamento não invasivo da atividade cerebral em tempo quase real. Qual é o princípio físico subjacente a essa técnica?",
+alts:["Injeção de radioisótopos (FDG-F18) que emitem pósitrons para mapeamento do consumo de glicose por região cerebral ativa — similar à PET-CT","Medição direta dos potenciais de ação neuronais por detecção dos campos magnéticos gerados pelas correntes iônicas — magnetoencefalografia acoplada à RM","O efeito BOLD (Blood Oxygen Level Dependent): a oxiemoglobina é diamagnética e perturba menos o campo local; a deoxiemoglobina é paramagnética e perturba mais o campo, reduzindo o sinal T2*; regiões cerebrais ativas têm aumento do fluxo que 'lava' a deoxiemoglobina → menor perturbação de campo → maior sinal T2* detectado como ativação","Injeção de gadolínio que se concentra seletivamente nas sinapses neurais ativas, gerando hipersinal T1 nas áreas de ativação","Medição das variações de temperatura (1-2°C) geradas pelo metabolismo neuronal ativo usando sequências termométricas de alta resolução"],
+correct:"C",
+just:"A fMRI baseia-se no efeito BOLD (Blood Oxygen Level Dependent): (1) Quando uma área cerebral é ativada, o metabolismo local aumenta, consumindo oxigênio e gerando deoxiemoglobina; (2) Por neurovascular coupling (acoplamento neurovascular), ocorre vasodilatação local com hiperemia relativa — o fluxo sanguíneo aumenta mais que o consumo de oxigênio; (3) A oxiemoglobina (diamagnética) perturba minimamente o campo magnético local; a deoxiemoglobina (paramagnética) perturba mais o campo → reduz o sinal T2*; (4) Na ativação: excesso de oxiemoglobina (hiperemia) → campo mais homogêneo → MAIOR sinal T2* — este é o sinal BOLD. A fMRI não detecta diretamente a atividade elétrica neuronal, mas indiretamente através da resposta hemodinâmica.",
+wrong:{A:"Radioisótopos (FDG-F18) são utilizados em PET-CT — modalidade de medicina nuclear completamente diferente da fMRI.",B:"Isso descreve a Magnetoencefalografia (MEG) — que mede campos magnéticos gerados pelas correntes neurais. É uma modalidade separada da fMRI.",D:"O gadolínio não se concentra em sinapses e não é utilizado em fMRI convencional — a fMRI baseia-se em propriedades endógenas da hemoglobina.",E:"Sequências de termometria existem em RM (HIFU, ablação), mas com resolução temporal e espacial inadequadas para mapeamento cortical funcional."}
+},
+{id:44,topic:"rm",difficulty:"medio",banca:"CESGRANRIO",
+q:"Paciente com insuficiência renal crônica grave (TFG = 22 mL/min/1,73m²) necessita de RM com contraste para estadiamento de neoplasia renal. Qual é a principal preocupação relacionada ao uso do gadolínio e qual a conduta mais adequada?",
+alts:["O gadolínio é completamente seguro em qualquer grau de insuficiência renal e pode ser administrado sem restrições ou ajuste de dose","O gadolínio causa nefrotoxicidade direta grave (similar ao contraste iodado da TC), sendo contraindicado em TFG < 60 mL/min/1,73m²","O principal risco é a Fibrose Sistêmica Nefrogênica (FSN) — condição grave e progressiva causada pela deposição de gadolínio em tecidos quando a eliminação renal é lenta (TFG < 30); a conduta inclui evitar gadolínio quando possível, ou usar agentes macrocíclicos estáveis (menor dissociação iônica) apenas se o benefício for indispensável, com consentimento informado","O risco em TFG < 30 é exclusivamente reação alérgica ao gadolínio, prevenida com pré-medicação com corticosteroide","A FSN é prevenida com hidratação oral abundante e uso de gadolínio de baixa osmolaridade — medidas análogas às usadas para prevenir NIC do contraste iodado"],
+correct:"C",
+just:"A Fibrose Sistêmica Nefrogênica (FSN) é a principal complicação do uso de gadolínio em pacientes com insuficiência renal grave (TFG < 30 mL/min/1,73m²). Mecanismo: em rins normais, o gadolínio (como quelato) é eliminado rapidamente pela filtração glomerular. Na IRC grave, o gadolínio permanece circulando por dias; a quelação pode se dissociar, liberando gadolínio livre → deposição nos fibroblastos da pele e órgãos → fibrose sistêmica progressiva, potencialmente fatal. Prevenção: (1) Evitar gadolínio sempre que possível (RM sem contraste ou técnicas alternativas); (2) Se imprescindível, usar agentes MACROCÍCLICOS (gadobutrol, gadoteridol, gadoterate) que têm menor taxa de transmetilação e maior estabilidade termodinâmica/cinética; (3) Consentimento informado.",
+wrong:{A:"O gadolínio é seguro em função renal NORMAL, mas representa risco real de FSN em TFG < 30 mL/min/1,73m².",B:"A nefrotoxicidade DIRETA é característica do contraste IODADO da TC, não do gadolínio. A complicação específica do gadolínio em IRC é a FSN — mecanismo diferente.",D:"A FSN não é reação alérgica — é uma fibrose sistêmica por deposição de gadolínio. A pré-medicação com corticosteroide previne reações alérgicas imediatas, não a FSN.",E:"Hidratação e contraste de baixa osmolaridade previnem NIC do contraste IODADO. A FSN do gadolínio tem mecanismo diferente e não é prevenida por essas medidas."}
+},
+{id:45,topic:"rm",difficulty:"medio",banca:"AOCP",
+q:"A Sequência de Difusão (DWI — Diffusion Weighted Imaging) é considerada o método mais sensível para detecção precoce do AVC isquêmico agudo. Qual é o fundamento físico dessa sequência e por que ela detecta o infarto cerebral tão precocemente?",
+alts:["A DWI detecta o fluxo sanguíneo cerebral por magnetização dos eritrócitos, sendo positiva quando há redução do fluxo arterial acima de 50%","A DWI mede a temperatura dos tecidos — o AVC isquêmico gera hipotermia local detectável em 30 minutos","A DWI mede a difusão aleatória (browniana) das moléculas de água; no AVC isquêmico, a falência da Na⁺/K⁺-ATPase por depleção de ATP causa influxo de Na⁺ e água para o intracelular (edema citotóxico), reduzindo o espaço extracelular livre e restringindo a difusão da água → hipersinal em DWI e hipossinal no mapa ADC — detectável em minutos após o início da isquemia","A DWI é positiva no AVC hemorrágico e negativa no isquêmico, sendo usada para diferenciação hiperaguda das duas formas","A DWI detecta a desmielinização axonal causada pela isquemia, sendo mais sensível após 48-72 horas do evento"],
+correct:"C",
+just:"Fundamento físico da DWI: sequências sensíveis à mobilidade (difusão) das moléculas de água nos tecidos. No tecido normal, a água difunde-se LIVREMENTE no espaço extracelular. No AVC isquêmico agudo: (1) Falência energética → Na⁺/K⁺-ATPase para → Na⁺ e água entram em massa nas células → EDEMA CITOTÓXICO; (2) Espaço extracelular colapsa → água fica confinada no compartimento intracelular (mais organizado e restritivo); (3) Difusão RESTRITA → hipersinal em DWI + hipossinal no mapa ADC (Coeficiente de Difusão Aparente). Tempo: detectável em MINUTOS (vs. 24-48h para TC e 6-12h para T2 convencional). Sensibilidade da DWI para AVC agudo: ~95-99%.",
+wrong:{A:"A DWI mede difusão de ÁGUA, não fluxo sanguíneo. Sequências de perfusão (DSC, ASL) medem fluxo cerebral.",B:"RM termométrica existe, mas mede temperatura indiretamente. A DWI mede difusão de água — mecanismos completamente diferentes.",D:"A DWI é altamente sensível para AVC ISQUÊMICO (difusão restrita). No AVC hemorrágico, o padrão é variável dependendo do estágio — não há inversão do padrão.",E:"A desmielinização não é o evento inicial do AVC isquêmico; o edema citotóxico é. A DWI é mais sensível nas primeiras HORAS, não após 48-72 horas."}
+},
+{id:46,topic:"rm",difficulty:"medio",banca:"VUNESP",
+q:"Sobre os riscos de queimaduras em RM relacionados a tatuagens e cabos de monitoramento, assinale a alternativa CORRETA:",
+alts:["Tatuagens são sempre completamente seguras em RM, pois todas as tintas comercializadas no Brasil são aprovadas pela ANVISA como livres de metais","Cabos de monitoramento padrão (ECG, oximetria) de qualquer material são seguros em RM desde que não sejam de ferro","Cabos de monitoramento podem aquecer intensamente durante o exame de RM por efeito de antena (loop de RF), causando queimaduras de pele ao entrar em contato direto com o paciente; tatuagens com pigmentos contendo metais (óxido de ferro, dióxido de titânio) também podem aquecer por interação com as ondas de RF, causando sensação de queimação ou queimaduras superficiais","O risco das tatuagens em RM é exclusivamente o efeito ferromagnético (atração pelo campo B₀), que pode deslocar a tatuagem para longe da pele","Apenas cabos cardíacos intracardíacos apresentam risco de aquecimento em RM; os cabos externos de ECG de superfície são completamente seguros"],
+correct:"C",
+just:"Dois mecanismos de aquecimento em RM: (1) CABOS DE MONITORAMENTO: cabos condutores longos dentro do bore do magneto agem como antenas que absorvem energia das ondas de RF (frequência de Larmor: ~64 MHz para 1,5T, ~128 MHz para 3T) → geram corrente elétrica → calor. Se o cabo toca a pele ou forma loops, pode causar queimaduras de 1° ou 2° grau. Prevenção: separar cabos da pele com toalhas/espumas, não formar loops, usar cabos RM-compatíveis (com resistores). (2) TATUAGENS: pigmentos metálicos (óxido de ferro em tintas pretas/vermelhas, dióxido de titânio em brancos) absorvem ondas de RF → aquecimento local → queimação ou queimaduras superficiais. Pacientes devem informar sobre tatuagens antes do exame.",
+wrong:{A:"Muitas tintas de tatuagem contêm pigmentos metálicos (óxido de ferro, cromo, titânio), que podem aquecer em RM. A aprovação pela ANVISA não garante ausência de metais.",B:"A segurança dos cabos em RM não depende apenas do material ser ferro ou não — depende da condutividade elétrica e do comprimento/configuração do cabo (potencial de efeito antena).",D:"O efeito ferromagnético (translação de objetos metálicos) afeta principalmente implantes densos. As tatuagens não são arrastadas pelo campo; o risco é de aquecimento por RF.",E:"Qualquer cabo condutor externo suficientemente longo dentro do bore pode aquecer por efeito de antena, incluindo cabos de ECG de superfície."}
+},
+{id:47,topic:"rm",difficulty:"medio",banca:"CESGRANRIO",
+q:"Sobre as vantagens da RM sobre a TC para avaliação musculoesquelética de lesões ligamentares, como ruptura do LCA (Ligamento Cruzado Anterior) do joelho, assinale a alternativa CORRETA:",
+alts:["A TC fornece imagens superiores do osso cortical e da mineralização óssea, sendo preferida para diagnóstico de lesões ligamentares pelo aspecto periosteal","A RM não emite radiação ionizante e possui superior resolução de contraste em tecidos moles (ligamentos, tendões, meniscos, cartilagem articular) — permite avaliação direta da integridade do LCA com alta sensibilidade (~95%) e especificidade (~95%); é o exame padrão-ouro para lesões articulares","A TC é preferida para lesões ligamentares porque os gradientes de campo magnético da RM deformam os ligamentos impedindo sua correta visualização","A RM é indicada apenas para lesões ósseas (fraturas stress) e a TC é preferida para partes moles articulares","Ambas têm desempenho idêntico para diagnóstico de lesões do LCA; a escolha é feita exclusivamente pelo custo e disponibilidade"],
+correct:"B",
+just:"A RM é o PADRÃO-OURO para avaliação musculoesquelética por duas razões: (1) SEM RADIAÇÃO IONIZANTE: segura para repetições (atletas jovens, acompanhamento), pacientes pediátricos e gestantes; (2) SUPERIOR RESOLUÇÃO DE CONTRASTE em tecidos moles: em múltiplas sequências (DP, T2 com saturação de gordura, T1, STIR), os ligamentos (baixo sinal), tendões (baixo sinal), cartilagem (sinal intermediário) e edema/lesão (alto sinal em T2/STIR) são excelentemente diferenciados entre si. Para o LCA: avaliado em planos sagital e coronal oblíquo — ruptura completa mostra perda da continuidade e ondulação das fibras, com hipersinal T2 adjacente (edema). Sensibilidade ~95%, especificidade ~95% para ruptura.",
+wrong:{A:"O osso cortical é bem avaliado pela TC, mas lesões ligamentares e de partes moles têm resolução de contraste muito inferior na TC comparada à RM.",C:"Os gradientes de campo magnético não deformam estruturas biológicas — eles apenas codificam a localização espacial do sinal. Não há efeito mecânico sobre ligamentos.",D:"A indicação da RM é exatamente o oposto: partes moles (ligamentos, tendões, meniscos, cartilagem) são o domínio da RM; para osso cortical e fraturas agudas, a TC é superior.",E:"TC e RM têm desempenhos MUITO distintos para lesões ligamentares. A RM é claramente superior para partes moles; a TC para osso cortical."}
+},
+
+// ===================== RESSONÂNCIA MAGNÉTICA — DIFÍCIL =====================
+{id:48,topic:"rm",difficulty:"dificil",banca:"FGV",
+q:"Um paciente com implante coclear bilateral implantado há 8 anos precisa de RM de crânio para investigação de lesão intracraniana. O neurocirurgião solicita parecer sobre a viabilidade do exame. Qual abordagem descreve CORRETAMENTE a complexidade e a conduta adequada para esse caso?",
+alts:["Todos os implantes cocleares são contraindicações absolutas e definitivas para RM em qualquer campo — o exame é impossível e alternativas (TC) devem ser usadas","Todos os implantes cocleares modernos (pós-2005) são MR Conditional e podem ser realizados em qualquer campo magnético sem restrições","A segurança do implante coclear em RM é complexa e depende do modelo exato e fabricante: implantes antigos (muitos são contraindicação absoluta pois o magneto interno pode demagnetizar ou girar, causando dor e dano); alguns modelos modernos são MR Conditional sob condições específicas (campo 1,5T, orientação, bandagem craniana); é imprescindível consultar o modelo exato no banco de dados de segurança e com o fabricante antes de qualquer exame","O risco do implante coclear em RM é exclusivamente o aquecimento das bobinas internas por RF — controlado com resfriamento local durante o exame","Implantes cocleares sempre requerem remoção cirúrgica do magneto interno antes de qualquer RM, independentemente do modelo e campo utilizado"],
+correct:"C",
+just:"A questão dos implantes cocleares em RM é paradigmática da complexidade crescente da segurança em RM: (1) IMPLANTES ANTIGOS: muitos são contraindicação absoluta — o magneto interno do receptor pode: a) demagnetizar (perda de função); b) sofrer torque (forças de rotação) causando dor intensa e potencial dano ao implante e estruturas adjacentes; (2) IMPLANTES MODERNOS: vários fabricantes (ex: Cochlear™, MED-EL™, Advanced Bionics™) desenvolveram modelos MR Conditional: podem ser realizados a 1,5T com bandagem craniana compressiva (para minimizar o torque do magneto) e com parâmetros de RF controlados, sob condições específicas de campo e orientação; (3) CONDUTA: identificar modelo exato → consultar banco de dados (MRIsafety.com, website do fabricante) → seguir as instruções do IFU (Instructions For Use) → obter consentimento → monitorar o paciente durante o exame.",
+wrong:{A:"Alguns implantes modernos são MR Conditional e permitem realização de RM sob condições específicas — não é contraindicação universal.",B:"Não é correto que todos os implantes pós-2005 são MR Conditional ou aprovados para qualquer campo — a variabilidade entre modelos e fabricantes é grande.",D:"O aquecimento por RF é apenas um dos riscos — o torque do magneto interno é frequentemente o risco mais relevante e clinicamente mais grave.",E:"A remoção cirúrgica do magneto interno é uma opção em alguns modelos (Cochlear™ permite remoção do magneto para RM > 1,5T), mas não é obrigatória em todos — depende do modelo e do campo utilizado."}
+},
+{id:49,topic:"rm",difficulty:"dificil",banca:"CESPE",
+q:"A RM de campo ultra-alto (7 Tesla e superior) representa o estado da arte tecnológico na neuroimagem avançada. Sobre as vantagens físicas e os desafios técnicos dessa tecnologia, assinale a alternativa CORRETA:",
+alts:["O campo de 7T oferece razão sinal-ruído (SNR) e resolução espacial superiores aos de 1,5T e 3T; isso permite visualizar estruturas cerebrais submilimétricas; os desafios incluem artefatos de susceptibilidade magnética amplificados, inhomogeneidade do campo B₁ (RF), maior SAR (taxa de absorção de energia específica), custo elevado e complexidade operacional — aprovado para uso clínico em neuroimagem e musculoesquelético em centros especializados","O campo de 7T oferece qualidade de imagem inferior ao 3T, sendo utilizado exclusivamente em pesquisa animal","O campo de 7T elimina completamente os artefatos de susceptibilidade magnética por sua maior homogeneidade de campo","O campo de 7T é aprovado para uso irrestrito em todas as populações, incluindo gestantes e pacientes com marca-passo não compatível com RM","O campo de 7T tem SNR idêntico ao 3T, diferindo apenas no custo operacional e no tamanho do bore do magneto"],
+correct:"A",
+just:"A RM de 7T oferece benefícios e desafios em proporção: VANTAGENS: (1) SNR ∝ B₀ → 7T tem ~4,7× o SNR do 1,5T e ~2,3× o do 3T; (2) Maior resolução espacial: visualização de camadas corticais (~0,3 mm), núcleos talâmicos específicos, lesões de EM corticais, subáreas do hipocampo; (3) Aplicações em neurociência, Parkinson, EM, Alzheimer, neurologia funcional. DESAFIOS: (1) Artefatos de susceptibilidade AMPLIFICADOS (distorção em interfaces tecido/ar); (2) Inhomogeneidade do campo B₁ (RF) — 'dielectric effect' — causa sombreamento em imagens de corpo; (3) SAR elevado → restrições na aplicação de pulsos de RF (aquecimento tecidual); (4) Estimulação nervosa periférica (gradientes mais agressivos); (5) Custo: magneto, sala blindada, manutenção; (6) Aprovado: FDA (2017) para neuroimagem e MSK.",
+wrong:{A:"(Correta — conforme descrito.)",B:"7T é utilizado tanto em pesquisa humana quanto em aplicações clínicas (neuroimagem). Sua qualidade é superior ao 3T para muitas aplicações.",C:"Artefatos de susceptibilidade são amplificados em 7T (não eliminados), pois a susceptibilidade é proporcional ao campo B₀.",D:"7T tem contraindicações específicas e não é aprovado irrestritamente — gestantes não devem ser examinadas (dados insuficientes de segurança) e marca-passos não compatíveis são contraindicação absoluta.",E:"SNR é proporcional a B₀ — 7T tem SNR significativamente maior que 3T (não idêntico)."}
+},
+{id:50,topic:"rm",difficulty:"dificil",banca:"IBFC",
+q:"Na análise de uma RM de crânio, o médico observa uma lesão que se apresenta HIPOINTENSA em T1, HIPERINTENSA em T2 e HIPOINTENSA em FLAIR. Qual é o diagnóstico mais provável e qual é o fundamento físico da sequência FLAIR que permite essa diferenciação entre as diferentes etiologias de lesões?",
+alts:["Hematoma subagudo tardio — o sinal T1 baixo / T2 alto / FLAIR baixo é típico da fase tardia do sangramento","Tumor cerebral sólido sem edema — tecidos tumorais hipossinalizam em FLAIR por supressão específica de sinal tumoral","Lesão de conteúdo líquido simples (cisto simples ou LCR-like) — a FLAIR usa um pulso de inversão-recuperação com TI (Inversion Time) específico para o T1 longo do LCR: quando o pulso de excitação é aplicado exatamente quando a magnetização longitudinal do fluido passa pelo zero (zero crossing), nenhum sinal é gerado por esse tecido → supressão do LCR; lesões com conteúdo líquido puro imitam esse comportamento e aparecem hiposssinalizando em FLAIR; contrastando com lesões ricas em proteínas (cistos proteináceos, abscessos) que não suprimem completamente","Esclerose Múltipla — as placas de desmielinização ativas são hipointensas em T1, hiperintensas em T2 e sempre hipointensas em FLAIR, sendo o FLAIR específico para EM","Neurocisticercose calcificada — os cistos calcificados são sempre hipointensos em T1 e T2 e hipointensos em FLAIR por conteúdo mineral"],
+correct:"C",
+just:"O padrão hipointenso em T1 / hiperintenso em T2 / HIPOINTENSO EM FLAIR é diagnóstico de CONTEÚDO LÍQUIDO PURO (cisto simples, LCR-like — como cistos aracnóideos, cavidades de porencefalia, higroma subdural crônico simples). Fundamento físico da FLAIR: é uma sequência de inversão-recuperação (IR) com um TI longo (~2000-2200 ms para 1,5T), calculado especificamente para o T1 do LCR (~4000 ms). Após o pulso de 180° (inversão), espera-se o TI até que a magnetização longitudinal do LCR passe pelo ponto zero (zero crossing = TI = T1 × ln2 ≈ 0,693 × T1). Aplica-se então o pulso de 90° — como Mz(LCR) = 0, nenhum sinal é emitido → LCR suprimido → hipossinal. Lesões com T1 similar ao LCR (cistos simples) também suprimem. Lesões com proteínas (T1 mais curto que LCR) não suprimem completamente → aparecem hiperintensas em FLAIR (placas de EM periventiculares são melhor vistas em FLAIR que em T2 puro).",
+wrong:{A:"Hematoma subagudo TARDIO (semanas) aparece HIPERINTENSO em T1 (metahemoglobina extracelular) e T2 — padrão completamente diferente. O FLAIR não necessariamente suprime hematoma.",B:"Tumores cerebrais geralmente aparecem HIPERINTENSOS em FLAIR (não suprimem), pois têm T1 mais curto que LCR (edema perilesional, necrose, conteúdo proteináceo).",D:"Placas de EM ATIVAS aparecem HIPERINTENSAS em FLAIR (não hipointensas) — essa é exatamente a utilidade do FLAIR na EM: detectar lesões periventriculares que seriam mascaradas pelo LCR hiperintenso em T2.",E:"Neurocisticercose CALCIFICADA é hipointensa em T1 e T2 (e FLAIR) por conteúdo mineral — mas as calcificações são melhor vistas em TC. O padrão em cisto vivo é diferente do descrito."}
+}
+];
+
+// ============================================================
+// ESTADO DA APLICAÇÃO
+// ============================================================
+const LETTERS = ['A','B','C','D','E'];
+let state = {
+  answers: {}, eliminated: {}, favorites: new Set(), reviews: new Set(),
+  simulado: false, timerStart: null, timerElapsed: 0, timerInterval: null,
+  dark: false, graded: false, qTimers: {}, qTimerStart: {},
+  filter: { topic: 'all', diff: 'all', status: 'all' }
+};
+
+function saveState() {
+  try {
+    const s = { answers: state.answers, eliminated: state.eliminated,
+      favorites: [...state.favorites], reviews: [...state.reviews],
+      timerElapsed: state.timerElapsed + (state.timerStart ? Date.now() - state.timerStart : 0),
+      dark: state.dark, graded: state.graded, qTimers: state.qTimers };
+    localStorage.setItem('img_state', JSON.stringify(s));
+  } catch(e) {}
+}
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem('img_state');
+    if (!raw) return;
+    const s = JSON.parse(raw);
+    state.answers = s.answers || {};
+    state.eliminated = s.eliminated || {};
+    state.favorites = new Set(s.favorites || []);
+    state.reviews = new Set(s.reviews || []);
+    state.timerElapsed = s.timerElapsed || 0;
+    state.dark = s.dark || false;
+    state.graded = s.graded || false;
+    state.qTimers = s.qTimers || {};
+    if (state.dark) { document.documentElement.setAttribute('data-theme','dark'); }
+  } catch(e) {}
+}
+
+// ============================================================
+// TIMER
+// ============================================================
+function startTimer() {
+  if (state.timerInterval) return;
+  state.timerStart = Date.now();
+  state.timerInterval = setInterval(updateTimerDisplay, 1000);
+}
+function stopTimer() {
+  if (state.timerInterval) {
+    clearInterval(state.timerInterval);
+    state.timerInterval = null;
+    state.timerElapsed += Date.now() - (state.timerStart || Date.now());
+    state.timerStart = null;
+  }
+}
+function getElapsed() {
+  return state.timerElapsed + (state.timerStart ? Date.now() - state.timerStart : 0);
+}
+function formatTime(ms) {
+  const s = Math.floor(ms / 1000);
+  const m = Math.floor(s / 60);
+  const h = Math.floor(m / 60);
+  if (h > 0) return `${h}:${String(m%60).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
+  return `${String(m).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
+}
+function updateTimerDisplay() {
+  document.getElementById('hs-time').textContent = formatTime(getElapsed());
+}
+
+// ============================================================
+// DARK MODE
+// ============================================================
+function toggleDark() {
+  state.dark = !state.dark;
+  document.documentElement.setAttribute('data-theme', state.dark ? 'dark' : '');
+  saveState();
+}
+
+// ============================================================
+// SIMULADO MODE
+// ============================================================
+function toggleSimulado() {
+  state.simulado = !state.simulado;
+  const btn = document.getElementById('btn-sim');
+  if (state.simulado) {
+    btn.textContent = '⏹ Parar Simulado';
+    btn.classList.add('active');
+    startTimer();
+    hideGabaritoInCards();
+    showToast('🎯 Modo Simulado ativado! Gabarito oculto.');
+  } else {
+    btn.textContent = '▶ Simulado';
+    btn.classList.remove('active');
+    stopTimer();
+    showToast('⏹ Simulado encerrado.');
+  }
+  saveState();
+}
+function hideGabaritoInCards() {
+  document.querySelectorAll('.btn-gabarito').forEach(b => b.style.display = state.simulado ? 'none' : '');
+  document.querySelectorAll('.commentary').forEach(c => {
+    if (state.simulado) {
+      const body = c.querySelector('.comm-body'); if(body) body.classList.remove('open');
+      const chev = c.querySelector('.comm-chevron'); if(chev) chev.classList.remove('open');
     }
+  });
+}
 
-    if (toggle && navLinks) {
-      toggle.addEventListener('click', function () {
-        var isOpen = navLinks.classList.toggle('open');
-        toggle.classList.toggle('open', isOpen);
-        toggle.setAttribute('aria-expanded', String(isOpen));
-      });
+// ============================================================
+// TOPIC HELPERS
+// ============================================================
+function getTopicLabel(topic) {
+  return {radiografia:'Radiografia', tc:'Tomografia', rm:'Ressonância'}[topic] || topic;
+}
+function getTopicClass(topic) {
+  return {radiografia:'badge-rad', tc:'badge-tc', rm:'badge-rm'}[topic] || 'badge-rad';
+}
 
-      navLinks.querySelectorAll('a').forEach(function (link) {
-        link.addEventListener('click', closeMenu);
-      });
+// ============================================================
+// BUILD QUESTION CARDS
+// ============================================================
+function buildCards() {
+  const container = document.getElementById('q-container');
+  container.innerHTML = '';
+  const visible = getVisibleQuestions();
+  document.getElementById('empty-state').style.display = visible.length === 0 ? 'block' : 'none';
 
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape') closeMenu();
-      });
+  visible.forEach((q, idx) => {
+    const card = document.createElement('div');
+    card.className = 'q-card' + (state.answers[q.id] ? ' answered' : '');
+    card.id = `qcard-${q.id}`;
+    card.style.animationDelay = `${idx * 0.035}s`;
 
-      /* FIX 11: fechar menu ao clicar fora dele */
-      document.addEventListener('click', function (e) {
-        if (navLinks.classList.contains('open') &&
-            !navLinks.contains(e.target) &&
-            !toggle.contains(e.target)) {
-          closeMenu();
-        }
-      });
+    const topicLabel = getTopicLabel(q.topic);
+    const topicClass = getTopicClass(q.topic);
+    const diffLabel = {facil:'Fácil',medio:'Médio',dificil:'Difícil'}[q.difficulty];
+    const diffClass = {facil:'badge-f',medio:'badge-m',dificil:'badge-d'}[q.difficulty];
+    const isFav = state.favorites.has(q.id);
+    const isRev = state.reviews.has(q.id);
+    const eliminated = state.eliminated[q.id] || [];
+
+    let altsHTML = q.alts.map((alt, i) => {
+      const letter = LETTERS[i];
+      const isElim = eliminated.includes(letter);
+      const isSelected = state.answers[q.id] === letter;
+      let btnClass = 'alt-btn';
+      if (state.graded) {
+        if (letter === q.correct) btnClass += ' correct-ans';
+        else if (isSelected && letter !== q.correct) btnClass += ' wrong-ans';
+      } else if (isSelected) btnClass += ' selected';
+      if (isElim) btnClass += ' eliminated';
+
+      return `<div class="alt-item${isElim ? ' eliminated' : ''}" id="altitem-${q.id}-${letter}">
+        <button class="btn-elim${isElim ? ' elim-active' : ''}" onclick="toggleElim(${q.id},'${letter}')" title="Eliminar alternativa">✕</button>
+        <button class="${btnClass}" id="altbtn-${q.id}-${letter}" onclick="selectAlt(${q.id},'${letter}')" ${state.graded ? 'disabled' : ''}>
+          <span class="alt-letter">${letter})</span>${alt}
+        </button>
+      </div>`;
+    }).join('');
+
+    const statusText = state.answers[q.id]
+      ? `<span class="status-dot dot-answered"></span> Respondida`
+      : `<span class="status-dot dot-unanswered"></span> Não respondida`;
+    const qTime = state.qTimers[q.id] ? formatTime(state.qTimers[q.id]) : '—';
+
+    card.innerHTML = `
+      <div class="q-header">
+        <span class="q-num">Q${q.id}</span>
+        <div class="q-badges">
+          <span class="badge ${topicClass}">${topicLabel}</span>
+          <span class="badge ${diffClass}">${diffLabel}</span>
+        </div>
+        <div class="q-actions">
+          <button class="btn-icon${isFav ? ' active' : ''}" onclick="toggleFav(${q.id})" title="Favoritar">⭐</button>
+          <button class="btn-icon${isRev ? ' active' : ''}" onclick="toggleRev(${q.id})" title="Revisar depois">📌</button>
+        </div>
+      </div>
+      <div class="q-body">
+        <p class="q-text">${q.q}</p>
+        <div class="alt-list">${altsHTML}</div>
+      </div>
+      <div class="q-footer">
+        <span class="q-status">${statusText}</span>
+        <span class="q-timer">⏱ ${qTime}</span>
+        <button class="btn-gabarito" onclick="toggleComm(${q.id})" style="${state.simulado ? 'display:none' : ''}">💬 Comentário</button>
+      </div>
+      <div class="commentary" id="comm-${q.id}">
+        <div class="comm-header" onclick="toggleComm(${q.id})">
+          <span>💬 Gabarito Comentado — Questão ${q.id}</span>
+          <span class="comm-chevron" id="chev-${q.id}">▼</span>
+        </div>
+        <div class="comm-body" id="commb-${q.id}">
+          <div class="comm-correct">✅ Gabarito: Alternativa ${q.correct}</div>
+          <p class="comm-just">${q.just}</p>
+          <div class="comm-wrong-title">Por que as outras estão incorretas?</div>
+          ${Object.entries(q.wrong).map(([k,v]) => `<div class="comm-wrong-item"><b>${k})</b> ${v}</div>`).join('')}
+        </div>
+      </div>`;
+    container.appendChild(card);
+  });
+  updateStats();
+}
+
+function getVisibleQuestions() {
+  return QUESTIONS.filter(q => {
+    if (state.filter.topic !== 'all' && q.topic !== state.filter.topic) return false;
+    if (state.filter.diff !== 'all' && q.difficulty !== state.filter.diff) return false;
+    if (state.filter.status === 'respondidas' && !state.answers[q.id]) return false;
+    if (state.filter.status === 'nao' && state.answers[q.id]) return false;
+    if (state.filter.status === 'favoritas' && !state.favorites.has(q.id)) return false;
+    if (state.filter.status === 'revisao' && !state.reviews.has(q.id)) return false;
+    return true;
+  });
+}
+
+// ============================================================
+// INTERACTION
+// ============================================================
+function selectAlt(qid, letter) {
+  if (state.graded) return;
+  const elim = state.eliminated[qid] || [];
+  if (elim.includes(letter)) return;
+  const prev = state.answers[qid];
+  state.answers[qid] = letter;
+  if (!state.qTimers[qid] && !state.qTimerStart[qid]) state.qTimerStart[qid] = Date.now();
+  if (prev !== letter) {
+    LETTERS.forEach(l => {
+      const btn = document.getElementById(`altbtn-${qid}-${l}`);
+      if (btn) btn.classList.remove('selected');
+    });
+    const selBtn = document.getElementById(`altbtn-${qid}-${letter}`);
+    if (selBtn) selBtn.classList.add('selected');
+    const card = document.getElementById(`qcard-${qid}`);
+    if (card) card.classList.add('answered');
+  }
+  updateStats();
+  saveState();
+}
+
+function toggleElim(qid, letter) {
+  if (!state.eliminated[qid]) state.eliminated[qid] = [];
+  const arr = state.eliminated[qid];
+  const idx = arr.indexOf(letter);
+  if (idx === -1) {
+    arr.push(letter);
+    if (state.answers[qid] === letter) {
+      delete state.answers[qid];
+      const card = document.getElementById(`qcard-${qid}`);
+      if (card) card.classList.remove('answered');
     }
+  } else { arr.splice(idx, 1); }
+  const btn = document.getElementById(`altbtn-${qid}-${letter}`);
+  const item = document.getElementById(`altitem-${qid}-${letter}`);
+  const elimBtn = document.querySelector(`#altitem-${qid}-${letter} .btn-elim`);
+  if (arr.includes(letter)) {
+    if (btn) btn.classList.add('eliminated');
+    if (item) item.classList.add('eliminated');
+    if (elimBtn) elimBtn.classList.add('elim-active');
+  } else {
+    if (btn) btn.classList.remove('eliminated');
+    if (item) item.classList.remove('eliminated');
+    if (elimBtn) elimBtn.classList.remove('elim-active');
+  }
+  saveState();
+}
 
-    /* ── REVEAL ON SCROLL ──────────────────────────────────────── */
-    var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function toggleFav(qid) {
+  if (state.favorites.has(qid)) state.favorites.delete(qid); else state.favorites.add(qid);
+  const btns = document.querySelectorAll(`#qcard-${qid} .btn-icon`);
+  if (btns[0]) btns[0].classList.toggle('active', state.favorites.has(qid));
+  showToast(state.favorites.has(qid) ? '⭐ Adicionada aos favoritos' : '☆ Removida dos favoritos');
+  updateStats(); saveState();
+}
 
-    if (!prefersReduced && 'IntersectionObserver' in window) {
-      var obs = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          if (e.isIntersecting) {
-            e.target.classList.add('visible');
-            obs.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.06 });
+function toggleRev(qid) {
+  if (state.reviews.has(qid)) state.reviews.delete(qid); else state.reviews.add(qid);
+  const btns = document.querySelectorAll(`#qcard-${qid} .btn-icon`);
+  if (btns[1]) btns[1].classList.toggle('active', state.reviews.has(qid));
+  showToast(state.reviews.has(qid) ? '📌 Marcada para revisão' : '📌 Removida da revisão');
+  updateStats(); saveState();
+}
 
-      document.querySelectorAll('.reveal').forEach(function (el) {
-        obs.observe(el);
-      });
-    } else {
-      /* Sem suporte a IntersectionObserver ou reduced-motion: mostrar tudo */
-      document.querySelectorAll('.reveal').forEach(function (el) {
-        el.classList.add('visible');
-      });
-    }
+function toggleComm(qid) {
+  if (state.simulado) { showToast('⚠️ Gabarito oculto no Modo Simulado'); return; }
+  const body = document.getElementById(`commb-${qid}`);
+  const chev = document.getElementById(`chev-${qid}`);
+  if (!body) return;
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  if (chev) chev.classList.toggle('open', !isOpen);
+}
 
-  })();
+// ============================================================
+// FILTERS
+// ============================================================
+function setFilter(type, value) {
+  state.filter[type] = value;
+  document.querySelectorAll(`[id^="f-${type}-"]`).forEach(b => b.classList.remove('active'));
+  const btn = document.getElementById(`f-${type}-${value}`);
+  if (btn) btn.classList.add('active');
+  buildCards();
+}
+
+// ============================================================
+// STATS
+// ============================================================
+function updateStats() {
+  const answered = Object.keys(state.answers).length;
+  const total = QUESTIONS.length;
+  const remaining = total - answered;
+  const fav = state.favorites.size;
+  const rev = state.reviews.size;
+  const pct = Math.round(answered / total * 100);
+
+  document.getElementById('hs-resp').textContent = answered;
+  document.getElementById('hs-nao').textContent = remaining;
+  document.getElementById('hs-fav').textContent = fav;
+  document.getElementById('hs-rev').textContent = rev;
+  document.getElementById('sm-resp').textContent = answered;
+  document.getElementById('sm-nao').textContent = remaining;
+  document.getElementById('sm-fav').textContent = fav;
+  document.getElementById('sm-rev').textContent = rev;
+  document.getElementById('prog-pct').textContent = pct + '%';
+  document.getElementById('prog-fill').style.width = pct + '%';
+}
+
+// ============================================================
+// CORRECTION
+// ============================================================
+function corrigir() {
+  const answered = Object.keys(state.answers).length;
+  if (answered === 0) { showToast('⚠️ Responda ao menos uma questão antes de corrigir.'); return; }
+  if (!confirm(`Deseja corrigir a prova?\n\nVocê respondeu ${answered} de 50 questões.\n${50-answered} questão(ões) não respondida(s) serão contadas como erradas.`)) return;
+
+  state.graded = true;
+  stopTimer();
+  if (state.simulado) toggleSimulado();
+
+  let acertos = 0, erros = 0, puladas = 0;
+  let radAc = 0, radTotal = 0, tcAc = 0, tcTotal = 0, rmAc = 0, rmTotal = 0;
+  let fAc = 0, fTotal = 0, mAc = 0, mTotal = 0, dAc = 0, dTotal = 0;
+
+  QUESTIONS.forEach(q => {
+    const ans = state.answers[q.id];
+    if (!ans) puladas++; else if (ans === q.correct) acertos++; else erros++;
+
+    if (q.topic === 'radiografia') { radTotal++; if (ans === q.correct) radAc++; }
+    else if (q.topic === 'tc') { tcTotal++; if (ans === q.correct) tcAc++; }
+    else { rmTotal++; if (ans === q.correct) rmAc++; }
+
+    if (q.difficulty === 'facil') { fTotal++; if (ans === q.correct) fAc++; }
+    else if (q.difficulty === 'medio') { mTotal++; if (ans === q.correct) mAc++; }
+    else { dTotal++; if (ans === q.correct) dAc++; }
+  });
+
+  const pct = Math.round(acertos / QUESTIONS.length * 100);
+  const elapsed = getElapsed();
+  const avgMs = answered > 0 ? elapsed / answered : 0;
+
+  let cls = '';
+  if (pct >= 90) cls = '🏆 Excelente!';
+  else if (pct >= 80) cls = '✅ Muito Bom!';
+  else if (pct >= 70) cls = '👍 Bom';
+  else if (pct >= 60) cls = '📚 Regular';
+  else cls = '🔁 Necessita Revisão';
+
+  document.getElementById('d-grade').textContent = pct + '%';
+  document.getElementById('d-class').textContent = cls;
+  document.getElementById('d-acertos').textContent = acertos;
+  document.getElementById('d-erros').textContent = erros;
+  document.getElementById('d-puladas').textContent = puladas;
+  document.getElementById('d-tempo').textContent = formatTime(elapsed);
+  document.getElementById('d-avg').textContent = formatTime(avgMs);
+  document.getElementById('d-pct-rad').textContent = radTotal ? Math.round(radAc/radTotal*100)+'%' : '—';
+  document.getElementById('d-pct-tc').textContent = tcTotal ? Math.round(tcAc/tcTotal*100)+'%' : '—';
+  document.getElementById('d-pct-rm').textContent = rmTotal ? Math.round(rmAc/rmTotal*100)+'%' : '—';
+
+  const setPBar = (id, pid, val, total) => {
+    if (!total) return;
+    const p = Math.round(val/total*100);
+    const el = document.getElementById(id); if(el) el.style.width = p+'%';
+    const pel = document.getElementById(pid); if(pel) pel.textContent = p+'%';
+  };
+  setPBar('db-rad','dbp-rad',radAc,radTotal);
+  setPBar('db-tc','dbp-tc',tcAc,tcTotal);
+  setPBar('db-rm','dbp-rm',rmAc,rmTotal);
+  setPBar('db-f','dbp-f',fAc,fTotal);
+  setPBar('db-m','dbp-m',mAc,mTotal);
+  setPBar('db-d','dbp-d',dAc,dTotal);
+
+  document.getElementById('dashboard').style.display = 'block';
+  document.getElementById('btn-corrigir').disabled = true;
+  document.getElementById('dashboard').scrollIntoView({ behavior: 'smooth' });
+
+  buildCards();
+  buildGabarito();
+  document.getElementById('gabarito-section').style.display = 'block';
+  saveState();
+}
+
+// ============================================================
+// GABARITO COMENTADO
+// ============================================================
+function buildGabarito() {
+  const container = document.getElementById('gabarito-container');
+  container.innerHTML = '';
+  QUESTIONS.forEach(q => {
+    const ans = state.answers[q.id];
+    const isCorrect = ans === q.correct;
+    const topicLabel = getTopicLabel(q.topic);
+    const topicClass = getTopicClass(q.topic);
+    const diffLabel = {facil:'Fácil',medio:'Médio',dificil:'Difícil'}[q.difficulty];
+    const diffClass = {facil:'badge-f',medio:'badge-m',dificil:'badge-d'}[q.difficulty];
+    let resultIcon = '', resultClass = '';
+    if (!ans) { resultIcon = '⭕ Não respondida'; resultClass = 'res-skip'; }
+    else if (isCorrect) { resultIcon = '✅ Correta'; resultClass = 'res-correct'; }
+    else { resultIcon = '❌ Incorreta'; resultClass = 'res-wrong'; }
+
+    const div = document.createElement('div');
+    div.className = 'q-card';
+    div.style.marginBottom = '16px';
+    const wrongHTML = Object.entries(q.wrong).map(([k,v]) => `<div class="comm-wrong-item"><b>${k})</b> ${v}</div>`).join('');
+    div.innerHTML = `
+      <div class="q-header">
+        <span class="q-num">Q${q.id}</span>
+        <div class="q-badges">
+          <span class="badge ${topicClass}">${topicLabel}</span>
+          <span class="badge ${diffClass}">${diffLabel}</span>
+        </div>
+        <div style="margin-left:auto;font-size:.85rem;font-weight:700" class="${resultClass}">${resultIcon}</div>
+      </div>
+      <div class="q-body">
+        <p class="q-text" style="margin-bottom:10px;font-size:.88rem">${q.q}</p>
+        <div class="alt-list">
+          ${q.alts.map((alt,i) => {
+            const l = LETTERS[i];
+            let sty = 'padding:8px 12px;border-radius:8px;font-size:.85rem;margin-bottom:6px;border:2px solid';
+            if (l === q.correct) sty += ' var(--green);background:var(--green-light);color:var(--green)';
+            else if (l === ans && !isCorrect) sty += ' var(--red);background:var(--red-light);color:var(--red)';
+            else sty += ' var(--border);background:var(--gray-light);color:var(--text2)';
+            return `<div style="${sty}"><strong>${l})</strong> ${alt}</div>`;
+          }).join('')}
+        </div>
+      </div>
+      <div class="commentary" style="margin:0 20px 16px">
+        <div class="comm-header" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.comm-chevron').classList.toggle('open')">
+          <span>💬 Gabarito: Alternativa ${q.correct}</span>
+          <span class="comm-chevron">▼</span>
+        </div>
+        <div class="comm-body">
+          <div class="comm-correct">✅ Gabarito: Alternativa ${q.correct}</div>
+          <p class="comm-just">${q.just}</p>
+          <div class="comm-wrong-title">Por que as outras estão incorretas?</div>
+          ${wrongHTML}
+        </div>
+      </div>`;
+    container.appendChild(div);
+  });
+}
+
+function scrollToComm() {
+  document.getElementById('gabarito-section').scrollIntoView({ behavior: 'smooth' });
+}
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+let currentVisibleIdx = 0;
+function navNext() {
+  const visible = getVisibleQuestions();
+  if (visible.length === 0) return;
+  currentVisibleIdx = Math.min(currentVisibleIdx + 1, visible.length - 1);
+  scrollToCard(visible[currentVisibleIdx].id);
+}
+function navPrev() {
+  const visible = getVisibleQuestions();
+  if (visible.length === 0) return;
+  currentVisibleIdx = Math.max(currentVisibleIdx - 1, 0);
+  scrollToCard(visible[currentVisibleIdx].id);
+}
+function goToQ() {
+  const n = parseInt(document.getElementById('q-goto').value);
+  if (!n || n < 1 || n > 50) { showToast('⚠️ Número inválido (1–50)'); return; }
+  const card = document.getElementById(`qcard-${n}`);
+  if (card) { card.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  else { showToast(`⚠️ Questão ${n} não está visível com os filtros atuais`); }
+  document.getElementById('q-goto').value = '';
+}
+function scrollToCard(id) {
+  const card = document.getElementById(`qcard-${id}`);
+  if (card) card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ============================================================
+// EXPORT
+// ============================================================
+function exportStats() {
+  const lines = ['RESULTADO — BANCO DE QUESTÕES DIAGNÓSTICO POR IMAGEM',
+    '='.repeat(60), '', `Data: ${new Date().toLocaleDateString('pt-BR')}`,
+    `Tempo total: ${formatTime(getElapsed())}`, ''];
+  QUESTIONS.forEach(q => {
+    const ans = state.answers[q.id] || '—';
+    const res = !state.answers[q.id] ? 'N/R' : ans === q.correct ? 'CERTO' : 'ERRADO';
+    const topic = getTopicLabel(q.topic);
+    lines.push(`Q${String(q.id).padStart(2,'0')} [${topic}][${q.difficulty}] ${res} | Marcou: ${ans} | Gabarito: ${q.correct}`);
+  });
+  lines.push('', '='.repeat(60));
+  const acertos = QUESTIONS.filter(q => state.answers[q.id] === q.correct).length;
+  lines.push(`TOTAL: ${acertos}/50 (${Math.round(acertos/50*100)}%)`);
+  const blob = new Blob([lines.join('\n')], { type: 'text/plain;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `resultado_diagnostico_imagem_${new Date().toISOString().slice(0,10)}.txt`;
+  a.click();
+  showToast('📄 Arquivo exportado com sucesso!');
+}
+
+// ============================================================
+// RESET
+// ============================================================
+function resetAll() {
+  if (!confirm('Deseja reiniciar completamente a prova?\n\nTodas as respostas, favoritos e marcações serão apagados.')) return;
+  state = { answers: {}, eliminated: {}, favorites: new Set(), reviews: new Set(),
+    simulado: false, timerStart: null, timerElapsed: 0, timerInterval: null,
+    dark: state.dark, graded: false, qTimers: {}, qTimerStart: {},
+    filter: { topic: 'all', diff: 'all', status: 'all' }
+  };
+  localStorage.removeItem('img_state');
+  document.getElementById('dashboard').style.display = 'none';
+  document.getElementById('gabarito-section').style.display = 'none';
+  document.getElementById('btn-corrigir').disabled = false;
+  document.getElementById('btn-sim').textContent = '▶ Simulado';
+  document.getElementById('btn-sim').classList.remove('active');
+  document.getElementById('hs-time').textContent = '00:00';
+  setFilter('topic','all'); setFilter('diff','all'); setFilter('status','all');
+  buildCards();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  showToast('🔄 Prova reiniciada!');
+}
+
+// ============================================================
+// TOAST
+// ============================================================
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2700);
+}
+
+// ============================================================
+// BACK TO TOP
+// ============================================================
+window.addEventListener('scroll', () => {
+  const btt = document.getElementById('btt');
+  if (window.scrollY > 300) btt.classList.add('show'); else btt.classList.remove('show');
+});
+
+// ============================================================
+// KEYBOARD SHORTCUTS
+// ============================================================
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT') return;
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') navNext();
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') navPrev();
+});
+
+// ============================================================
+// INIT
+// ============================================================
+document.addEventListener('DOMContentLoaded', () => {
+  loadState();
+  buildCards();
+  startTimer();
+});
 </script>
-
-<noscript>
-  <style>
-    .reveal { opacity: 1 !important; transform: none !important; }
-    .hero-chip, .hero h1, .hero-sub, .hero-btns, .hero-stats {
-      opacity: 1 !important; animation: none !important;
-    }
-  </style>
-</noscript>
-
 </body>
 </html>
