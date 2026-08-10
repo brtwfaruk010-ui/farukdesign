@@ -3,1211 +3,562 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gestão de Instagram · Jequié, BA</title>
-<meta name="description" content="Gestão profissional de Instagram para negócios em Jequié e região. Posts, Reels, Stories, identidade visual e relatórios de resultado. Sem surpresas, sem taxas ocultas.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📱</text></svg>">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Gestão de Instagram · Jequié, BA">
-<meta property="og:description" content="Conteúdo estratégico, visual profissional e linguagem certa para o seu público — com consistência real.">
-<meta property="og:locale" content="pt_BR">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Gestão de Instagram · Jequié, BA">
-<meta name="twitter:description" content="Conteúdo estratégico, visual profissional e linguagem certa para o seu público.">
+<title>Faruk Design — Proposta de Serviços</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-  /* ── TOKENS ── */
-  :root {
-    --blue-deep:  #1A3A5C;
-    --blue-mid:   #2563A8;
-    --blue-light: #4A90D9;
-    --blue-pale:  #EBF3FB;
-    --blue-soft:  #D6E8F7;
-    --white:      #FFFFFF;
-    --gray-1:     #F7F9FC;
-    --gray-2:     #EEF2F7;
-    --text:       #0F1E2E;
-    --text-mid:   #3A5068;
-    --muted:      #6A8AA8;
-    --r:          14px;
-    --r-lg:       20px;
-    --nav-h:      60px;
-  }
-
-  /* ── RESET ── */
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  /*
-   * FIX 1: overflow-x:hidden apenas no body.
-   * Colocar no html também quebra position:sticky no Safari e Firefox
-   * porque transforma o html num scroll container separado.
-   */
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--white);
-    color: var(--text);
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 1.75;
-    overflow-x: hidden; /* controla overflow apenas aqui */
-    -webkit-text-size-adjust: 100%;
-  }
-
-  img { max-width: 100%; display: block; }
-
-  /* ── FIX 2: :focus-visible global — teclado e leitores de tela ── */
-  :focus-visible {
-    outline: 2px solid var(--blue-light);
-    outline-offset: 3px;
-    border-radius: 4px;
-  }
-
-  /* ── ACESSIBILIDADE: SKIP LINK ── */
-  .skip-link {
-    position: absolute;
-    top: -999px;
-    left: 0;
-    background: var(--blue-mid);
-    color: #fff;
-    padding: 0.5rem 1rem;
-    font-size: 0.85rem;
-    font-weight: 700;
-    z-index: 9999;
-    border-radius: 0 0 var(--r) 0;
-    text-decoration: none;
-  }
-  .skip-link:focus { top: 0; }
-
-  /* ── NAV ── */
-  header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    width: 100%;
-  }
-
-  nav {
-    background: rgba(255,255,255,0.94);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border-bottom: 1px solid var(--gray-2);
-    padding: 0 clamp(1.4rem, 4vw, 5rem);
-    height: var(--nav-h);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .nav-brand {
-    font-size: 0.78rem;
-    font-weight: 800;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--blue-deep);
-    text-decoration: none;
-    white-space: nowrap;
-  }
-
-  /* ── NAV LINKS (desktop) ── */
-  .nav-links {
-    display: flex;
-    gap: 1.6rem;
-    list-style: none;
-  }
-
-  .nav-links a {
-    font-size: 0.8rem; /* FIX 3: era 0.75rem (12px) → 0.8rem (12.8px), mais legível */
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    white-space: nowrap;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--blue-mid); }
-
-  /* ── HAMBURGER ── */
-  .nav-toggle {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 8px 4px;
-    z-index: 200;
-  }
-  .nav-toggle span {
-    display: block;
-    width: 22px;
-    height: 2px;
-    background: var(--blue-deep);
-    border-radius: 2px;
-    transition: transform 0.3s, opacity 0.3s;
-  }
-  .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-  .nav-toggle.open span:nth-child(2) { opacity: 0; }
-  .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-  /* ── NAV MOBILE ── */
-  @media (max-width: 640px) {
-    .nav-toggle { display: flex; }
-
-    .nav-links {
-      flex-direction: column;
-      gap: 0;
-      position: fixed;
-      top: var(--nav-h);
-      left: 0;
-      right: 0;
-      background: rgba(255,255,255,0.98);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--gray-2);
-      padding: 0.5rem 0 1rem;
-      transform: translateY(-110%);
-      visibility: hidden;
-      transition: transform 0.3s ease, visibility 0.3s ease;
-      z-index: 99;
-    }
-    .nav-links.open {
-      transform: translateY(0);
-      visibility: visible;
-    }
-    /*
-     * FIX 4: era display:block depois display:flex no mesmo bloco.
-     * Unificado em display:flex direto.
-     */
-    .nav-links li a {
-      display: flex;
-      align-items: center;
-      padding: 0.8rem 1.4rem;
-      font-size: 0.88rem;
-      min-height: 44px; /* área mínima de toque */
-    }
-  }
-
-  /* ── HERO ── */
-  .hero {
-    background: linear-gradient(150deg, var(--blue-deep) 0%, #1e4d82 55%, var(--blue-mid) 100%);
-    padding: clamp(3.5rem, 10vw, 7rem) clamp(1.4rem, 5vw, 6rem) clamp(3rem, 8vw, 5rem);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero-bg {
-    position: absolute; inset: 0;
-    background-image:
-      radial-gradient(circle at 85% 15%, rgba(74,144,217,0.2) 0%, transparent 45%),
-      radial-gradient(circle at 10% 85%, rgba(255,255,255,0.04) 0%, transparent 40%);
-    pointer-events: none;
-  }
-
-  .hero-lines {
-    position: absolute; inset: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-    background-size: 44px 44px;
-    pointer-events: none;
-  }
-
-  .hero-inner { position: relative; max-width: 680px; }
-
-  .hero-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.2);
-    color: rgba(255,255,255,0.85);
-    font-size: 0.72rem; /* FIX 3: era 0.68rem (10.9px) → 0.72rem (11.5px) */
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 0.4rem 1rem;
-    border-radius: 100px;
-    margin-bottom: 1.8rem;
-    opacity: 0;
-    animation: up 0.7s ease forwards 0.1s;
-  }
-
-  .hero h1 {
-    font-size: clamp(2.2rem, 7vw, 4rem);
-    font-weight: 900;
-    color: #fff;
-    line-height: 1.08;
-    letter-spacing: -0.025em;
-    margin-bottom: 1.2rem;
-    opacity: 0;
-    animation: up 0.7s ease forwards 0.25s;
-  }
-
-  .hero h1 .accent { color: var(--blue-light); }
-
-  .hero-sub {
-    font-size: clamp(0.95rem, 2.5vw, 1.05rem);
-    font-weight: 400;
-    color: rgba(255,255,255,0.65);
-    max-width: 440px;
-    margin-bottom: 2.2rem;
-    line-height: 1.7;
-    opacity: 0;
-    animation: up 0.7s ease forwards 0.4s;
-  }
-
-  .hero-btns {
-    display: flex;
-    gap: 0.8rem;
-    flex-wrap: wrap;
-    opacity: 0;
-    animation: up 0.7s ease forwards 0.55s;
-  }
-
-  .hero-stats {
-    display: flex;
-    gap: 2.2rem;
-    margin-top: 3rem;
-    flex-wrap: wrap;
-    opacity: 0;
-    animation: up 0.7s ease forwards 0.7s;
-  }
-
-  .stat-num {
-    font-size: 1.7rem;
-    font-weight: 900;
-    color: #fff;
-    line-height: 1;
-    letter-spacing: -0.02em;
-  }
-
-  .stat-label {
-    font-size: 0.72rem; /* FIX 3: era 0.68rem */
-    font-weight: 600;
-    color: rgba(255,255,255,0.45);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-top: 0.25rem;
-  }
-
-  @media (max-width: 400px) {
-    .hero-btns { flex-direction: column; }
-    .btn-white, .btn-ghost { text-align: center; width: 100%; justify-content: center; }
-    .hero-stats { flex-direction: column; gap: 1.4rem; }
-  }
-
-  /* ── BOTÕES ── */
-  .btn-white {
-    background: #fff;
-    color: var(--blue-deep);
-    padding: 0.85rem 1.7rem;
-    border-radius: var(--r);
-    font-size: 0.88rem;
-    font-weight: 800;
-    letter-spacing: 0.02em;
-    text-decoration: none;
-    /*
-     * FIX 4: era display:inline-block seguido de display:inline-flex no mesmo bloco.
-     * Mantido apenas display:inline-flex.
-     */
-    display: inline-flex;
-    align-items: center;
-    transition: transform 0.2s, box-shadow 0.2s;
-    border: none;
-    cursor: pointer;
-    white-space: nowrap;
-    min-height: 44px;
-  }
-  .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.22); }
-
-  .btn-ghost {
-    background: transparent;
-    border: 1.5px solid rgba(255,255,255,0.3);
-    color: rgba(255,255,255,0.9);
-    padding: 0.85rem 1.7rem;
-    border-radius: var(--r);
-    font-size: 0.88rem;
-    font-weight: 600;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    transition: background 0.2s;
-    white-space: nowrap;
-    min-height: 44px;
-  }
-  .btn-ghost:hover { background: rgba(255,255,255,0.1); }
-
-  /* ── LAYOUT ── */
-  .wrap {
-    max-width: 1040px;
-    margin: 0 auto;
-    padding-left: clamp(1.4rem, 4vw, 3.5rem);
-    padding-right: clamp(1.4rem, 4vw, 3.5rem);
-    width: 100%;
-  }
-
-  section {
-    width: 100%;
-    /*
-     * FIX 5: overflow-x:hidden removido das sections.
-     * O body já controla o overflow horizontal do layout todo.
-     * Nas sections, isso pode cortar sombras, badges absolutos e
-     * futuros elementos sticky dentro das seções.
-     */
-  }
-
-  .sec { padding: clamp(3.2rem, 6vw, 5.5rem) 0; }
-
-  #diferenciais, #servicos, #pacotes, #como-funciona, #contato {
-    scroll-margin-top: var(--nav-h);
-  }
-
-  .bg-gray { background: var(--gray-1); }
-
-  .sec-label {
-    font-size: 0.72rem; /* FIX 3: era 0.68rem (10.9px) */
-    font-weight: 800;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-    color: var(--blue-mid);
-    margin-bottom: 0.6rem;
-    display: block;
-  }
-
-  h2 {
-    font-size: clamp(1.65rem, 3.8vw, 2.4rem);
-    font-weight: 900;
-    color: var(--blue-deep);
-    line-height: 1.15;
-    letter-spacing: -0.02em;
-    margin-bottom: 0.8rem;
-  }
-
-  h2 .accent { color: var(--blue-mid); }
-
-  .sec-desc {
-    font-size: clamp(0.92rem, 2vw, 1rem);
-    color: var(--muted);
-    max-width: 520px;
-    margin-bottom: 2.4rem;
-    font-weight: 400;
-    line-height: 1.7;
-  }
-
-  .divider { height: 1px; background: var(--gray-2); }
-
-  /* ── DIFERENCIAIS ── */
-  .diff-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  @media (min-width: 480px) { .diff-grid { grid-template-columns: 1fr 1fr; } }
-  @media (min-width: 720px) { .diff-grid { grid-template-columns: repeat(4, 1fr); } }
-
-  .diff-card {
-    background: var(--gray-1);
-    border: 1px solid var(--gray-2);
-    border-radius: var(--r-lg);
-    padding: 1.6rem 1.3rem;
-    transition: border-color 0.22s, transform 0.22s, box-shadow 0.22s;
-  }
-
-  .diff-card:hover {
-    border-color: var(--blue-soft);
-    transform: translateY(-3px);
-    box-shadow: 0 10px 28px rgba(37,99,168,0.09);
-  }
-
-  .diff-icon {
-    width: 42px; height: 42px;
-    border-radius: 10px;
-    background: var(--blue-pale);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.15rem;
-    margin-bottom: 1rem;
-    flex-shrink: 0;
-  }
-
-  .diff-card h3 {
-    font-size: 0.9rem;
-    font-weight: 800;
-    color: var(--blue-deep);
-    margin-bottom: 0.4rem;
-    line-height: 1.3;
-  }
-
-  .diff-card p {
-    font-size: 0.84rem;
-    color: var(--muted);
-    line-height: 1.6;
-  }
-
-  /* ── SERVIÇOS ── */
-  .srv-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.85rem;
-  }
-
-  @media (min-width: 640px) { .srv-grid { grid-template-columns: 1fr 1fr; } }
-
-  .srv-item {
-    background: var(--white);
-    border: 1px solid var(--gray-2);
-    border-radius: var(--r);
-    padding: 1.3rem 1.5rem;
-    display: flex;
-    gap: 1rem;
-    align-items: flex-start;
-    transition: border-color 0.2s;
-  }
-
-  .srv-item:hover { border-color: var(--blue-light); }
-
-  .srv-bar {
-    width: 3px;
-    border-radius: 4px;
-    background: linear-gradient(to bottom, var(--blue-mid), var(--blue-light));
-    flex-shrink: 0;
-    align-self: stretch;
-  }
-
-  .srv-item h4 {
-    font-size: 0.92rem;
-    font-weight: 800;
-    color: var(--blue-deep);
-    margin-bottom: 0.25rem;
-  }
-
-  .srv-item p {
-    font-size: 0.84rem;
-    color: var(--muted);
-    line-height: 1.6;
-  }
-
-  .srv-item.srv-iv {
-    border-color: var(--blue-soft);
-    background: var(--blue-pale);
-    grid-column: 1 / -1;
-  }
-
-  .srv-item.srv-iv .srv-bar {
-    background: linear-gradient(to bottom, var(--blue-deep), var(--blue-mid));
-  }
-
-  .srv-iv-price {
-    display: inline-block;
-    margin-top: 0.5rem;
-    background: var(--blue-mid);
-    color: #fff;
-    font-size: 0.75rem; /* FIX 3: era 0.72rem */
-    font-weight: 700;
-    padding: 0.22rem 0.7rem;
-    border-radius: 6px;
-    letter-spacing: 0.03em;
-  }
-
-  /* ── PACOTES ── */
-  .pkg-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.1rem;
-  }
-
-  @media (min-width: 760px) { .pkg-grid { grid-template-columns: repeat(3, 1fr); } }
-
-  .pkg {
-    background: var(--white);
-    border: 1.5px solid var(--gray-2);
-    border-radius: var(--r-lg);
-    padding: 2rem 1.6rem;
-    position: relative;
-    transition: transform 0.25s, box-shadow 0.25s;
-  }
-
-  /*
-   * FIX 6: .pkg.featured estava dividido em dois blocos separados no CSS.
-   * Unificado num único bloco com a media query inline.
-   * margin-top compensa o badge absoluto que sobressai 13px acima da borda.
-   */
-  .pkg.featured {
-    border-color: var(--blue-mid);
-    background: linear-gradient(145deg, #fff, var(--blue-pale));
-    margin-top: 1rem; /* mobile: espaço para o badge */
-  }
-  @media (min-width: 760px) {
-    .pkg.featured { margin-top: 0; } /* desktop 3 colunas: sem margin extra */
-  }
-
-  .pkg:hover { transform: translateY(-4px); box-shadow: 0 14px 36px rgba(37,99,168,0.1); }
-
-  .pkg-badge {
-    position: absolute;
-    top: -13px; left: 50%;
-    transform: translateX(-50%);
-    background: var(--blue-mid);
-    color: #fff;
-    font-size: 0.7rem; /* FIX 3: era 0.62rem (9.9px) → 0.7rem (11.2px) */
-    font-weight: 800;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 0.3rem 1rem;
-    border-radius: 100px;
-    white-space: nowrap;
-  }
-
-  .pkg-tier {
-    font-size: 0.72rem; /* FIX 3: era 0.65rem (10.4px) */
-    font-weight: 800;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--blue-mid);
-    margin-bottom: 0.6rem;
-  }
-
-  .pkg-price {
-    /* FIX 7: era font-size fixo 2.2rem — em telas muito pequenas ficava grande demais */
-    font-size: clamp(1.8rem, 5vw, 2.2rem);
-    font-weight: 900;
-    color: var(--blue-deep);
-    line-height: 1;
-    letter-spacing: -0.03em;
-  }
-
-  .pkg-period {
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--muted);
-    margin-bottom: 1.4rem;
-  }
-
-  .pkg-div { height: 1px; background: var(--gray-2); margin-bottom: 1.4rem; }
-
-  .pkg ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
-
-  .pkg ul li {
-    font-size: 0.85rem;
-    color: var(--text-mid);
-    display: flex;
-    gap: 0.6rem;
-    font-weight: 500;
-    line-height: 1.5;
-    align-items: flex-start;
-  }
-
-  .pkg ul li::before {
-    content: '✓';
-    color: var(--blue-mid);
-    font-weight: 900;
-    flex-shrink: 0;
-    margin-top: 0.05rem;
-  }
-
-  .visit-note {
-    margin-top: 1.3rem;
-    background: var(--blue-pale);
-    border-radius: 8px;
-    padding: 0.7rem 1rem;
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: var(--blue-deep);
-    line-height: 1.5;
-  }
-
-  /* ── PROCESSO ── */
-  .steps {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.85rem;
-  }
-
-  @media (min-width: 640px) { .steps { grid-template-columns: 1fr 1fr; } }
-  @media (min-width: 900px) { .steps { grid-template-columns: repeat(3, 1fr); } }
-
-  .step {
-    background: var(--white);
-    border: 1px solid var(--gray-2);
-    border-radius: var(--r);
-    padding: 1.5rem 1.3rem;
-    display: flex;
-    gap: 1rem;
-    align-items: flex-start;
-    transition: border-color 0.2s;
-  }
-
-  .step:hover { border-color: var(--blue-light); }
-
-  .step-num {
-    width: 36px; height: 36px;
-    border-radius: 50%;
-    background: var(--blue-pale);
-    border: 1.5px solid var(--blue-soft);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.72rem; /* FIX 3: era 0.7rem, mantido próximo */
-    font-weight: 900;
-    color: var(--blue-mid);
-    flex-shrink: 0;
-  }
-
-  .step h4 {
-    font-size: 0.92rem;
-    font-weight: 800;
-    color: var(--blue-deep);
-    margin-bottom: 0.25rem;
-  }
-
-  .step p {
-    font-size: 0.84rem;
-    color: var(--muted);
-    line-height: 1.6;
-  }
-
-  /* ── CONTATO ── */
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  @media (min-width: 560px) { .contact-grid { grid-template-columns: 1fr 1fr; } }
-
-  .contact-card {
-    background: var(--white);
-    border: 1px solid var(--gray-2);
-    border-radius: var(--r-lg);
-    padding: 1.8rem 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    text-decoration: none;
-  }
-
-  .contact-card:hover,
-  .contact-card:focus-visible { /* FIX 2: foco visual nos cards de contato */
-    border-color: var(--blue-light);
-    box-shadow: 0 8px 24px rgba(37,99,168,0.08);
-  }
-
-  .contact-icon { font-size: 1.5rem; margin-bottom: 0.3rem; }
-
-  .contact-label {
-    font-size: 0.72rem; /* FIX 3: era 0.68rem */
-    font-weight: 800;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--blue-mid);
-  }
-
-  .contact-value {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--blue-deep);
-    word-break: break-word; /* FIX 8: era break-all — break-word é menos agressivo */
-  }
-
-  .contact-hint { font-size: 0.8rem; color: var(--muted); }
-
-  /* ── CTA ── */
-  .cta-sec {
-    background: linear-gradient(135deg, var(--blue-deep), var(--blue-mid));
-    padding: clamp(3rem, 7vw, 6rem) clamp(1.4rem, 6vw, 6rem);
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .cta-sec::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: radial-gradient(circle at 25% 50%, rgba(255,255,255,0.05), transparent 60%);
-    pointer-events: none;
-  }
-
-  .cta-inner { position: relative; }
-
-  .cta-sec .sec-label { color: rgba(255,255,255,0.55); }
-
-  .cta-sec h2 {
-    color: #fff;
-    font-size: clamp(1.5rem, 3.8vw, 2.2rem);
-    max-width: 480px;
-    margin: 0.8rem auto 1rem;
-  }
-
-  .cta-sec .accent { color: var(--blue-light); }
-
-  .cta-desc {
-    font-size: 0.92rem;
-    color: rgba(255,255,255,0.55);
-    margin-bottom: 2rem;
-  }
-
-  /* ── FOOTER ── */
-  footer {
-    background: var(--blue-deep);
-    padding: 1.6rem clamp(1.4rem, 5vw, 5rem);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    border-top: 1px solid rgba(255,255,255,0.06);
-  }
-
-  footer p {
-    font-size: 0.78rem;
-    font-weight: 500;
-    color: rgba(255,255,255,0.3);
-    letter-spacing: 0.04em;
-  }
-
-  /* ── ANIMAÇÕES ── */
-  @keyframes up {
-    from { opacity: 0; transform: translateY(18px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .reveal {
-    opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-  .reveal.visible { opacity: 1; transform: none; }
+  :root{
+    --ink:#0A0A0A;
+    --paper:#F3F3F1;
+    --paper-card:#FFFFFF;
+    --line:rgba(10,10,10,0.12);
+    --muted:#6B6E73;
+    --dark-1:#050505;
+    --dark-2:#242427;
+    --dark-3:#333336;
+    --silver:#C7C9CD;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  html{
+    scroll-behavior:smooth;
+    -webkit-text-size-adjust:100%;
+    text-size-adjust:100%;
+  }
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Montserrat', -apple-system, 'Segoe UI', Arial, sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    max-width:100vw;
+  }
+
+  img{max-width:100%; display:block;}
+
+  a{-webkit-tap-highlight-color:rgba(10,10,10,0.08);}
+
+  .cta{min-height:44px; display:flex; align-items:center; justify-content:center;}
+
+  .wrap{max-width:1040px; margin:0 auto; padding:0 24px;}
+
+  strong, b{color:var(--ink); font-weight:700;}
+
+  /* ---------- NAV ---------- */
+  .nav{
+    background:var(--dark-1);
+    padding:18px 0;
+  }
+  .nav .wrap{display:flex; align-items:center; gap:12px;}
+  .nav img{width:34px; height:34px; object-fit:contain; border-radius:7px;}
+  .nav .word{
+    font-weight:800;
+    font-size:16px;
+    letter-spacing:0.02em;
+    color:#FFFFFF;
+  }
+  .nav .word span{font-weight:500; color:var(--silver); margin-left:4px;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:linear-gradient(165deg,var(--dark-1) 0%, var(--dark-2) 100%);
+    color:#FFFFFF;
+    padding:64px 0 56px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::after{
+    content:"";
+    position:absolute;
+    right:-120px; top:-120px;
+    width:360px; height:360px;
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,0.08);
+  }
+  .hero::before{
+    content:"";
+    position:absolute;
+    right:-40px; top:-40px;
+    width:220px; height:220px;
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,0.10);
+  }
+  .eyebrow{
+    font-size:12.5px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--silver);
+    font-weight:700;
+    margin-bottom:14px;
+  }
+  h1{
+    font-weight:800;
+    font-size:clamp(32px,4.6vw,46px);
+    line-height:1.15;
+    max-width:640px;
+    letter-spacing:-0.01em;
+  }
+  .hero p.sub{
+    margin-top:16px;
+    max-width:520px;
+    color:rgba(255,255,255,0.68);
+    font-size:16px;
+    font-weight:400;
+  }
 
-  /*
-   * FIX 9: prefers-reduced-motion
-   * Cobre hero animations, reveal E hover transforms (diff-card, pkg, btn-white).
-   */
-  @media (prefers-reduced-motion: reduce) {
-    .hero-chip, .hero h1, .hero-sub, .hero-btns, .hero-stats {
-      animation: none;
-      opacity: 1;
-    }
-    .reveal {
-      transition: none;
-      opacity: 1;
-      transform: none;
-    }
-    /* FIX 9: desativa hover transforms para usuários sensíveis a movimento */
-    .diff-card:hover,
-    .pkg:hover,
-    .btn-white:hover {
-      transform: none;
-    }
+  /* ---------- SECTION HEADERS ---------- */
+  section{padding:60px 0;}
+  .section-head{margin-bottom:32px; max-width:620px;}
+  .section-head .tag{
+    display:inline-block;
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    font-weight:700;
+    color:var(--muted);
+    margin-bottom:10px;
+  }
+  .section-head h2{
+    font-weight:800;
+    font-size:28px;
+    color:var(--ink);
+    letter-spacing:-0.01em;
+  }
+  .section-head p{color:var(--muted); margin-top:10px; font-size:15px;}
+
+  /* ---------- PLANS ---------- */
+  .plans{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+  }
+  .plan{
+    background:var(--paper-card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:30px 26px 26px;
+    position:relative;
+    display:flex;
+    flex-direction:column;
+  }
+  .plan.featured{
+    border-color:var(--ink);
+    box-shadow:0 18px 40px -20px rgba(10,10,10,0.35);
+    transform:translateY(-6px);
+  }
+  .stamp{
+    position:absolute;
+    top:-14px; left:50%;
+    transform:translateX(-50%);
+    background:var(--ink);
+    color:#FFFFFF;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:6px 16px;
+    border-radius:999px;
+  }
+  .plan-name{
+    font-size:12.5px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    font-weight:800;
+    color:var(--ink);
+  }
+  .plan-desc{color:var(--muted); font-size:13.5px; margin-top:6px; min-height:32px;}
+  .price{
+    font-weight:800;
+    font-size:36px;
+    margin-top:16px;
+    color:var(--ink);
+    letter-spacing:-0.01em;
+  }
+  .price span{font-size:14px; color:var(--muted); font-weight:500;}
+  .savings{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    margin-top:10px;
+    font-size:12.5px;
+    font-weight:700;
+    color:var(--ink);
+    background:rgba(10,10,10,0.06);
+    padding:5px 10px;
+    border-radius:999px;
+    width:fit-content;
+  }
+  .avulso-note{font-size:12px; color:var(--muted); margin-top:6px;}
+  hr.div{border:none; border-top:1px solid var(--line); margin:20px 0;}
+  ul.feat{list-style:none; flex-grow:1;}
+  ul.feat li{
+    font-size:14px;
+    padding:6px 0;
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    font-weight:500;
+  }
+  ul.feat li::before{
+    content:"✓";
+    color:var(--ink);
+    font-weight:700;
+    flex-shrink:0;
+  }
+  .visits{
+    margin-top:18px;
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:12px 14px;
+    font-size:13px;
+    color:var(--ink);
+    font-weight:500;
+  }
+  .visits .label{
+    display:block;
+    font-size:10.5px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--muted);
+    font-weight:700;
+    margin-bottom:4px;
+  }
+  .cta{
+    margin-top:22px;
+    text-align:center;
+    padding:12px;
+    border-radius:8px;
+    background:var(--ink);
+    color:#FFFFFF;
+    font-size:14px;
+    font-weight:700;
+    text-decoration:none;
+    display:block;
+  }
+  .plan.featured .cta{background:#FFFFFF; color:var(--ink); border:1px solid var(--ink);}
+
+  /* ---------- AVULSO MENU ---------- */
+  .menu{
+    background:var(--paper-card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    overflow:hidden;
+  }
+  .menu-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 26px;
+    border-bottom:1px solid var(--line);
+    gap:16px;
+  }
+  .menu-row:last-child{border-bottom:none;}
+  .menu-row .label{font-size:15.5px; font-weight:700; color:var(--ink);}
+  .menu-row .desc{font-size:13px; color:var(--muted); margin-top:3px; font-weight:400;}
+  .menu-row .val{
+    font-weight:800;
+    font-size:19px;
+    white-space:nowrap;
+    color:var(--ink);
+  }
+
+  /* ---------- FUTURE CATEGORIES ---------- */
+  .cats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+  }
+  .cat-card{
+    border-radius:14px;
+    padding:26px 24px;
+    color:#FFFFFF;
+    display:flex;
+    flex-direction:column;
+    min-height:230px;
+  }
+  .cat-card.design{background:linear-gradient(155deg,#0A0A0A,#3C3C3F);}
+  .cat-card.copy{background:linear-gradient(155deg,#050505,#2E2E31);}
+  .cat-card.mkt{background:linear-gradient(155deg,#0D0D0D,#333336);}
+  .cat-card .tag{
+    font-size:11.5px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    font-weight:700;
+    color:var(--silver);
+  }
+  .cat-card h3{
+    font-weight:700;
+    font-size:20px;
+    margin-top:8px;
+    letter-spacing:-0.005em;
+  }
+  .cat-card ul{list-style:none; margin-top:14px; flex-grow:1;}
+  .cat-card ul li{
+    font-size:13.5px;
+    padding:5px 0 5px 12px;
+    font-weight:400;
+    color:rgba(255,255,255,0.85);
+    border-left:1px solid rgba(255,255,255,0.28);
+  }
+  .cat-card .soon{
+    margin-top:16px;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    background:rgba(255,255,255,0.14);
+    padding:7px 12px;
+    border-radius:999px;
+    width:fit-content;
+    color:#FFFFFF;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--dark-1);
+    color:rgba(255,255,255,0.75);
+    padding:44px 0;
+    text-align:center;
+    font-size:13.5px;
+  }
+  footer img{width:44px; height:44px; object-fit:contain; border-radius:9px; margin-bottom:12px;}
+  footer .brand{
+    font-weight:800;
+    color:#FFFFFF;
+    font-size:19px;
+  }
+  footer a{color:var(--silver); text-decoration:none; font-weight:600;}
+
+  @media(max-width:840px){
+    .plans, .cats{grid-template-columns:1fr; gap:16px;}
+    .plan.featured{transform:none;}
+    section{padding:48px 0;}
+  }
+
+  @media(max-width:600px){
+    .wrap{padding:0 18px;}
+    .nav{padding:14px 0;}
+    .nav img{width:30px; height:30px;}
+    .nav .word{font-size:14px;}
+    .hero{padding:44px 0 36px;}
+    h1{font-size:clamp(26px,7.5vw,38px); line-height:1.18;}
+    .hero p.sub{font-size:14.5px;}
+    section{padding:40px 0;}
+    .section-head h2{font-size:23px;}
+    .section-head p{font-size:14px;}
+    .plan{padding:24px 20px 22px;}
+    .plan.featured{margin-top:14px;}
+    .stamp{font-size:10px; padding:5px 14px;}
+    .price{font-size:31px;}
+    ul.feat li{font-size:13.5px;}
+    .menu-row{padding:16px 18px; gap:12px;}
+    .menu-row .label{font-size:14.5px;}
+    .menu-row .val{font-size:17px;}
+    .cat-card{padding:22px 20px; min-height:0;}
+    .cat-card h3{font-size:18px;}
+    footer{padding:36px 0;}
+  }
+
+  @media(max-width:360px){
+    h1{font-size:24px;}
+    .price{font-size:28px;}
+    .menu-row{flex-wrap:wrap;}
+    .menu-row .val{margin-left:auto;}
   }
 </style>
 </head>
 <body>
 
-<a href="#main-content" class="skip-link">Ir para o conteúdo principal</a>
-
-<header>
-  <nav aria-label="Navegação principal">
-    <a class="nav-brand" href="#" aria-label="Página inicial — Gestão de Instagram">Social Media</a>
-    <button class="nav-toggle" aria-label="Abrir menu de navegação" aria-expanded="false" aria-controls="nav-menu">
-      <span></span><span></span><span></span>
-    </button>
-    <ul class="nav-links" id="nav-menu">
-      <li><a href="#diferenciais">Diferenciais</a></li>
-      <li><a href="#servicos">Serviços</a></li>
-      <li><a href="#pacotes">Pacotes</a></li>
-      <li><a href="#como-funciona">Como funciona</a></li>
-      <li><a href="#contato">Contato</a></li>
-    </ul>
-  </nav>
-</header>
-
-<main id="main-content">
-
-<!-- HERO -->
-<section class="hero" aria-label="Apresentação">
-  <div class="hero-bg" aria-hidden="true"></div>
-  <div class="hero-lines" aria-hidden="true"></div>
-  <div class="hero-inner">
-    <!--
-      FIX 10: aria-hidden removido do hero-chip.
-      Era o único elemento com a localização "Jequié, BA" — informação
-      relevante para leitores de tela. O role="text" garante leitura correta.
-    -->
-    <span class="hero-chip">📍 Jequié, BA · Gestão de Instagram</span>
-    <h1>Seu perfil,<br>cuidado com<br><span class="accent">propósito.</span></h1>
-    <p class="hero-sub">Conteúdo estratégico, visual profissional e linguagem certa para o seu público — com consistência real.</p>
-    <div class="hero-btns">
-      <a href="#pacotes" class="btn-white">Ver pacotes e valores</a>
-      <a href="#como-funciona" class="btn-ghost">Como funciona</a>
-    </div>
-    <div class="hero-stats" aria-label="Números do serviço">
-      <div>
-        <div class="stat-num" aria-label="3 planos disponíveis">3</div>
-        <div class="stat-label" aria-hidden="true">Planos disponíveis</div>
-      </div>
-      <div>
-        <div class="stat-num" aria-label="8 serviços incluídos">8</div>
-        <div class="stat-label" aria-hidden="true">Serviços incluídos</div>
-      </div>
-      <div>
-        <div class="stat-num" aria-label="100% aprovação prévia">100%</div>
-        <div class="stat-label" aria-hidden="true">Aprovação prévia</div>
-      </div>
+  <div class="nav">
+    <div class="wrap">
+      <img src="logo-mark.png" alt="Faruk Design">
+      <div class="word">FARUK<span>DESIGN</span></div>
     </div>
   </div>
-</section>
 
-<!-- DIFERENCIAIS -->
-<section id="diferenciais" aria-labelledby="titulo-diferenciais">
-  <div class="wrap sec reveal">
-    <p class="sec-label">Por que me escolher</p>
-    <h2 id="titulo-diferenciais">Vantagens de trabalhar <span class="accent">comigo</span></h2>
-    <p class="sec-desc">Atendimento pessoal, da sua cidade, com comprometimento real e conhecimento da área de saúde.</p>
-    <div class="diff-grid">
-      <div class="diff-card">
-        <div class="diff-icon" aria-hidden="true">🎓</div>
-        <h3>Formação em saúde</h3>
-        <p>Acadêmico de Fisioterapia. Comunico saúde com precisão técnica e responsabilidade.</p>
-      </div>
-      <div class="diff-card">
-        <div class="diff-icon" aria-hidden="true">📍</div>
-        <h3>Sou de Jequié</h3>
-        <p>Atendimento presencial disponível. Conheço o público local e vou até você para captar conteúdo real.</p>
-      </div>
-      <div class="diff-card">
-        <div class="diff-icon" aria-hidden="true">🎨</div>
-        <h3>Design com cuidado</h3>
-        <p>Feed organizado, estética coerente e identidade visual consistente em cada publicação.</p>
-      </div>
-      <div class="diff-card">
-        <div class="diff-icon" aria-hidden="true">✅</div>
-        <h3>Você aprova tudo</h3>
-        <p>Nada vai ao ar sem sua aprovação. Comunicação direta, sem intermediários.</p>
-      </div>
+  <div class="hero">
+    <div class="wrap">
+      <div class="eyebrow">Proposta de Serviços · 2026</div>
+      <h1>Conteúdo, design e gestão para seu Instagram crescer de verdade.</h1>
+      <p class="sub">Produção, edição, gerenciamento e alimentação do perfil — tudo em um só lugar, com planos pensados pra cada fase do seu negócio.</p>
     </div>
   </div>
-</section>
 
-<div class="divider" role="separator"></div>
+  <div class="wrap">
 
-<!-- SERVIÇOS -->
-<section id="servicos" class="bg-gray" aria-labelledby="titulo-servicos">
-  <div class="wrap sec reveal">
-    <p class="sec-label">O que está incluído</p>
-    <h2 id="titulo-servicos">O que você <span class="accent">recebe</span></h2>
-    <p class="sec-desc">Tudo que seu perfil precisa para crescer com consistência e profissionalismo.</p>
-    <div class="srv-grid">
-
-      <div class="srv-item">
-        <div class="srv-bar" aria-hidden="true"></div>
-        <div>
-          <h4>Posts para o Feed</h4>
-          <p>Artes visuais com identidade do negócio, legenda e hashtags estratégicas.</p>
-        </div>
+    <!-- PLANOS -->
+    <section id="planos">
+      <div class="section-head">
+        <div class="tag">Gerenciamento de Instagram</div>
+        <h2>Escolha o plano ideal</h2>
+        <p>Produção + edição + gestão + alimentação do perfil, mês a mês. Quanto maior o plano, maior o desconto sobre o valor avulso.</p>
       </div>
 
-      <div class="srv-item">
-        <div class="srv-bar" aria-hidden="true"></div>
-        <div>
-          <h4>Stories</h4>
-          <p>Bastidores, rotina, enquetes e informações rápidas para manter o engajamento diário.</p>
+      <div class="plans">
+
+        <!-- BASIC -->
+        <div class="plan">
+          <div class="plan-name">Basic</div>
+          <div class="plan-desc">Pra quem está começando a organizar o feed</div>
+          <div class="price">R$ 550<span> /mês</span></div>
+          <div class="savings">Economia de R$300/mês</div>
+          <div class="avulso-note">Valor avulso equivalente: R$850</div>
+          <hr class="div">
+          <ul class="feat">
+            <li>6 posts no feed por mês</li>
+            <li>3 stories por publicação, 3× por semana</li>
+            <li>1 reel por mês com roteiro</li>
+            <li>Legenda e hashtags em cada post</li>
+            <li>Planejamento mensal de conteúdo</li>
+            <li>Aprovação prévia de tudo</li>
+          </ul>
+          <div class="visits"><span class="label">Captação de material</span>2 visitas presenciais por mês</div>
+          <a class="cta" href="#contato">Quero esse plano</a>
+        </div>
+
+        <!-- INTERMEDIÁRIO -->
+        <div class="plan featured">
+          <div class="stamp">Recomendado</div>
+          <div class="plan-name">Intermediário</div>
+          <div class="plan-desc">Pra quem quer consistência e resultado visível</div>
+          <div class="price">R$ 850<span> /mês</span></div>
+          <div class="savings">Economia de R$650/mês</div>
+          <div class="avulso-note">Valor avulso equivalente: R$1.500</div>
+          <hr class="div">
+          <ul class="feat">
+            <li>10 posts no feed por mês</li>
+            <li>5 stories todos os dias</li>
+            <li>2 reels por mês com roteiro</li>
+            <li>Legenda e hashtags em cada post</li>
+            <li>Agenda de conteúdo personalizada</li>
+            <li>Planejamento mensal</li>
+            <li>Aprovação prévia de tudo</li>
+            <li>Relatório de resultados</li>
+          </ul>
+          <div class="visits"><span class="label">Captação de material</span>4 visitas presenciais por mês</div>
+          <a class="cta" href="#contato">Quero esse plano</a>
+        </div>
+
+        <!-- COMPLETO -->
+        <div class="plan">
+          <div class="plan-name">Completo</div>
+          <div class="plan-desc">Pra quem quer presença forte e constante</div>
+          <div class="price">R$ 1.100<span> /mês</span></div>
+          <div class="savings">Economia de R$1.100/mês</div>
+          <div class="avulso-note">Valor avulso equivalente: R$2.200</div>
+          <hr class="div">
+          <ul class="feat">
+            <li>12 posts no feed por mês</li>
+            <li>5 a 8 stories todos os dias</li>
+            <li>4 reels por mês com roteiro</li>
+            <li>Legenda e hashtags em cada post</li>
+            <li>Agenda de conteúdo personalizada</li>
+            <li>Planejamento mensal</li>
+            <li>Aprovação prévia de tudo</li>
+            <li>Relatório completo de resultados</li>
+          </ul>
+          <div class="visits"><span class="label">Captação de material</span>6 visitas presenciais por mês</div>
+          <a class="cta" href="#contato">Quero esse plano</a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- MENU AVULSO -->
+    <section id="avulso">
+      <div class="section-head">
+        <div class="tag">Sem compromisso mensal</div>
+        <h2>Peças avulsas</h2>
+        <p>Ideal pra quem só precisa de um material pontual, sem assinar um plano.</p>
+      </div>
+      <div class="menu">
+        <div class="menu-row">
+          <div>
+            <div class="label">Post único</div>
+            <div class="desc">1 página, feito e editado sob medida</div>
+          </div>
+          <div class="val">R$100</div>
+        </div>
+        <div class="menu-row">
+          <div>
+            <div class="label">Carrossel (5–10 páginas)</div>
+            <div class="desc">Roteiro visual + diagramação</div>
+          </div>
+          <div class="val">R$180</div>
+        </div>
+        <div class="menu-row">
+          <div>
+            <div class="label">Carrossel (+10 páginas)</div>
+            <div class="desc">Conteúdo mais denso, ex: educativos e institucionais</div>
+          </div>
+          <div class="val">R$230</div>
+        </div>
+        <div class="menu-row">
+          <div>
+            <div class="label">Vídeo avulso</div>
+            <div class="desc">Edição de reels, cortes e legendas</div>
+          </div>
+          <div class="val">R$250</div>
         </div>
       </div>
+    </section>
 
-      <div class="srv-item">
-        <div class="srv-bar" aria-hidden="true"></div>
-        <div>
-          <h4>Reels com roteiro</h4>
-          <p>Crio o roteiro e edito os vídeos curtos para ampliar o alcance orgânico.</p>
+    <!-- CATEGORIAS FUTURAS -->
+    <section id="mais-servicos">
+      <div class="section-head">
+        <div class="tag">Além do Instagram</div>
+        <h2>Outras frentes de trabalho</h2>
+        <p>Espaço reservado — valores e escopo a definir conforme o projeto.</p>
+      </div>
+      <div class="cats">
+        <div class="cat-card design">
+          <div class="tag">Design Gráfico</div>
+          <h3>Identidade &amp; peças visuais</h3>
+          <ul>
+            <li>Identidade visual (logo, paleta, tipografia)</li>
+            <li>Templates para feed e stories</li>
+            <li>Flyers, banners e materiais de evento</li>
+          </ul>
+          <div class="soon">Valores sob consulta</div>
+        </div>
+        <div class="cat-card copy">
+          <div class="tag">Copywriting</div>
+          <h3>Texto que converte</h3>
+          <ul>
+            <li>Legendas persuasivas avulsas</li>
+            <li>Biografia e apresentação de perfil</li>
+            <li>Roteiros para vídeos e reels</li>
+          </ul>
+          <div class="soon">Valores sob consulta</div>
+        </div>
+        <div class="cat-card mkt">
+          <div class="tag">Marketing</div>
+          <h3>Estratégia &amp; dados</h3>
+          <ul>
+            <li>Planejamento estratégico de conteúdo</li>
+            <li>Calendário editorial</li>
+            <li>Análise de métricas e relatórios</li>
+          </ul>
+          <div class="soon">Valores sob consulta</div>
         </div>
       </div>
+    </section>
 
-      <div class="srv-item">
-        <div class="srv-bar" aria-hidden="true"></div>
-        <div>
-          <h4>Visitas para captação</h4>
-          <p>Vou até você para filmar e fotografar o dia a dia. Conteúdo real gera mais conexão.</p>
-        </div>
-      </div>
+  </div>
 
-      <div class="srv-item">
-        <div class="srv-bar" aria-hidden="true"></div>
-        <div>
-          <h4>Agenda de conteúdo</h4>
-          <p>Planejo as visitas conforme os dias mais movimentados do seu negócio.</p>
-        </div>
-      </div>
-
-      <div class="srv-item">
-        <div class="srv-bar" aria-hidden="true"></div>
-        <div>
-          <h4>Planejamento mensal</h4>
-          <p>Calendário completo com todos os conteúdos organizados com antecedência.</p>
-        </div>
-      </div>
-
-      <div class="srv-item">
-        <div class="srv-bar" aria-hidden="true"></div>
-        <div>
-          <h4>Relatório de resultados</h4>
-          <p>Resumo mensal com alcance, engajamento e crescimento do perfil.</p>
-        </div>
-      </div>
-
-      <div class="srv-item srv-iv">
-        <div class="srv-bar" aria-hidden="true"></div>
-        <div>
-          <h4>Identidade Visual</h4>
-          <p>Criação de logo, paleta de cores, tipografia e manual de marca — para que o negócio tenha uma cara profissional e reconhecível em todos os canais.</p>
-          <span class="srv-iv-price">💰 Precificação à parte · valor consultado e repassado ao cliente</span>
-        </div>
-      </div>
-
+  <footer id="contato">
+    <img src="logo-mark.png" alt="Faruk Design">
+    <div class="brand">FARUK DESIGN</div>
+    <div style="margin-top:14px;">
+      WhatsApp: <a href="https://wa.me/5573988498375">+55 73 98849-8375</a> ·
+      <a href="mailto:brtwfaruk010@gmail.com">brtwfaruk010@gmail.com</a>
     </div>
-  </div>
-</section>
-
-<div class="divider" role="separator"></div>
-
-<!-- PACOTES -->
-<section id="pacotes" aria-labelledby="titulo-pacotes">
-  <div class="wrap sec reveal">
-    <p class="sec-label">Investimento</p>
-    <h2 id="titulo-pacotes">Pacotes e <span class="accent">valores</span></h2>
-    <p class="sec-desc">Planos pensados para negócios em Jequié e região. Sem surpresas, sem taxas ocultas.</p>
-
-    <div class="pkg-grid">
-
-      <div class="pkg">
-        <p class="pkg-tier">Basic</p>
-        <p class="pkg-price">R$ 400</p>
-        <p class="pkg-period">por mês</p>
-        <div class="pkg-div"></div>
-        <ul>
-          <li>6 posts no feed por mês</li>
-          <li>3 stories por publicação, 3× por semana</li>
-          <li>1 reel por mês com roteiro</li>
-          <li>Legenda e hashtags em cada post</li>
-          <li>Planejamento mensal</li>
-          <li>Aprovação prévia de tudo</li>
-        </ul>
-        <div class="visit-note">📅 2 visitas presenciais por mês para captação de material</div>
-      </div>
-
-      <div class="pkg featured">
-        <span class="pkg-badge">Recomendado</span>
-        <p class="pkg-tier">Intermediário</p>
-        <p class="pkg-price">R$ 700</p>
-        <p class="pkg-period">por mês</p>
-        <div class="pkg-div"></div>
-        <ul>
-          <li>10 posts no feed por mês</li>
-          <li>5 stories todos os dias</li>
-          <li>2 reels por mês com roteiro</li>
-          <li>Legenda e hashtags em cada post</li>
-          <li>Agenda de conteúdo personalizada</li>
-          <li>Planejamento mensal</li>
-          <li>Aprovação prévia de tudo</li>
-          <li>Relatório de resultados</li>
-        </ul>
-        <div class="visit-note">📅 4 visitas presenciais por mês para captação de material</div>
-      </div>
-
-      <div class="pkg">
-        <p class="pkg-tier">Completo</p>
-        <p class="pkg-price">R$ 1.100</p>
-        <p class="pkg-period">por mês</p>
-        <div class="pkg-div"></div>
-        <ul>
-          <li>12 posts no feed por mês</li>
-          <li>5 a 8 stories todos os dias</li>
-          <li>4 reels por mês com roteiro</li>
-          <li>Legenda e hashtags em cada post</li>
-          <li>Agenda de conteúdo personalizada</li>
-          <li>Planejamento mensal</li>
-          <li>Aprovação prévia de tudo</li>
-          <li>Relatório completo de resultados</li>
-        </ul>
-        <div class="visit-note">📅 6 visitas presenciais por mês para captação de material</div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- PROCESSO -->
-<section id="como-funciona" class="bg-gray" aria-labelledby="titulo-como-funciona">
-  <div class="wrap sec reveal">
-    <p class="sec-label">Processo de trabalho</p>
-    <h2 id="titulo-como-funciona">Como <span class="accent">funciona</span></h2>
-    <p class="sec-desc">Do primeiro contato até o perfil no ar, de forma simples e organizada.</p>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num" aria-hidden="true">01</div>
-        <div>
-          <h4>Briefing</h4>
-          <p>Entendo seus objetivos, público e expectativas. Presencial ou WhatsApp.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num" aria-hidden="true">02</div>
-        <div>
-          <h4>Proposta</h4>
-          <p>Apresento o pacote mais adequado com escopo, valor e prazo definidos.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num" aria-hidden="true">03</div>
-        <div>
-          <h4>Agenda de visitas</h4>
-          <p>Organizamos os melhores dias conforme a rotina do seu negócio.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num" aria-hidden="true">04</div>
-        <div>
-          <h4>Produção e aprovação</h4>
-          <p>Crio cada conteúdo e envio para aprovação. Ajustes sem custo extra.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num" aria-hidden="true">05</div>
-        <div>
-          <h4>Publicação</h4>
-          <p>Publico nos melhores horários e acompanho o desempenho ao longo do mês.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num" aria-hidden="true">06</div>
-        <div>
-          <h4>Relatório e renovação</h4>
-          <p>Resultados do mês e alinhamento para o próximo ciclo.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTATO -->
-<section id="contato" aria-labelledby="titulo-contato">
-  <div class="wrap sec reveal">
-    <p class="sec-label">Fale comigo</p>
-    <h2 id="titulo-contato">Entre em <span class="accent">contato</span></h2>
-    <p class="sec-desc">Sem compromisso. Respondo rápido pelo WhatsApp ou por e-mail.</p>
-    <div class="contact-grid">
-      <a class="contact-card" href="https://wa.me/5573988498375" aria-label="Contato via WhatsApp: +55 73 98849-8375">
-        <div class="contact-icon" aria-hidden="true">💬</div>
-        <div class="contact-label">WhatsApp</div>
-        <div class="contact-value">+55 (73) 98849-8375</div>
-        <div class="contact-hint">Atendimento rápido · clique para abrir</div>
-      </a>
-      <a class="contact-card" href="mailto:brtwfaruk010@gmail.com" aria-label="Contato via e-mail: brtwfaruk010@gmail.com">
-        <div class="contact-icon" aria-hidden="true">✉️</div>
-        <div class="contact-label">E-mail</div>
-        <div class="contact-value">brtwfaruk010@gmail.com</div>
-        <div class="contact-hint">Para propostas e orçamentos</div>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- CTA FINAL -->
-<section class="cta-sec reveal" aria-label="Chamada para ação">
-  <div class="cta-inner">
-    <p class="sec-label">Vamos começar</p>
-    <h2>Pronto para um Instagram que <span class="accent">funciona de verdade?</span></h2>
-    <p class="cta-desc">Entre em contato agora, sem compromisso.</p>
-    <a href="https://wa.me/5573988498375" class="btn-white" aria-label="Falar pelo WhatsApp">💬 Falar no WhatsApp</a>
-  </div>
-</section>
-
-</main>
-
-<footer>
-  <p>Gestão de Instagram · Jequié, BA</p>
-  <p>© 2025 · Todos os direitos reservados</p>
-</footer>
-
-<script>
-  (function () {
-    'use strict';
-
-    /* ── HAMBURGER ─────────────────────────────────────────────── */
-    var toggle   = document.querySelector('.nav-toggle');
-    var navLinks = document.querySelector('.nav-links');
-
-    function closeMenu() {
-      navLinks.classList.remove('open');
-      toggle.classList.remove('open');
-      toggle.setAttribute('aria-expanded', 'false');
-    }
-
-    if (toggle && navLinks) {
-      toggle.addEventListener('click', function () {
-        var isOpen = navLinks.classList.toggle('open');
-        toggle.classList.toggle('open', isOpen);
-        toggle.setAttribute('aria-expanded', String(isOpen));
-      });
-
-      navLinks.querySelectorAll('a').forEach(function (link) {
-        link.addEventListener('click', closeMenu);
-      });
-
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape') closeMenu();
-      });
-
-      /* FIX 11: fechar menu ao clicar fora dele */
-      document.addEventListener('click', function (e) {
-        if (navLinks.classList.contains('open') &&
-            !navLinks.contains(e.target) &&
-            !toggle.contains(e.target)) {
-          closeMenu();
-        }
-      });
-    }
-
-    /* ── REVEAL ON SCROLL ──────────────────────────────────────── */
-    var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    if (!prefersReduced && 'IntersectionObserver' in window) {
-      var obs = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          if (e.isIntersecting) {
-            e.target.classList.add('visible');
-            obs.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.06 });
-
-      document.querySelectorAll('.reveal').forEach(function (el) {
-        obs.observe(el);
-      });
-    } else {
-      /* Sem suporte a IntersectionObserver ou reduced-motion: mostrar tudo */
-      document.querySelectorAll('.reveal').forEach(function (el) {
-        el.classList.add('visible');
-      });
-    }
-
-  })();
-</script>
-
-<noscript>
-  <style>
-    .reveal { opacity: 1 !important; transform: none !important; }
-    .hero-chip, .hero h1, .hero-sub, .hero-btns, .hero-stats {
-      opacity: 1 !important; animation: none !important;
-    }
-  </style>
-</noscript>
+  </footer>
 
 </body>
 </html>
